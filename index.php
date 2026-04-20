@@ -199,6 +199,30 @@ transition:.2s ease;
 } .hub-links a:hover{color:#15803D}
 .hub-inner h2.hub-inner h3 { padding-top: 8px;
 }
+/* Google Review Badge */
+.google-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 14px auto 0;
+  font-size: 14px;
+  color: #334155;
+}
+.google-badge a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  color: #334155;
+  font-weight: 600;
+  transition: color .15s;
+}
+.google-badge a:hover { color: #16A34A; }
+.google-stars-wrap { position: relative; display: inline-block; vertical-align: middle; font-size: 14px; letter-spacing: 1px; line-height: 1; }
+.google-stars-bg { color: #D1D5DB; }
+.google-stars-fg { position: absolute; left: 0; top: 0; color: #F59E0B; width: 94%; overflow: hidden; white-space: nowrap; }
+.google-badge .g-icon { width: 18px; height: 18px; vertical-align: middle; }
 /* CTA FINAL */ .cta-final{
 background:var(--card);
 border:2px solid rgba(22,163,74,0.6);
@@ -502,6 +526,16 @@ Handyvertrag oder <a href="/fitnessstudio-vertrag-kuendigen.html">Fitnessstudio<
     <span>👤</span><span>👤</span><span>👤</span>
   </div>
   <span><span class="sp-count"><?php $c=file_exists(__DIR__.'/_counter.txt')?(int)file_get_contents(__DIR__.'/_counter.txt'):1247; echo number_format($c,0,',','.'); ?></span> Kündigungen erstellt</span>
+</div>
+<div class="google-badge">
+  <a href="https://g.page/r/CQUi4-fYtkH4EAE/review" target="_blank" rel="noopener">
+    <span class="google-stars-wrap">
+      <span class="google-stars-bg">★★★★★</span>
+      <span class="google-stars-fg">★★★★★</span>
+    </span>
+    <span>4,7 auf Google</span>
+    <span style="color:#94A3B8;font-weight:400;">(3 Rezensionen)</span>
+  </a>
 </div>
 <a href="/start.php" class="btn-primary">
 Kündigung jetzt erstellen
