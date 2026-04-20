@@ -289,6 +289,7 @@ body{font-family:Arial,sans-serif;background:var(--bg);color:var(--text);display
 /* Success card */
 .success-card{background:var(--card);border:1px solid var(--border);border-radius:24px;padding:36px 32px;text-align:center;box-shadow:0 8px 32px rgba(22,163,74,0.08)}
 .check-circle{width:68px;height:68px;background:linear-gradient(135deg,#16A34A,#22C55E);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:34px;color:#fff;font-weight:900;line-height:1;box-shadow:0 6px 18px rgba(22,163,74,0.3)}
+.saved-banner{background:#F0FDF4;border:1px solid rgba(22,163,74,0.25);border-radius:12px;padding:12px 16px;font-size:14px;color:#15803D;font-weight:600;margin-bottom:18px;line-height:1.5;}
 .success-card h1{font-size:clamp(20px,4vw,26px);font-weight:900;margin-bottom:8px}
 .success-card p{font-size:14px;color:var(--muted);line-height:1.7;margin-bottom:22px;max-width:420px;margin-left:auto;margin-right:auto}
 .btn-download{display:block;background:var(--green);color:#fff;padding:16px 28px;border-radius:16px;font-weight:900;font-size:17px;text-decoration:none;transition:filter .15s;box-shadow:0 6px 18px rgba(22,163,74,0.28);margin-bottom:12px}
@@ -441,6 +442,9 @@ footer p:last-child{margin-bottom:0 !important}
   <!-- Step 1: Download -->
   <div class="success-card">
     <div class="check-circle">✓</div>
+    <div class="saved-banner">
+      🎉 Kostenlos — andere Dienste verlangen <strong>4,99 €</strong> für dieses Dokument.
+    </div>
     <h1>Ihr Kündigungsschreiben ist fertig</h1>
     <p>Personalisiert, rechtssicher und sofort einsatzbereit. Jetzt herunterladen, ausdrucken und abschicken.</p>
     <a class="btn-download" href="<?= htmlspecialchars($downloadUrl) ?>" download="Kuendigung-<?= htmlspecialchars($providerSlug) ?>.pdf">
@@ -449,14 +453,9 @@ footer p:last-child{margin-bottom:0 !important}
     <a class="preview-link" href="<?= htmlspecialchars($downloadUrl) ?>" target="_blank" rel="noopener">
       Vorher ansehen (in neuem Tab)
     </a>
-    <div class="saved-line">
-      <?php if ($emailSent): ?>
-        ✉️ Per E-Mail an den Anbieter gesendet · 🎉 4,99 € gespart vs. anderen Diensten
-      <?php else: ?>
-        🎉 Sie haben gerade 4,99 € gespart — so viel verlangen andere Dienste für dieses Dokument.
-      <?php endif; ?>
-    </div>
-    
+    <?php if ($emailSent): ?>
+    <div class="saved-line">✉️ Per E-Mail an den Anbieter gesendet</div>
+    <?php endif; ?>
   </div>
 
   <!-- Step 2: Affiliate — shown while they wait for print/send -->
@@ -514,18 +513,18 @@ footer p:last-child{margin-bottom:0 !important}
     <div class="eng-col eng-review">
       <div class="eng-icon">★★★★★</div>
       <h3>Bewertung hinterlassen</h3>
-      <p>30 Sekunden — hilft anderen, uns zu finden.</p>
+      <p>Sie haben kostenlos bekommen, wofür andere zahlen. Eine kurze Bewertung hilft uns, das für alle gratis zu halten.</p>
       <div class="review-btns">
-        <a href="https://g.page/r/CQUi4-fYtkH4EAE/review" class="review-btn" target="_blank" rel="nofollow">Google</a>
-        <a href="https://www.trustpilot.com/review/kuendigungexpress.de" class="review-btn" target="_blank" rel="nofollow">Trustpilot</a>
+        <a href="https://g.page/r/CQUi4-fYtkH4EAE/review" class="review-btn" target="_blank" rel="nofollow">⭐ Google</a>
+        <a href="https://www.trustpilot.com/review/kuendigungexpress.de" class="review-btn" target="_blank" rel="nofollow">⭐ Trustpilot</a>
       </div>
     </div>
 
     <div class="eng-col eng-share">
       <div class="eng-icon">🔗</div>
       <h3>Link teilen</h3>
-      <p>Jemand anderes muss auch kündigen?</p>
-      <button class="share-btn" data-action="share">Teilen</button>
+      <p>Schick es weiter — es kostet nichts und hilft sofort.</p>
+      <button class="share-btn" data-action="share">Kostenlos teilen</button>
       <div class="share-copied" id="shareCopied">✓ Link kopiert!</div>
     </div>
   </div>

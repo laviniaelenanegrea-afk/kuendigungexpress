@@ -21,7 +21,7 @@ declare(strict_types=1);
 <meta property="og:description" content="Verträge online kündigen – schnell, rechtssicher & ohne Abo. PDF sofort.">
 <meta property="og:url" content="https://www.kuendigungexpress.de/">
 <meta property="og:type" content="website">
-<title>Vertrag online kündigen (Deutschland) – Handy & Fitness PDF | KündigungExpress</title>
+<title>Vertrag online kündigen (Deutschland) – Handy & Fitness PDF · kostenlos</title>
 <meta name="description" content="Handyvertrag oder Fitnessstudio kostenlos kündigen – rechtssicheres Kündigungsschreiben als PDF. Kein Abo, kein Login, kein Haken."> <link rel="canonical" href="https://www.kuendigungexpress.de/"> <!-- Hreflang -->
 <link rel="alternate" hreflang="de-DE" href="https://www.kuendigungexpress.de/" />
 <link rel="alternate" hreflang="x-default" href="https://www.kuendigungexpress.de/" /> <link rel="icon" href="/favicon.ico">
