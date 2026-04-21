@@ -117,7 +117,7 @@ $terminationLine = ($terminationMode === 'specific_date' && !empty($terminationD
     ? 'zum ' . htmlspecialchars(date('d.m.Y', strtotime($terminationDate)))
     : 'zum nächstmöglichen Zeitpunkt';
 
-// Only add safety clause "hilfsweise zum nächstmöglichen Zeitpunkt" when user picked a specific date — otherwise redundant
+// Only add safety clause "hilfsweise zum nächstmöglichen Zeitpunkt" when user picked a specific date
 $hilfsweise = ($terminationMode === 'specific_date' && !empty($terminationDate))
     ? ', hilfsweise zum nächstmöglichen Zeitpunkt,'
     : '';
@@ -165,17 +165,14 @@ if (file_exists($counterFile)) {
     file_put_contents($counterFile, (string)($count + 1));
 }
 
-// =========================================================
-// DASHBOARD TRACKING — write minimal JSON record for analytics
-// (No personal data — only metadata for funnel measurement)
-// =========================================================
+// DASHBOARD TRACKING
 $dataDir = __DIR__ . '/_data';
 if (!is_dir($dataDir)) @mkdir($dataDir, 0755, true);
 $trackingFile = $dataDir . '/' . date('Ymd_His') . '_' . bin2hex(random_bytes(3)) . '.json';
 $trackingRecord = [
     'createdAt'   => time(),
-    'type'        => $type,                                // 'handy' or 'fitness'
-    'provider'    => $studio,                              // e.g. 'Telekom', 'McFit'
+    'type'        => $type,                                
+    'provider'    => $studio,                              
     'emailSent'   => isset($sendEmail) && $sendEmail === '1' && !empty($providerEmail),
     'hasContract' => !empty($contractNo),
     'hasEmail'    => !empty($email),
@@ -184,7 +181,7 @@ $trackingRecord = [
 $downloadUrl = '/pdf/' . $filename;
 
 /* =========================================================
-   EMAIL (OPTIONAL — unchanged from before)
+   EMAIL (OPTIONAL)
    ========================================================= */
 $emailSent = false;
 $mailBody = $type === 'handy'
@@ -215,11 +212,10 @@ if ($sendEmail === '1' && !empty($providerEmail)) {
         $mail->send();
         $emailSent = true;
     } catch (Exception $e) {
-        // fail silent — PDF download still available
+        // fail silent
     }
 }
 
-// Always send confirmation copy to user if they provided email
 if (!empty($email) && filter_var($email, FILTER_VALIDATE_EMAIL)) {
     try {
         $smtp2 = require __DIR__ . '/_smtp_config.php';
@@ -236,26 +232,7 @@ if (!empty($email) && filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $confirm->addAddress($email, $name);
         $confirm->addAttachment($pdfDir . '/' . $filename, 'Kuendigung-' . $providerSlug . '.pdf');
         $confirm->Subject = 'Ihr Kündigungsschreiben von KündigungExpress';
-        $confirm->Body    = "Guten Tag " . $firstName . ",
-
-"
-            . "im Anhang finden Sie Ihr Kündigungsschreiben für " . $studio . ".
-
-"
-            . "Nächste Schritte:
-"
-            . "1. Ausdrucken und eigenhändig unterschreiben
-"
-            . "2. Per Einschreiben mit Rückschein versenden
-"
-            . "3. Eingangsbestätigung mit Vertragsende aufbewahren
-
-"
-            . "Bei Fragen: kontakt@kuendigungexpress.de
-
-"
-            . "Mit freundlichen Grüßen
-KündigungExpress · kuendigungexpress.de";
+        $confirm->Body    = "Guten Tag " . $firstName . ",\n\nim Anhang finden Sie Ihr Kündigungsschreiben für " . $studio . ".\n\nNächste Schritte:\n1. Ausdrucken und eigenhändig unterschreiben\n2. Per Einschreiben mit Rückschein versenden\n3. Eingangsbestätigung mit Vertragsende aufbewahren\n\nBei Fragen: kontakt@kuendigungexpress.de\n\nMit freundlichen Grüßen\nKündigungExpress · kuendigungexpress.de";
         $confirm->send();
     } catch (Exception $e) {
         // fail silent
@@ -286,7 +263,6 @@ $isHandy = $type === 'handy';
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:Arial,sans-serif;background:var(--bg);color:var(--text);display:flex;flex-direction:column;min-height:100vh}
 .wrap{max-width:640px;margin:0 auto;padding:32px 20px 8px;flex:1;display:flex;flex-direction:column;gap:16px}
-/* Success card */
 .success-card{background:var(--card);border:1px solid var(--border);border-radius:24px;padding:36px 32px;text-align:center;box-shadow:0 8px 32px rgba(22,163,74,0.08)}
 .check-circle{width:68px;height:68px;background:linear-gradient(135deg,#16A34A,#22C55E);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:34px;color:#fff;font-weight:900;line-height:1;box-shadow:0 6px 18px rgba(22,163,74,0.3)}
 .saved-banner{background:#F0FDF4;border:1px solid rgba(22,163,74,0.25);border-radius:12px;padding:12px 16px;font-size:14px;color:#15803D;font-weight:600;margin-bottom:18px;line-height:1.5;}
@@ -297,12 +273,10 @@ body{font-family:Arial,sans-serif;background:var(--bg);color:var(--text);display
 .preview-link{display:block;text-align:center;font-size:13px;color:var(--muted);text-decoration:none;margin-bottom:14px;padding:4px;transition:color .15s}
 .preview-link:hover{color:var(--green);text-decoration:underline}
 .email-note{background:#F0FDF4;border:1px solid #BBF7D0;border-radius:12px;padding:12px 16px;font-size:13px;color:#166534;margin-bottom:12px}
-/* Next steps */
 .next-steps{background:var(--bg);border:1px solid var(--border);border-radius:14px;padding:16px 18px;text-align:left;margin-top:8px}
 .next-steps h2{font-size:13px;font-weight:800;margin-bottom:10px}
 .next-steps ol{padding-left:18px;display:flex;flex-direction:column;gap:7px}
 .next-steps li{font-size:13px;color:var(--muted);line-height:1.5}
-/* Intent survey */
 .intent-survey{background:#FFF7ED;border:1px solid #FED7AA;border-radius:18px;padding:22px 24px;margin:18px 0;text-align:center}
 .intent-survey h3{font-size:15px;font-weight:800;color:var(--text);margin-bottom:4px}
 .intent-survey p{font-size:14px;color:var(--muted);margin-bottom:14px}
@@ -315,31 +289,11 @@ body{font-family:Arial,sans-serif;background:var(--bg);color:var(--text);display
 .intent-survey.answered p,
 .intent-survey.answered .survey-btns{display:none}
 .intent-survey.answered .survey-thanks{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:10px;
-  font-size:16px;
-  font-weight:800;
-  color:#15803D;
-  padding:8px 0;
+  display:flex; align-items:center; justify-content:center; gap:10px; font-size:16px; font-weight:800; color:#15803D; padding:8px 0;
 }
 .intent-survey.answered .survey-thanks::before{
-  content:"✓";
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  width:28px;
-  height:28px;
-  background:#16A34A;
-  color:#fff;
-  border-radius:50%;
-  font-weight:900;
-  font-size:16px;
-  flex-shrink:0;
+  content:"✓"; display:inline-flex; align-items:center; justify-content:center; width:28px; height:28px; background:#16A34A; color:#fff; border-radius:50%; font-weight:900; font-size:16px; flex-shrink:0;
 }
-
-/* Affiliate block */
 .affiliate-card{background:var(--card);border:2px solid rgba(22,163,74,0.3);border-radius:24px;padding:28px 28px 24px;box-shadow:0 8px 32px rgba(22,163,74,0.10)}
 .affiliate-card h2{font-size:18px;font-weight:900;margin-bottom:8px;color:var(--text);text-align:center}
 .affiliate-card p{font-size:14px;color:var(--muted);line-height:1.65;margin-bottom:18px;text-align:center}
@@ -351,7 +305,6 @@ body{font-family:Arial,sans-serif;background:var(--bg);color:var(--text);display
 .aff-btn-check24{background:#2563EB;color:#fff}
 .aff-btn-telekom{background:#E20074;color:#fff}
 .aff-note{font-size:11px;color:#94A3B8;text-align:center;margin-top:6px}
-/* Email capture */
 .email-capture{background:#F0FDF4;border:1px solid #BBF7D0;border-radius:14px;padding:20px 18px}
 .email-capture h2{font-size:14px;font-weight:800;color:var(--text);margin-bottom:6px}
 .email-capture p{font-size:13px;color:var(--muted);margin-bottom:12px;line-height:1.5}
@@ -380,25 +333,10 @@ footer{text-align:center;font-size:12px;color:#94A3B8;padding:12px 24px 20px}
 footer a{color:inherit;text-decoration:none}
 footer p{margin-top:0 !important;margin-bottom:3px !important;font-size:12px;color:#64748B;line-height:1.5}
 footer p:last-child{margin-bottom:0 !important}
-/* Sticky header */
 .site-header{display:none;position:fixed;top:0;left:0;right:0;height:56px;background:#fff;border-bottom:1px solid var(--border);z-index:1000;align-items:center;justify-content:center}
 .site-header .brand{font-weight:900;font-size:18px;color:var(--text);text-decoration:none}
-/* Engagement strip — merged email + review + share into one row */
-.engagement-strip {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 12px;
-  margin-top: 18px;
-}
-.eng-col {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 18px 16px;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-}
+.engagement-strip { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-top: 18px; }
+.eng-col { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 18px 16px; text-align: center; display: flex; flex-direction: column; }
 .eng-icon { font-size: 22px; margin-bottom: 6px; line-height: 1; }
 .eng-review .eng-icon { color: #f59e0b; font-size: 14px; letter-spacing: 1px; }
 .eng-col h3 { font-size: 13px; font-weight: 800; color: var(--text); margin-bottom: 4px; }
@@ -413,42 +351,28 @@ footer p:last-child{margin-bottom:0 !important}
 .eng-col .review-btn { display: block; font-size: 12px; font-weight: 700; padding: 8px 10px; border-radius: 8px; text-decoration: none; text-align: center; border: 1px solid var(--border); color: var(--text); background: #fff; }
 .eng-col .review-btn:hover { background: #f8fafc; }
 .eng-col .share-btn { font-size: 12px; padding: 8px 14px; background: var(--green); color: #fff; border: 0; border-radius: 8px; font-weight: 700; cursor: pointer; width: 100%; justify-content: center; text-align: center; }
-
-/* Back-link */
 .back-link { text-align: center; margin-top: 18px; font-size: 13px; color: var(--muted); }
 .back-link a { color: var(--green); font-weight: 700; text-decoration: none; }
-
-@media(max-width:820px){
-  .site-header{display:flex !important}
-  body{padding-top:56px}
-  .wrap{padding-top:16px}
-}
-@media(max-width:480px){
-  .success-card,.affiliate-card{padding:24px 18px;border-radius:18px}
-  .capture-form{flex-direction:column}
-  .capture-form button{width:100%}
-  .engagement-strip{grid-template-columns:1fr;gap:10px}
-}
+@media(max-width:820px){ .site-header{display:flex !important} body{padding-top:56px} .wrap{padding-top:16px} }
+@media(max-width:480px){ .success-card,.affiliate-card{padding:24px 18px;border-radius:18px} .capture-form{flex-direction:column} .capture-form button{width:100%} .engagement-strip{grid-template-columns:1fr;gap:10px} }
 </style>
 <meta name="ke-provider" content="<?= htmlspecialchars($studio, ENT_QUOTES) ?>">
 <meta name="ke-type" content="<?= htmlspecialchars($type, ENT_QUOTES) ?>">
-<!-- Microsoft Clarity -->
 <script src="/clarity-loader.js" async></script>
 </head>
 <body>
 <header class="site-header"><a href="/" class="brand">KündigungExpress</a></header>
 <div class="wrap">
 
-  <!-- Step 1: Download -->
   <div class="success-card">
     <div class="check-circle">✓</div>
     <div class="saved-banner">
       🎉 Kostenlos — andere Dienste verlangen <strong>4,99 €</strong> für dieses Dokument.
     </div>
     <h1>Ihr Kündigungsschreiben ist fertig</h1>
-    <p>Personalisiert, rechtssicher und sofort einsatzbereit. Jetzt herunterladen, ausdrucken und abschicken.</p>
-    <a class="btn-download" href="<?= htmlspecialchars($downloadUrl) ?>" download="Kuendigung-<?= htmlspecialchars($providerSlug) ?>.pdf">
-      📄 PDF jetzt herunterladen
+    <p>Dein PDF wird automatisch heruntergeladen (Bitte kurz warten...). Drucke es anschließend aus und verschicke es.</p>
+    <a class="btn-download" id="autoDownloadBtn" href="<?= htmlspecialchars($downloadUrl) ?>" download="Kuendigung-<?= htmlspecialchars($providerSlug) ?>.pdf">
+      📄 Falls der Download nicht startet: PDF manuell laden
     </a>
     <a class="preview-link" href="<?= htmlspecialchars($downloadUrl) ?>" target="_blank" rel="noopener">
       Vorher ansehen (in neuem Tab)
@@ -458,11 +382,10 @@ footer p:last-child{margin-bottom:0 !important}
     <?php endif; ?>
   </div>
 
-  <!-- Step 2: Affiliate — shown while they wait for print/send -->
   <div class="affiliate-card">
     <?php if ($isHandy): ?>
-    <h2>Brief fertig. Jetzt noch einen besseren Tarif sichern.</h2>
-    <p>Sie verlassen <?= htmlspecialchars($studio) ?> — damit sich die Kündigung auch wirklich lohnt, lohnt sich ein Vergleich. Bei einem Durchschnittstarif von 39,99 €/Monat sparen günstigere Anbieter bis zu <strong>240 € im Jahr</strong>.</p>
+    <h2>Achtung: Vermeide teure Offline-Zeiten!</h2>
+    <p>Die Kündigung bei <strong><?= htmlspecialchars($studio) ?></strong> ist vorbereitet. Da ein Anbieterwechsel oft bis zu 14 Tage dauert, sollten Sie jetzt sofort Ihren neuen Tarif sichern. Vermeiden Sie es, ohne Netz dazustehen, und profitieren Sie von bis zu <strong>240 € Wechselbonus</strong>!</p>
     <a href="https://a.check24.net/misc/click.php?pid=1169420&aid=18&deep=handytarife&cat=7"
        class="aff-btn aff-btn-check24" target="_blank" rel="nofollow sponsored" data-aff="check24-handy">
       📱 Günstigeren Handytarif finden · CHECK24 →
@@ -472,8 +395,8 @@ footer p:last-child{margin-bottom:0 !important}
       Direkt zu Telekom wechseln · MagentaMobil →
     </a>
     <?php else: ?>
-    <h2>Brief fertig. Nächstes Studio oder Handytarif?</h2>
-    <p>Sie verlassen <?= htmlspecialchars($studio) ?> — nutzen Sie den Moment und prüfen Sie, ob Sie auch beim Handy sparen können.</p>
+    <h2>Kündigung fertig! Zeit für den nächsten Schritt.</h2>
+    <p>Sie verlassen <strong><?= htmlspecialchars($studio) ?></strong>. Nutzen Sie den Schwung und prüfen Sie, ob Sie auch bei Ihrem Handytarif monatlich bares Geld sparen können.</p>
     <a href="https://a.check24.net/misc/click.php?pid=1169420&aid=18&deep=handytarife&cat=7"
        class="aff-btn aff-btn-check24" target="_blank" rel="nofollow sponsored" data-aff="check24-fitness">
       📱 Handytarife kostenlos vergleichen · CHECK24 →
@@ -481,7 +404,6 @@ footer p:last-child{margin-bottom:0 !important}
     <?php endif; ?>
   </div>
 
-  <!-- Step 3: Intent survey (post-conversion) -->
   <div class="intent-survey" id="intentSurvey">
     <h3>Eine kurze Frage hilft uns sehr:</h3>
     <p>Wechseln Sie zu einem neuen Anbieter?</p>
@@ -493,7 +415,6 @@ footer p:last-child{margin-bottom:0 !important}
     <div class="survey-thanks" id="surveyThanks"><span>Vielen Dank! Ihre Antwort wurde gespeichert.</span></div>
   </div>
 
-  <!-- Step 4: Compact engagement strip -->
   <div class="engagement-strip">
     <div class="eng-col eng-reminder">
       <div class="eng-icon">📬</div>

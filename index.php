@@ -22,8 +22,11 @@ declare(strict_types=1);
 <meta property="og:url" content="https://www.kuendigungexpress.de/">
 <meta property="og:type" content="website">
 <title>Vertrag online kündigen (Deutschland) – Handy & Fitness PDF · kostenlos</title>
-<meta name="description" content="Handyvertrag oder Fitnessstudio kostenlos kündigen – rechtssicheres Kündigungsschreiben als PDF. Kein Abo, kein Login, kein Haken."> <link rel="canonical" href="https://www.kuendigungexpress.de/"> <link rel="alternate" hreflang="de-DE" href="https://www.kuendigungexpress.de/" />
-<link rel="alternate" hreflang="x-default" href="https://www.kuendigungexpress.de/" /> <link rel="icon" href="/favicon.ico">
+<meta name="description" content="Handyvertrag oder Fitnessstudio kostenlos kündigen – rechtssicheres Kündigungsschreiben als PDF. Kein Abo, kein Login, kein Haken."> 
+<link rel="canonical" href="https://www.kuendigungexpress.de/"> 
+<link rel="alternate" hreflang="de-DE" href="https://www.kuendigungexpress.de/" />
+<link rel="alternate" hreflang="x-default" href="https://www.kuendigungexpress.de/" /> 
+<link rel="icon" href="/favicon.ico">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <script type="application/ld+json">
 { "@context": "https://schema.org", "@type": "WebSite", "name": "KündigungExpress", "url": "https://www.kuendigungexpress.de/"
@@ -35,9 +38,15 @@ declare(strict_types=1);
 { "@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [ { "@type": "Question", "name": "Wie kann ich meinen Vertrag online kündigen?", "acceptedAnswer": { "@type": "Answer", "text": "Wählen Sie einfach Ihre Vorlage aus (z. B. Handyvertrag oder Fitnessstudio), geben Sie Ihre Vertragsdaten ein und generieren Sie Ihr Kündigungsschreiben als PDF zum sofortigen Download." } }, { "@type": "Question", "name": "Ist das Kündigungsschreiben rechtssicher?", "acceptedAnswer": { "@type": "Answer", "text": "Ja, unsere Vorlagen sind an gängige Anforderungen angepasst und enthalten alle notwendigen Pflichtangaben, um eine wirksame Vertragskündigung gemäß der aktuellen Gesetzeslage in Deutschland zu ermöglichen." } }, { "@type": "Question", "name": "Was kostet die Erstellung der Kündigung?", "acceptedAnswer": { "@type": "Answer", "text": "KündigungExpress ist kostenlos. Sie erhalten ein professionell formatiertes PDF-Dokument ohne versteckte Kosten und ohne Abonnement." } } ]
 }
 </script>
-<link rel="stylesheet" href="/style.css?v=6"> <script type="text/javascript"> (function(c,l,a,r,i,t,y){ c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)}; t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i; y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y); })(window, document, "clarity", "script", "vz58ddxva5"); </script>
-</head> <body> <header class="site-header"> <div class="brand"><a href="/">KündigungExpress</a></div>
-</header> <div class="wrap"> <header>
+<link rel="stylesheet" href="/style.css?v=6"> 
+<script src="/search-ke.js" defer></script>
+<script type="text/javascript"> (function(c,l,a,r,i,t,y){ c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)}; t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i; y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y); })(window, document, "clarity", "script", "vz58ddxva5"); </script>
+</head> 
+<body> 
+<header class="site-header"> <div class="brand"><a href="/">KündigungExpress</a></div>
+</header> 
+<div class="wrap"> 
+<header>
 <div class="brand">
 <a href="/">KündigungExpress</a>
 </div>
@@ -46,13 +55,19 @@ declare(strict_types=1);
 <a href="/impressum.html">Impressum</a>
 <a href="/datenschutz.html">Datenschutz</a>
 </nav>
-</header> <main> <section class="hero">
+</header> 
+<main> 
+<section class="hero">
 <h1>Vertrag online kündigen in Deutschland – rechtssicheres PDF sofort</h1>
 <p class="timestamp"><span>🕒</span> <span>Zuletzt aktualisiert: April 2026</span></p>
 <p class="hero-sub">
 Handyvertrag sau Fitnessstudio kündigen – rechtssicher, kostenlos und sofort als PDF. Alle Fristen und gesetzlichen Vorgaben berücksichtigt.
 </p>
-<p class="trust-line"> <span>✓ Rechtssicher</span> <span>✓ DSGVO-konform</span> <span>✓ Kein Abo</span> <span>✓ Kein Haken</span>
+<p class="trust-line"> 
+  <span>✓ Geprüft (TKG 2021)</span> 
+  <span>✓ DSGVO-konform</span> 
+  <span>✓ Kein Abo</span> 
+  <span>✓ Kein Haken</span>
 </p>
 <div class="social-proof">
   <div class="sp-avatars">
@@ -70,11 +85,26 @@ Handyvertrag sau Fitnessstudio kündigen – rechtssicher, kostenlos und sofort 
     <span class="review-count">(3 Rezensionen)</span>
   </a>
 </div>
-<a href="/start.php" class="btn-primary">
+<a href="#provider-search-section" class="btn-primary" onclick="setTimeout(() => document.getElementById('providerSearch').focus(), 100);">
 Kündigung jetzt erstellen
 </a>
 <p class="disclaimer-text">Kostenlos, weil wir eine kleine Provision erhalten, wenn Sie über unsere Links einen neuen Tarif finden. Für Sie bleibt alles gratis.</p>
 </section>
+
+<section id="provider-search-section" style="margin: clamp(24px, 5vw, 48px) auto 16px; max-width: 640px; padding: 0 16px; position: relative;">
+  <h2 style="text-align: center; font-size: clamp(20px, 5vw, 26px); font-weight: 900; color: #0F172A; margin-bottom: 24px;">Welchen Anbieter möchten Sie kündigen?</h2>
+  <div style="position: relative;">
+    <svg style="position: absolute; left: 24px; top: 50%; transform: translateY(-50%); width: 24px; height: 24px; color: #94A3B8; pointer-events: none;" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+    <input type="text" id="providerSearch" autocomplete="off" placeholder="z. B. Telekom, McFit, 1&1..." 
+           style="width: 100%; padding: 20px 24px 20px 60px; font-size: 18px; font-weight: 600; font-family: Arial, sans-serif; border: 2px solid #E2E8F0; border-radius: 999px; box-shadow: 0 8px 24px rgba(15,23,42,0.06); outline: none; box-sizing: border-box; background: #fff; color: #0F172A;">
+  </div>
+  <p style="text-align: center; font-size: 13px; color: #64748B; margin-top: 16px;">
+    Anbieter nicht gefunden? Hier klicken für 
+    <a href="/formular.php?type=fitness" style="color: #16A34A; font-weight: 700; text-decoration: none;">Fitness</a> oder 
+    <a href="/formular.php?type=handy" style="color: #16A34A; font-weight: 700; text-decoration: none;">Handyvertrag</a>.
+  </p>
+</section>
+
 <section class="why-section"> <div class="wrap"> <h2>Warum KündigungExpress?</h2> <div class="why-grid"> <div class="why-card"> <h3>Rechtssicher</h3> <p>Vorlagen nach aktueller deutscher Gesetzeslage.</p> </div> <div class="why-card"> <h3>Sofort verfügbar</h3> <p>PDF-Download direkt nach Erstellung.</p> </div> <div class="why-card"> <h3>Kostenlos</h3> <p>Kein Abo, keine versteckten Kosten.</p> </div> <div class="why-card"> <h3>Optimiert</h3> <p>Speziell für Handy- und Fitnessverträge entwickelt.</p> </div> </div> </div>
 </section>
 <section class="compare-section">
@@ -148,11 +178,8 @@ Kündigung jetzt erstellen
     </div>
   </div>
 </section>
-<section id="vertical-selection">
-<h2 class="section-title">Kündigung erstellen: Wählen Sie Ihren Bereich</h2> <div class="vertical-grid">
-<a class="vertical-card" href="/handyvertrag-kuendigen.html"> <div class="vertical-icon">📱</div> <h3>Handyvertrag kündigen</h3> <p>Erstellen Sie eine rechtssichere Mobilfunk-Kündigung für alle deutschen Anbieter. Geben Sie Ihre Daten ein und laden Sie Ihr fertiges Schreiben direkt für den Versand herunter.</p> <div class="vertical-cta">→ Handy kündigen</div>
-</a> <a class="vertical-card" href="/fitnessstudio-vertrag-kuendigen.html"> <div class="vertical-icon">🏋️</div> <h3>Fitnessstudio kündigen</h3> <p>Beenden Sie Ihre Mitgliedschaft unkompliziert und formell korrekt. Unsere optimierte Vorlage sichert Sie gegenüber dem Studio rechtlich ab und spart wertvolle Zeit.</p> <div class="vertical-cta">→ Fitness kündigen</div>
-</a> </div> </section> <section class="hub-block">
+
+<section class="hub-block">
 <div class="hub-inner">
 <h3 class="hub-title">Rechtssicher Vertrag online kündigen</h3>
 <p class="hub-sub"> Nutzen Sie unsere spezialisierten Vorlagen, um gesetzliche Fristen einzuhalten und formale Fehler beim Kündigungsschreiben zu vermeiden.
@@ -195,15 +222,48 @@ Achten Sie auf die aktuellen <a href="/kuendigungsfrist-handyvertrag.html">Frist
 </div>
 </div>
 </section>
-<section class="popular-section"> <div class=\"wrap\"> <h2>Beliebte Kündigungen</h2> <div class="popular-grid"> <a href="/mcfit-kuendigung.html" class="popular-card">McFit kündigen</a> <a href="/fitx-kuendigung.html" class="popular-card">FitX kündigen</a> <a href="/clever-fit-kuendigung.html" class="popular-card">Clever Fit kündigen</a> <a href="/telekom-kuendigung.html" class="popular-card">Telekom kündigen</a> <a href="/vodafone-kuendigung.html" class="popular-card">Vodafone kündigen</a> <a href="/o2-kuendigung.html" class="popular-card">O2 kündigen</a> <a href="/freenet-kuendigung.html" class="popular-card">freenet kündigen</a> <a href="/aldi-talk-kuendigung.html" class="popular-card">Aldi Talk kündigen</a> <a href="/blau-kuendigung.html" class="popular-card">Blau kündigen</a> <a href="/lidl-connect-kuendigung.html" class="popular-card">Lidl Connect kündigen</a> <a href="/tchibo-mobil-kuendigung.html" class="popular-card">Tchibo Mobil kündigen</a> <a href="/klarmobil-kuendigung.html" class="popular-card">klarmobil kündigen</a> <a href="/otelo-kuendigung.html" class="popular-card">otelo kündigen</a> <a href="/congstar-kuendigung.html" class="popular-card">congstar kündigen</a> <a href="/fraenk-kuendigung.html" class="popular-card">fraenk kündigen</a> <a href="/kaufland-mobil-kuendigung.html" class="popular-card">Kaufland Mobil kündigen</a> <a href="/superselect-kuendigung.html" class="popular-card">superselect kündigen</a> <a href="/mrs-sporty-kuendigung.html" class="popular-card">Mrs. Sporty kündigen</a> <a href="/urban-sports-club-kuendigung.html" class="popular-card">Urban Sports Club kündigen</a> <a href="/bodystreet-kuendigung.html" class="popular-card">Bodystreet kündigen</a> <a href="/fitnessking-kuendigung.html" class="popular-card">FitnessKing kündigen</a> </div> </div>
+<section class="popular-section"> <div class="wrap"> <h2>Beliebte Kündigungen</h2> <div class="popular-grid"> <a href="/mcfit-kuendigung.html" class="popular-card">McFit kündigen</a> <a href="/fitx-kuendigung.html" class="popular-card">FitX kündigen</a> <a href="/clever-fit-kuendigung.html" class="popular-card">Clever Fit kündigen</a> <a href="/telekom-kuendigung.html" class="popular-card">Telekom kündigen</a> <a href="/vodafone-kuendigung.html" class="popular-card">Vodafone kündigen</a> <a href="/o2-kuendigung.html" class="popular-card">O2 kündigen</a> <a href="/freenet-kuendigung.html" class="popular-card">freenet kündigen</a> <a href="/aldi-talk-kuendigung.html" class="popular-card">Aldi Talk kündigen</a> <a href="/blau-kuendigung.html" class="popular-card">Blau kündigen</a> <a href="/lidl-connect-kuendigung.html" class="popular-card">Lidl Connect kündigen</a> <a href="/tchibo-mobil-kuendigung.html" class="popular-card">Tchibo Mobil kündigen</a> <a href="/klarmobil-kuendigung.html" class="popular-card">klarmobil kündigen</a> <a href="/otelo-kuendigung.html" class="popular-card">otelo kündigen</a> <a href="/congstar-kuendigung.html" class="popular-card">congstar kündigen</a> <a href="/fraenk-kuendigung.html" class="popular-card">fraenk kündigen</a> <a href="/kaufland-mobil-kuendigung.html" class="popular-card">Kaufland Mobil kündigen</a> <a href="/superselect-kuendigung.html" class="popular-card">superselect kündigen</a> <a href="/mrs-sporty-kuendigung.html" class="popular-card">Mrs. Sporty kündigen</a> <a href="/urban-sports-club-kuendigung.html" class="popular-card">Urban Sports Club kündigen</a> <a href="/bodystreet-kuendigung.html" class="popular-card">Bodystreet kündigen</a> <a href="/fitnessking-kuendigung.html" class="popular-card">FitnessKing kündigen</a> </div> </div>
 </section></main> 
 <footer style="width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; margin-top: 40px; padding: 20px 0;"> 
-  <p class="brand-disclaimer" style="width: 100%; text-align: center; margin: 0 0 5px; color: #64748B; font-size: 12px;">© 2026 KündigungExpress · <a href="/impressum.html" style="color:#64748B; text-decoration:none;">Impressum</a> · <a href="/datenschutz.html" style="color:#64748B; text-decoration:none;">Datenschutz</a> · <a href="/wie-wir-kuendigungexpress-gebaut-haben.html" style="color:#64748B; text-decoration:none;">Über das Projekt</a></p> 
+  <p class="brand-disclaimer" style="width: 100%; text-align: center; margin: 0 0 5px; color: #64748B; font-size: 12px;">© 2026 KündigungExpress · <a href="/impressum.html" style="color:#64748B; text-decoration:none;">Impressum</a> · <a href="/datenschutz.html" style="color:#64748B; text-decoration:none;">Datenschutz</a> · <a href="/unsere-mission.html" style="color:#64748B; text-decoration:none;">Unsere Mission</a></p> 
   <p class="brand-disclaimer" style="width: 100%; text-align: center; margin: 0; color: #64748B; font-size: 12px;">Erstellt mit <a href="https://digital-firmen.de" style="color:#64748B; text-decoration:none;" target="_blank">digital-firmen.de</a></p> 
 </footer> 
-</div> <div class="mobile-cta">
-<a href="/formular.php?type=fitness">Fitness kündigen </a>
-<a href="/formular.php?type=handy">Handy kündigen </a>
+</div>
+
+<div id="ksList" style="display: none; position: absolute; background: #fff; border: 1px solid #E2E8F0; border-radius: 16px; box-shadow: 0 12px 32px rgba(15,23,42,0.12); max-height: 340px; overflow-y: auto; z-index: 9999;"></div>
+
+<style>
+/* Sticky CTA ascuns pe desktop, fixat la baza pe mobil, ambele butoane verzi */
+.mobile-cta { display: none; }
+@media (max-width: 820px) {
+  .mobile-cta {
+    display: flex !important;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #fff;
+    border-top: 1px solid #E2E8F0;
+    padding: 12px 16px;
+    gap: 8px;
+    z-index: 9999;
+  }
+  .mobile-cta a {
+    flex: 1;
+    background: #16A34A; /* Verde */
+    color: #fff;
+    text-align: center;
+    padding: 14px;
+    border-radius: 14px;
+    font-weight: 900;
+    text-decoration: none;
+    font-size: 15px;
+  }
+}
+</style>
+<div class="mobile-cta">
+    <a href="/formular.php?type=fitness">Fitness</a>
+    <a href="/formular.php?type=handy">Handy</a>
 </div>
 </body>
 </html>

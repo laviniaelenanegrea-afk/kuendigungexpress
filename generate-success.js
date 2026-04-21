@@ -10,9 +10,20 @@
   var provider = getMeta('provider') || 'unknown';
   var type     = getMeta('type')     || 'unknown';
 
-  // ===== Track download (PDF link click) =====
+  // ===== Auto-Download (Trigger download automatically after 1.5s) =====
   var dlBtn = document.querySelector('.btn-download');
   if (dlBtn) {
+    setTimeout(function() {
+      // Create a temporary link to trigger native download behavior seamlessly
+      var link = document.createElement('a');
+      link.href = dlBtn.href;
+      link.download = dlBtn.getAttribute('download') || 'Kuendigung.pdf';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }, 1500);
+
+    // Manual click tracking
     dlBtn.addEventListener('click', function() {
       if (typeof clarity === 'function') {
         clarity('event', 'pdf_downloaded');
@@ -33,21 +44,42 @@
     });
   });
 
-  // ===== Survey =====
+  // ===== Intent Survey & Funnel Routing =====
   document.querySelectorAll('.survey-btn').forEach(function(btn) {
     btn.addEventListener('click', function() {
       var answer = btn.getAttribute('data-answer');
+
+      // Tracking in Clarity
       if (typeof clarity === 'function') {
         clarity('event', 'intent_survey');
         clarity('set', 'intent', answer);
         clarity('set', 'provider', provider);
       }
+
+      // UI Update: Mark survey as completed (shows the "Vielen Dank!" message)
       var card = document.getElementById('intentSurvey');
       if (card) card.classList.add('answered');
-      setTimeout(function() {
-        var aff = document.querySelector('.affiliate-card');
-        if (aff) aff.scrollIntoView({behavior: 'smooth', block: 'center'});
-      }, 1400);
+
+      // The Magic: Conditional Funnel Routing
+      if (answer === 'switching') { // Doar pentru "Ja, ich suche noch"
+        setTimeout(function() {
+          var affCard = document.querySelector('.affiliate-card');
+          if (affCard) {
+            // Smooth scroll catre ofertele de afiliere
+            affCard.scrollIntoView({behavior: 'smooth', block: 'center'});
+            
+            // Adauga un efect vizual temporar de "Glow" pentru a atrage atentia pe oferte
+            var originalShadow = affCard.style.boxShadow;
+            affCard.style.transition = 'box-shadow 0.4s ease-in-out';
+            affCard.style.boxShadow = '0 0 0 6px rgba(22, 163, 74, 0.4)'; // Halou verde
+            
+            // Elimina efectul de Glow dupa 1.5 secunde pentru a arata natural
+            setTimeout(function() {
+                affCard.style.boxShadow = originalShadow || '0 8px 32px rgba(22,163,74,0.10)';
+            }, 1500);
+          }
+        }, 600); // Asteptam 0.6s ca sa citeasca "Vielen Dank" inainte de scroll
+      }
     });
   });
 
