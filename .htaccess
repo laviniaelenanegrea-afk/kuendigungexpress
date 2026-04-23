@@ -1,0 +1,37 @@
+# --- Custom error pages ---
+ErrorDocument 404 /404.html
+
+# --- Protect config files ---
+<Files "_smtp_config.php">
+  Require all denied
+</Files>
+
+<Files "_app_config.php">
+  Require all denied
+</Files>
+
+<Files "_security_headers.php">
+  Require all denied
+</Files>
+
+# --- Protect private folders (recommended) ---
+# (In case there isn't already a separate .htaccess inside those folders)
+
+# --- Redirect old form URL to the new PHP form ---
+Redirect 301 /formular.html /formular.php
+
+# --- Security Headers ---
+<IfModule mod_headers.c>
+  # HSTS (only use if everything works on HTTPS)
+  Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+
+  Header set X-Content-Type-Options "nosniff"
+  Header set X-Frame-Options "SAMEORIGIN"
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+
+  # CSP (safe for your inline CSS/JS)
+  Header set Content-Security-Policy "default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'sha256-08CpRIVtSwuAxv7K6FZ+Xmdkqkaxj/ANK5NWmCTAFgE=' 'sha256-RHoYWlfjTlP7EkTo8XBjX8w8cHqg4V7q/qdaEZ+W6B8=' 'sha256-/dfGfGd1u8IXsZn2QW9sGuEuuODwM8hThMBCXdN1ca8=' https://www.clarity.ms https://scripts.clarity.ms; connect-src 'self' https://s.clarity.ms https://e.clarity.ms https://b.clarity.ms; base-uri 'self'; form-action 'self'; frame-ancestors 'self'"
+
+  # Optional: try to remove Vary header (if IONOS allows it)
+  Header unset Vary
+</IfModule>

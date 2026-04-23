@@ -58,10 +58,12 @@ declare(strict_types=1);
 </header> 
 <main> 
 <section class="hero">
-<h1>Vertrag online kündigen in Deutschland – rechtssicheres PDF sofort</h1>
+<h1 style="font-size:clamp(26px, 5vw, 54px); font-weight:800; letter-spacing:-1.5px; line-height:1.1; margin:0 auto 24px; color:#0F172A; max-width: 900px;">
+      Verträge kündigen,<br><span style="color:#16A34A; white-space: nowrap; display: inline-block;">kostenlos & rechtssicher.</span>
+    </h1>
 <p class="timestamp"><span>🕒</span> <span>Zuletzt aktualisiert: April 2026</span></p>
 <p class="hero-sub">
-Handyvertrag sau Fitnessstudio kündigen – rechtssicher, kostenlos und sofort als PDF. Alle Fristen und gesetzlichen Vorgaben berücksichtigt.
+Handyvertrag oder Fitnessstudio kündigen – <strong>kostenlos</strong>, rechtssicher und sofort als <strong>PDF</strong>. Alle Fristen und gesetzlichen Vorgaben berücksichtigt.
 </p>
 <p class="trust-line"> 
   <span>✓ Geprüft (TKG 2021)</span> 
@@ -92,17 +94,19 @@ Kündigung jetzt erstellen
 </section>
 
 <section id="provider-search-section" style="margin: clamp(24px, 5vw, 48px) auto 16px; max-width: 640px; padding: 0 16px; position: relative;">
-  <h2 style="text-align: center; font-size: clamp(20px, 5vw, 26px); font-weight: 900; color: #0F172A; margin-bottom: 24px;">Welchen Anbieter möchten Sie kündigen?</h2>
+  <h2 style="text-align: center; font-size: clamp(20px, 5vw, 26px); font-weight: 900; color: #0F172A; margin-bottom: 24px;">Anbieter hier eingeben</h2>
   <div style="position: relative;">
     <svg style="position: absolute; left: 24px; top: 50%; transform: translateY(-50%); width: 24px; height: 24px; color: #94A3B8; pointer-events: none;" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
     <input type="text" id="providerSearch" autocomplete="off" placeholder="z. B. Telekom, McFit, 1&1..." 
            style="width: 100%; padding: 20px 24px 20px 60px; font-size: 18px; font-weight: 600; font-family: Arial, sans-serif; border: 2px solid #E2E8F0; border-radius: 999px; box-shadow: 0 8px 24px rgba(15,23,42,0.06); outline: none; box-sizing: border-box; background: #fff; color: #0F172A;">
   </div>
-  <p style="text-align: center; font-size: 13px; color: #64748B; margin-top: 16px;">
-    Anbieter nicht gefunden? Hier klicken für 
-    <a href="/formular.php?type=fitness" style="color: #16A34A; font-weight: 700; text-decoration: none;">Fitness</a> oder 
-    <a href="/formular.php?type=handy" style="color: #16A34A; font-weight: 700; text-decoration: none;">Handyvertrag</a>.
-  </p>
+   <p style="margin-top: 16px; font-size: 16px; color: #64748B; text-align: center;">
+        Anbieter nicht gefunden? Wählen Sie hier die passende Kategorie: 
+        <a href="/fitnessstudio-vertrag-kuendigen.html" style="color: #16A34A; text-decoration: none; font-weight: 600;">Fitnessstudio kündigen</a> 
+        oder 
+        <a href="/handyvertrag-kuendigen.html" style="color: #16A34A; text-decoration: none; font-weight: 600;">Handyvertrag kündigen</a>.
+      </p>
+
 </section>
 
 <section class="why-section"> <div class="wrap"> <h2>Warum KündigungExpress?</h2> <div class="why-grid"> <div class="why-card"> <h3>Rechtssicher</h3> <p>Vorlagen nach aktueller deutscher Gesetzeslage.</p> </div> <div class="why-card"> <h3>Sofort verfügbar</h3> <p>PDF-Download direkt nach Erstellung.</p> </div> <div class="why-card"> <h3>Kostenlos</h3> <p>Kein Abo, keine versteckten Kosten.</p> </div> <div class="why-card"> <h3>Optimiert</h3> <p>Speziell für Handy- und Fitnessverträge entwickelt.</p> </div> </div> </div>
@@ -250,6 +254,8 @@ Achten Sie auf die aktuellen <a href="/kuendigungsfrist-handyvertrag.html">Frist
   }
   .mobile-cta a {
     flex: 1;
+    /* REZOLVARE INLINE: am adăugat max-width: 48% aici pentru a permite afișarea 50/50 doar pe index.php */
+    max-width: 48%; 
     background: #16A34A; /* Verde */
     color: #fff;
     text-align: center;
@@ -258,6 +264,12 @@ Achten Sie auf die aktuellen <a href="/kuendigungsfrist-handyvertrag.html">Frist
     font-weight: 900;
     text-decoration: none;
     font-size: 15px;
+  }
+/* FORȚEAZĂ BUTONUL SĂ OCUPE 100% DACA ESTE SINGURUL BUTON DIN MOBILE-CTA */
+  .mobile-cta a:only-child {
+    max-width: 100% !important;
+    width: 100% !important;
+    flex: none !important; /* Dezactivează flex-ul ca să fim siguri că lățimea preia controlul */
   }
 }
 </style>

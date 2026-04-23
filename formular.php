@@ -429,7 +429,6 @@ footer a:hover { color: #334155; }
 </style>
 <script src="/formular.js" defer></script>
     
-    <!-- Microsoft Clarity -->
     <script type="text/javascript">
         (function(c,l,a,r,i,t,y){
             c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
@@ -455,7 +454,6 @@ footer a:hover { color: #334155; }
     </nav>
   </header>
 
-  <!-- Progress -->
   <div class="progress-bar">
     <div class="prog-step done">
       <div class="prog-dot">✓</div>
@@ -473,7 +471,6 @@ footer a:hover { color: #334155; }
     </div>
   </div>
 
-  <!-- Title -->
   <div class="page-title">
     <h1><?= $isHandy ? '📱 Handyvertrag kündigen' : '🏋️ Fitnessstudio kündigen' ?></h1>
     <div class="social-proof-form">
@@ -492,7 +489,6 @@ footer a:hover { color: #334155; }
   <form id="keForm" method="post" action="/generate.php">
     <input type="hidden" name="type" value="<?= htmlspecialchars($type) ?>">
 
-    <!-- Persönliche Daten -->
     <div class="section">
       <div class="section-header">
         <div class="section-icon">👤</div>
@@ -527,7 +523,6 @@ footer a:hover { color: #334155; }
       </div>
     </div>
 
-    <!-- Anbieter -->
     <div class="section">
       <div class="section-header">
         <div class="section-icon"><?= $isHandy ? '📡' : '🏋️' ?></div>
@@ -545,7 +540,8 @@ footer a:hover { color: #334155; }
           >
         </div>
         <div class="field full optional-section" style="display:block;">
-          <div style="font-size:12px;font-weight:700;color:#334155;text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px;">Adresse des <?= $isHandy ? 'Anbieters' : 'Studios' ?> <span style="font-weight:400;text-transform:none">(optional)</span></div><div class="hint" style="margin-bottom:10px;">Wird im PDF vorausgefüllt, wenn Sie die Adresse kennen. Keine Pflichtangabe — das PDF ist ohne Adresse genauso gültig.</div>
+          <div style="font-size:12px;font-weight:700;color:#334155;text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px;">Adresse des <?= $isHandy ? 'Anbieters' : 'Studios' ?> <span style="font-weight:400;text-transform:none">(optional)</span></div>
+          <div class="hint" style="margin-bottom:10px; color: #16A34A;"><strong>Nicht zwingend erforderlich:</strong> Lassen Sie die Felder leer, falls Sie die Adresse nicht kennen. Das Kündigungsschreiben ist auch ohne diese Angabe zu 100% rechtsgültig.</div>
           <div class="grid" style="margin:0;">
             <div class="field full">
               <input name="studioStreet" placeholder="Straße &amp; Hausnummer">
@@ -561,7 +557,6 @@ footer a:hover { color: #334155; }
       </div>
     </div>
 
-    <!-- Kündigungsart -->
     <div class="section">
       <div class="section-header">
         <div class="section-icon">📅</div>
@@ -581,7 +576,6 @@ footer a:hover { color: #334155; }
       </div>
     </div>
 
-    <!-- Optionale Angaben -->
     <div class="section">
       <div class="section-header">
         <div class="section-icon">🔢</div>
@@ -595,7 +589,6 @@ footer a:hover { color: #334155; }
       </div>
     </div>
 
-    <!-- E-Mail Versand -->
     <div class="section">
       <div class="section-header">
         <div class="section-icon">✉️</div>
@@ -618,15 +611,21 @@ footer a:hover { color: #334155; }
       </div>
     </div>
 
-    <!-- Summary + Submit -->
-    <div class="summary-box">
+    <div class="summary-box" style="flex-direction: column; gap: 12px;">
       <div class="summary-price">Kostenlos · Sofort als PDF</div>
-
+      <div class="summary-pills">
+        <span>✓ Ohne Anmeldung</span>
+        <span>✓ Geprüfte Vorlage</span>
+        <span>✓ Kein Abo</span>
+      </div>
     </div>
 
     <button class="btn-submit" type="submit">Kündigungsschreiben jetzt kostenlos erstellen →</button>
-    <div class="secure-note">
-      🔒 SSL-gesichert · Kein Abo · Keine Registrierung
+    
+    <div class="secure-note" style="flex-direction: column; gap: 6px;">
+            <div style="color: #15803D; font-weight: 600; font-size: 11px;">
+        🛡️ Ihre Daten werden nicht gespeichert und nach der PDF-Erstellung sofort gelöscht.
+      </div>
     </div>
 
   </form>

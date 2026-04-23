@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Kündigungsschreiben Fitnessstudio</title>
+<style>
+  @page { margin: 10mm 18mm 8mm 18mm; }
+  body {
+    font-family: "DejaVu Sans", Arial, sans-serif;
+    font-size: 9.5pt;
+    color: #1f2937;
+    line-height: 1.45;
+    margin: 0;
+  }
+  table.letterhead { width:100%; border-collapse:collapse; margin-bottom:2mm; }
+  td.lh-brand { font-family: "DejaVu Sans", Arial, sans-serif; font-size:14pt; font-weight:900; color:#16a34a; letter-spacing:-0.5pt; padding:0; }
+  td.lh-tag { font-family: "DejaVu Sans", Arial, sans-serif; text-align:right; vertical-align:bottom; padding-bottom:1.5mm; }
+  td.lh-tag .lh-url { display:block; font-size:8.5pt; font-weight:700; color:#1f2937; letter-spacing:0.2pt; line-height:1.2; }
+  td.lh-tag .lh-tagline { display:block; font-size:7pt; color:#9ca3af; line-height:1.2; }
+  .letterhead-rule { border:0; border-top:1.5pt solid #16a34a; margin:0 0 4mm 0; height:0; }
+  .sender { font-size:8pt; color:#6b7280; margin-bottom:4mm; border-bottom:0.5pt solid #e5e7eb; padding-bottom:1.5mm; }
+  .recipient-block { margin-bottom:3mm; }
+  .recipient-label { font-size:7pt; color:#9ca3af; text-transform:uppercase; letter-spacing:1pt; margin-bottom:1.5mm; font-weight:700; }
+  .recipient-name { font-size:10.5pt; font-weight:700; color:#111827; margin-bottom:1mm; }
+  .recipient-addr { color:#4b5563; line-height:1.45; }
+  table.meta-row { width:100%; border-collapse:collapse; margin-bottom:4mm; }
+  td.meta-email-cell { font-size:9pt; color:#6b7280; padding:0; }
+  td.meta-date-cell { text-align:right; font-size:10pt; color:#1f2937; font-weight:600; padding:0; }
+  .subject { font-weight:700; font-size:11.5pt; color:#111827; margin-bottom:1mm; }
+  .subject-rule { border:0; border-top:1pt solid #d1d5db; margin:0 0 4mm 0; height:0; }
+  .contract-box {
+    background:#f0fdf4; border:1pt solid #bbf7d0; border-left:4pt solid #16a34a;
+    padding:2.5mm 5mm; margin-bottom:4mm; font-size:9pt; color:#14532d;
+  }
+  .contract-box .label { font-weight:700; color:#15803d; margin-right:2mm; }
+  p { margin:0 0 2.5mm 0; text-align:justify; line-height:1.45; }
+  p.greeting-open { margin-bottom:2.5mm; }
+  ol.requests { margin:2.5mm 0 3mm 0; padding-left:5mm; font-size:8.5pt; line-height:1.4; }
+  ol.requests li { margin-bottom:0.8mm; }
+  .legal-note {
+    font-size:8.5pt; color:#6b7280; background:#f9fafb;
+    border-left:2pt solid #d1d5db; padding:2.5mm 4mm;
+    margin:2.5mm 0 3mm 0; line-height:1.4;
+  }
+  .greeting-close { margin-top:2mm; margin-bottom:4mm; }
+  table.sig-table { border-collapse:collapse; margin:0; }
+  table.sig-table td { border-top:0.75pt solid #6b7280; padding-top:1.5mm; font-size:10pt; color:#111827; width:60mm; }
+  .footer {
+    margin-top:2mm; padding-top:2.5mm; border-top:0.5pt solid #e5e7eb;
+    text-align:center; font-size:7pt; color:#9ca3af; letter-spacing:0.3pt;
+  }
+</style>
+</head>
+<body>
+
+<table class="letterhead">
+  <tr>
+    <td class="lh-brand">KündigungExpress</td>
+    <td class="lh-tag"><span class="lh-tagline">Rechtssichere Kündigungen</span><span class="lh-url">kuendigungexpress.de</span></td>
+  </tr>
+</table>
+<hr class="letterhead-rule">
+
+<div class="sender">{{name}} · {{address}}</div>
+
+<div class="recipient-block">
+  <div class="recipient-label">Empfänger</div>
+  <div class="recipient-name">{{studio}}</div>
+  <div class="recipient-addr">{{studio_address}}</div>
+</div>
+
+<table class="meta-row">
+  <tr>
+    <td class="meta-email-cell">{{email_line}}</td>
+    <td class="meta-date-cell">{{city}}, {{date}}</td>
+  </tr>
+</table>
+
+<div class="subject">Ordentliche Kündigung meiner Mitgliedschaft</div>
+<hr class="subject-rule">
+
+<div class="contract-box">
+  <span class="label">Vertragsangaben:</span>{{contract_line}}
+</div>
+
+<p class="greeting-open">Sehr geehrte Damen und Herren,</p>
+
+<p>hiermit kündige ich meine oben genannte Fitnessstudio-Mitgliedschaft <strong>{{termination_line}}</strong>{{hilfsweise}} gemäß <strong>§ 621 BGB</strong> in Verbindung mit den vereinbarten Vertragsbedingungen.</p>
+
+<p>Im Einzelnen bitte ich Sie um Folgendes:</p>
+
+<ol class="requests">
+  <li><strong>Schriftliche Bestätigung</strong> der Kündigung unter Angabe des konkreten Beendigungsdatums.</li>
+  <li><strong>Widerruf des SEPA-Lastschriftmandats</strong> mit Wirkung zum Vertragsende. Ab diesem Zeitpunkt wird die Einzugsermächtigung widerrufen; weitere Abbuchungen sind unzulässig.</li>
+  <li><strong>Löschung meiner personenbezogenen Daten</strong> nach Ablauf der gesetzlichen Aufbewahrungsfristen gemäß Art. 17 DSGVO.</li>
+  <li><strong>Mitteilung über noch ausstehende Forderungen oder Guthaben</strong> sowie deren Auszahlung auf das hinterlegte Konto.</li>
+</ol>
+
+<p>Sollte eine Kündigung zum gewünschten Zeitpunkt nicht möglich sein, bitte ich um schriftliche Mitteilung des nächstzulässigen Kündigungstermins. Diese Kündigung erfolgt in Textform gemäß § 126b BGB.</p>
+
+<div class="legal-note">
+  <strong>Hinweis:</strong> Sollte eine automatische Vertragsverlängerung in den AGB vereinbart sein, weise ich diese hiermit ausdrücklich zurück. Eine stillschweigende Verlängerung wird nicht akzeptiert.
+</div>
+
+<div class="greeting-close">Mit freundlichen Grüßen</div>
+<table class="sig-table"><tr><td>{{name}}</td></tr></table>
+
+<div class="footer">
+  ERSTELLT MIT KÜNDIGUNGEXPRESS.DE  ·  MUSTER-VORLAGE, KEINE RECHTSBERATUNG
+</div>
+
+</body>
+</html>
