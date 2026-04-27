@@ -2,12 +2,13 @@
 declare(strict_types=1);
 
 $type = $_GET['type'] ?? ($_POST['type'] ?? 'fitness');
-$type = in_array($type, ['fitness', 'handy'], true) ? $type : 'fitness';
+$type = in_array($type, ['fitness', 'handy', 'kfz'], true) ? $type : 'fitness';
 $anbieter = $_GET['anbieter'] ?? ($_POST['anbieter'] ?? '');
 
 $isHandy = $type === 'handy';
-$ctaText  = $isHandy ? 'Handyvertrag kündigen – kostenlos' : 'Fitness kündigen – kostenlos';
-$title    = $isHandy ? 'Handyvertrag kündigen' : 'Fitnessstudio kündigen';
+$isKfz   = $type === 'kfz';
+$ctaText  = $isKfz ? 'KFZ-Versicherung kündigen – kostenlos' : ($isHandy ? 'Handyvertrag kündigen – kostenlos' : 'Fitness kündigen – kostenlos');
+$title    = $isKfz ? 'KFZ-Versicherung kündigen' : ($isHandy ? 'Handyvertrag kündigen' : 'Fitnessstudio kündigen');
 ?>
 <!doctype html>
 <html lang="de" data-type="<?= htmlspecialchars($type) ?>">
@@ -24,8 +25,8 @@ $title    = $isHandy ? 'Handyvertrag kündigen' : 'Fitnessstudio kündigen';
 <meta name="theme-color" content="#16A34A">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="robots" content="noindex, nofollow">
-<title><?= $isHandy ? 'Handyvertrag kündigen – Kostenlos als PDF' : 'Fitnessstudio kündigen – Kostenlos als PDF' ?> | KündigungExpress</title>
-<meta name="description" content="<?= $isHandy ? 'Handyvertrag kündigen: Daten eingeben, PDF sofort kostenlos herunterladen. Kein Abo, keine Registrierung.' : 'Fitnessstudio kündigen: Daten eingeben, PDF sofort kostenlos herunterladen. Kein Abo, keine Registrierung.' ?>">
+<title><?= $isKfz ? 'KFZ-Versicherung kündigen – Kostenlos als PDF' : ($isHandy ? 'Handyvertrag kündigen – Kostenlos als PDF' : 'Fitnessstudio kündigen – Kostenlos als PDF') ?> | KündigungExpress</title>
+<meta name="description" content="<?= $isKfz ? 'KFZ-Versicherung kündigen: Daten eingeben, PDF sofort kostenlos herunterladen. Kein Abo, keine Registrierung.' : ($isHandy ? 'Handyvertrag kündigen: Daten eingeben, PDF sofort kostenlos herunterladen. Kein Abo, keine Registrierung.' : 'Fitnessstudio kündigen: Daten eingeben, PDF sofort kostenlos herunterladen. Kein Abo, keine Registrierung.') ?>">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <style>
@@ -472,7 +473,7 @@ footer a:hover { color: #334155; }
   </div>
 
   <div class="page-title">
-    <h1><?= $isHandy ? '📱 Handyvertrag kündigen' : '🏋️ Fitnessstudio kündigen' ?></h1>
+    <h1><?= $isKfz ? '🚗 KFZ-Versicherung kündigen' : ($isHandy ? '📱 Handyvertrag kündigen' : '🏋️ Fitnessstudio kündigen') ?></h1>
     <div class="social-proof-form">
       <span>👥</span>
       <span><strong><?php $c=file_exists(__DIR__.'/_counter.txt')?(int)file_get_contents(__DIR__.'/_counter.txt'):1247; echo number_format($c,0,',','.'); ?></strong> Kündigungen bereits erstellt</span>
@@ -525,22 +526,22 @@ footer a:hover { color: #334155; }
 
     <div class="section">
       <div class="section-header">
-        <div class="section-icon"><?= $isHandy ? '📡' : '🏋️' ?></div>
-        <h2><?= $isHandy ? 'Mobilfunkanbieter' : 'Fitnessstudio' ?></h2>
+        <div class="section-icon"><?= $isKfz ? '🚗' : ($isHandy ? '📡' : '🏋️') ?></div>
+        <h2><?= $isKfz ? 'Versicherer' : ($isHandy ? 'Mobilfunkanbieter' : 'Fitnessstudio') ?></h2>
       </div>
       <div class="grid">
         <div class="field full">
-          <label><?= $isHandy ? 'Anbieter *' : 'Fitnessstudio *' ?></label>
+          <label><?= $isKfz ? 'Versicherer *' : ($isHandy ? 'Anbieter *' : 'Fitnessstudio *') ?></label>
           <input
             type="text"
             name="anbieter"
             value="<?= htmlspecialchars($anbieter) ?>"
-            placeholder="<?= $isHandy ? 'z. B. Vodafone, Telekom, O2' : 'z. B. McFit, FitX, Clever Fit' ?>"
+            placeholder="<?= $isKfz ? 'z. B. Allianz, HUK-COBURG, ERGO' : ($isHandy ? 'z. B. Vodafone, Telekom, O2' : 'z. B. McFit, FitX, Clever Fit') ?>"
             required
           >
         </div>
         <div class="field full optional-section" style="display:block;">
-          <div style="font-size:12px;font-weight:700;color:#334155;text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px;">Adresse des <?= $isHandy ? 'Anbieters' : 'Studios' ?> <span style="font-weight:400;text-transform:none">(optional)</span></div>
+          <div style="font-size:12px;font-weight:700;color:#334155;text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px;">Adresse des <?= $isKfz ? 'Versicherers' : ($isHandy ? 'Anbieters' : 'Studios') ?> <span style="font-weight:400;text-transform:none">(optional)</span></div>
           <div class="hint" style="margin-bottom:10px; color: #16A34A;"><strong>Nicht zwingend erforderlich:</strong> Lassen Sie die Felder leer, falls Sie die Adresse nicht kennen. Das Kündigungsschreiben ist auch ohne diese Angabe zu 100% rechtsgültig.</div>
           <div class="grid" style="margin:0;">
             <div class="field full">
@@ -583,10 +584,17 @@ footer a:hover { color: #334155; }
         <span class="opt-badge">Optional</span>
       </div>
       <div class="field">
-        <label>Vertragsnummer</label>
-        <input name="contractNo" placeholder="z. B. 12345678">
-        <div class="hint">Steht auf Ihrer Rechnung oben rechts oder in der Anbieter-App unter „Mein Vertrag". Optional — ohne Nummer ist die Kündigung trotzdem gültig.</div>
+        <label><?= $isKfz ? 'Versicherungsschein-Nr.' : 'Vertragsnummer' ?></label>
+        <input name="contractNo" placeholder="<?= $isKfz ? 'z. B. VS-123456789' : 'z. B. 12345678' ?>">
+        <div class="hint"><?= $isKfz ? 'Steht auf Ihrem Versicherungsschein oder in der Beitragsrechnung. Optional — ohne Nummer ist die Kündigung trotzdem gültig.' : 'Steht auf Ihrer Rechnung oben rechts oder in der Anbieter-App unter „Mein Vertrag". Optional — ohne Nummer ist die Kündigung trotzdem gültig.' ?></div>
       </div>
+      <?php if ($isKfz): ?>
+      <div class="field" style="margin-top:12px;">
+        <label>Kennzeichen <span style="font-weight:400;text-transform:none;letter-spacing:0">(optional)</span></label>
+        <input name="plate" placeholder="z. B. OF-KE 123">
+        <div class="hint">Das amtliche Kennzeichen Ihres Fahrzeugs. Hilft bei der eindeutigen Zuordnung.</div>
+      </div>
+      <?php endif; ?>
     </div>
 
     <div class="section">
@@ -599,13 +607,13 @@ footer a:hover { color: #334155; }
         <div class="checkbox-row" style="margin-bottom:12px;">
           <input id="sendEmail" name="sendEmail" type="checkbox" value="1">
           <div class="checkbox-label">
-            <b>Kündigung direkt ans <?= $isHandy ? 'Unternehmen' : 'Fitnessstudio' ?> senden</b>
+            <b>Kündigung direkt ans <?= $isKfz ? 'Versicherungsunternehmen' : ($isHandy ? 'Unternehmen' : 'Fitnessstudio') ?> senden</b>
             <div class="hint">Das PDF bleibt immer zusätzlich als Download verfügbar.</div>
           </div>
         </div>
         <div class="field">
-          <label>E-Mail des <?= $isHandy ? 'Anbieters' : 'Studios' ?> <span id="providerReq" style="color:var(--primary);display:none;">*</span></label>
-          <input id="providerEmail" name="providerEmail" type="email" placeholder="<?= $isHandy ? 'service@anbieter.de' : 'service@studio.de' ?>">
+          <label>E-Mail des <?= $isKfz ? 'Versicherers' : ($isHandy ? 'Anbieters' : 'Studios') ?> <span id="providerReq" style="color:var(--primary);display:none;">*</span></label>
+          <input id="providerEmail" name="providerEmail" type="email" placeholder="<?= $isKfz ? 'service@versicherung.de' : ($isHandy ? 'service@anbieter.de' : 'service@studio.de') ?>">
           <div class="hint" id="providerHint">Nur notwendig wenn oben aktiviert.</div>
         </div>
       </div>

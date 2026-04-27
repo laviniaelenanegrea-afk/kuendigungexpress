@@ -1,3 +1,10 @@
+# --- Force www (canonical domain) ---
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{HTTP_HOST} !^www\. [NC]
+  RewriteRule ^ https://www.%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+</IfModule>
+
 # --- Custom error pages ---
 ErrorDocument 404 /404.html
 
@@ -14,11 +21,43 @@ ErrorDocument 404 /404.html
   Require all denied
 </Files>
 
-# --- Protect private folders (recommended) ---
-# (In case there isn't already a separate .htaccess inside those folders)
-
 # --- Redirect old form URL to the new PHP form ---
 Redirect 301 /formular.html /formular.php
+
+# --- MIME Types ---
+<IfModule mod_mime.c>
+    AddType text/css .css
+    AddType text/javascript .js
+    AddType application/javascript .js
+    AddType application/json .json
+    AddType image/svg+xml .svg
+    AddType font/woff2 .woff2
+</IfModule>
+
+# --- Gzip Compression ---
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html
+    AddOutputFilterByType DEFLATE text/css
+    AddOutputFilterByType DEFLATE text/javascript
+    AddOutputFilterByType DEFLATE application/javascript
+    AddOutputFilterByType DEFLATE application/json
+    AddOutputFilterByType DEFLATE image/svg+xml
+    AddOutputFilterByType DEFLATE font/woff2
+</IfModule>
+
+# --- Browser Cache Headers ---
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType text/css "access plus 1 month"
+    ExpiresByType text/javascript "access plus 1 month"
+    ExpiresByType application/javascript "access plus 1 month"
+    ExpiresByType image/jpeg "access plus 3 months"
+    ExpiresByType image/png "access plus 3 months"
+    ExpiresByType image/webp "access plus 3 months"
+    ExpiresByType image/svg+xml "access plus 3 months"
+    ExpiresByType font/woff2 "access plus 6 months"
+    ExpiresByType text/html "access plus 1 hour"
+</IfModule>
 
 # --- Security Headers ---
 <IfModule mod_headers.c>

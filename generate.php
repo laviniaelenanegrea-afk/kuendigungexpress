@@ -76,7 +76,8 @@ $terminationMode = (string)($_POST['terminationMode'] ?? 'next_possible');
 $terminationDate = clean_text((string)($_POST['terminationDate'] ?? ''));
 $providerEmail   = clean_text((string)($_POST['providerEmail'] ?? ''));
 $sendEmail       = isset($_POST['sendEmail']) ? '1' : '0';
-$type            = ($_POST['type'] ?? 'fitness') === 'handy' ? 'handy' : 'fitness';
+$type            = ($_POST['type'] ?? 'fitness');
+$type            = in_array($type, ['handy', 'fitness', 'kfz'], true) ? $type : 'fitness';
 
 if ($firstName==='' || $lastName==='' || $street==='' || $zip==='' || $city==='' || $studio==='') {
     fehler('Bitte füllen Sie alle Pflichtfelder aus: Vorname, Nachname, Adresse und Vertragspartner.', $CONTACT_EMAIL);
@@ -113,6 +114,8 @@ $address = $street . "\n" . $zip . ' ' . $city;
 $studioAddress = trim(($studioStreet ?? '') . "\n" . ($studioZip ?? '') . ' ' . ($studioCity ?? ''));
 $emailLine = !empty($email) ? '<div class="meta-email">E-Mail: ' . htmlspecialchars($email) . '</div>' : '';
 $contractLine = !empty($contractNo) ? 'mit der Vertragsnummer ' . htmlspecialchars($contractNo) : 'ohne Vertragsnummer';
+$plate         = clean_text((string)($_POST['plate'] ?? ''));
+$plateLine     = !empty($plate) ? htmlspecialchars($plate) : 'nicht angegeben';
 $terminationLine = ($terminationMode === 'specific_date' && !empty($terminationDate))
     ? 'zum ' . htmlspecialchars(date('d.m.Y', strtotime($terminationDate)))
     : 'zum nächstmöglichen Zeitpunkt';
@@ -122,9 +125,13 @@ $hilfsweise = ($terminationMode === 'specific_date' && !empty($terminationDate))
     ? ', hilfsweise zum nächstmöglichen Zeitpunkt,'
     : '';
 
-$templateFile = $type === 'handy'
-    ? __DIR__ . '/templates/handy-kuendigung.html'
-    : __DIR__ . '/templates/fitness-kuendigung.html';
+if ($type === 'kfz') {
+    $templateFile = __DIR__ . '/templates/kfz-kuendigung.html';
+} elseif ($type === 'handy') {
+    $templateFile = __DIR__ . '/templates/handy-kuendigung.html';
+} else {
+    $templateFile = __DIR__ . '/templates/fitness-kuendigung.html';
+}
 
 if (!file_exists($templateFile)) {
     fehler('PDF-Vorlage nicht gefunden. Bitte kontaktieren Sie uns.', $CONTACT_EMAIL);
@@ -133,10 +140,10 @@ if (!file_exists($templateFile)) {
 $template = file_get_contents($templateFile);
 $html = str_replace(
     ['{{name}}', '{{address}}', '{{studio}}', '{{studio_address}}', '{{email_line}}',
-     '{{contract_line}}', '{{termination_line}}', '{{date}}', '{{city}}', '{{hilfsweise}}'],
+     '{{contract_line}}', '{{termination_line}}', '{{date}}', '{{city}}', '{{hilfsweise}}', '{{plate_line}}'],
     [nl2br(htmlspecialchars($name)), nl2br(htmlspecialchars($address)),
      htmlspecialchars($studio), nl2br(htmlspecialchars($studioAddress)),
-     $emailLine, $contractLine, $terminationLine, date('d.m.Y'), htmlspecialchars($city), $hilfsweise],
+     $emailLine, $contractLine, $terminationLine, date('d.m.Y'), htmlspecialchars($city), $hilfsweise, $plateLine],
     $template
 );
 
@@ -184,9 +191,13 @@ $downloadUrl = '/pdf/' . $filename;
    EMAIL (OPTIONAL)
    ========================================================= */
 $emailSent = false;
-$mailBody = $type === 'handy'
-    ? "Sehr geehrte Damen und Herren,\n\nanbei erhalten Sie meine Kündigung als PDF.\n\nHiermit kündige ich meinen Mobilfunkvertrag fristgerecht " . strip_tags($terminationLine) . " gemäß § 56 TKG.\n\nMit freundlichen Grüßen\n" . $name
-    : "Sehr geehrte Damen und Herren,\n\nanbei erhalten Sie meine Kündigung als PDF.\n\nHiermit kündige ich meine Mitgliedschaft fristgerecht " . strip_tags($terminationLine) . " gemäß § 621 BGB.\n\nMit freundlichen Grüßen\n" . $name;
+if ($type === 'kfz') {
+    $mailBody = "Sehr geehrte Damen und Herren,\n\nanbei erhalten Sie meine Kündigung als PDF.\n\nHiermit kündige ich meine KFZ-Versicherung fristgerecht " . strip_tags($terminationLine) . " zum Ablauf des laufenden Versicherungsjahres.\n\nMit freundlichen Grüßen\n" . $name;
+} elseif ($type === 'handy') {
+    $mailBody = "Sehr geehrte Damen und Herren,\n\nanbei erhalten Sie meine Kündigung als PDF.\n\nHiermit kündige ich meinen Mobilfunkvertrag fristgerecht " . strip_tags($terminationLine) . " gemäß § 56 TKG.\n\nMit freundlichen Grüßen\n" . $name;
+} else {
+    $mailBody = "Sehr geehrte Damen und Herren,\n\nanbei erhalten Sie meine Kündigung als PDF.\n\nHiermit kündige ich meine Mitgliedschaft fristgerecht " . strip_tags($terminationLine) . " gemäß § 621 BGB.\n\nMit freundlichen Grüßen\n" . $name;
+}
 
 if ($sendEmail === '1' && !empty($providerEmail)) {
     try {
@@ -207,7 +218,7 @@ if ($sendEmail === '1' && !empty($providerEmail)) {
             $mail->addReplyTo($email, $name);
         }
         $mail->addAttachment($pdfDir . '/' . $filename, 'Kuendigung-' . $providerSlug . '.pdf');
-        $mail->Subject = ($type === 'handy' ? 'Kündigung meines Mobilfunkvertrags – ' : 'Kündigung meiner Fitnessstudio-Mitgliedschaft – ') . $name;
+        $mail->Subject = ($type === 'kfz' ? 'Kündigung meiner KFZ-Versicherung – ' : ($type === 'handy' ? 'Kündigung meines Mobilfunkvertrags – ' : 'Kündigung meiner Fitnessstudio-Mitgliedschaft – ')) . $name;
         $mail->Body = $mailBody;
         $mail->send();
         $emailSent = true;
@@ -243,6 +254,7 @@ if (!empty($email) && filter_var($email, FILTER_VALIDATE_EMAIL)) {
    SUCCESS PAGE — Download + Affiliate CTA
    ========================================================= */
 $isHandy = $type === 'handy';
+$isKfz   = $type === 'kfz';
 ?>
 <!doctype html>
 <html lang="de">
@@ -263,14 +275,15 @@ $isHandy = $type === 'handy';
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:Arial,sans-serif;background:var(--bg);color:var(--text);display:flex;flex-direction:column;min-height:100vh}
 .wrap{max-width:640px;margin:0 auto;padding:32px 20px 8px;flex:1;display:flex;flex-direction:column;gap:16px}
-.success-card{background:var(--card);border:1px solid var(--border);border-radius:24px;padding:36px 32px;text-align:center;box-shadow:0 8px 32px rgba(22,163,74,0.08)}
+/* Modificat padding de la 36px la 24px vertical */
+.success-card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:20px 32px;text-align:center;box-shadow:0 8px 32px rgba(22,163,74,0.08)}
 .check-circle{width:68px;height:68px;background:linear-gradient(135deg,#16A34A,#22C55E);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:34px;color:#fff;font-weight:900;line-height:1;box-shadow:0 6px 18px rgba(22,163,74,0.3)}
 .saved-banner{background:#F0FDF4;border:1px solid rgba(22,163,74,0.25);border-radius:12px;padding:12px 16px;font-size:14px;color:#15803D;font-weight:600;margin-bottom:18px;line-height:1.5;}
 .success-card h1{font-size:clamp(20px,4vw,26px);font-weight:900;margin-bottom:8px}
 .success-card p{font-size:14px;color:var(--muted);line-height:1.7;margin-bottom:22px;max-width:420px;margin-left:auto;margin-right:auto}
 .btn-download{display:block;background:var(--green);color:#fff;padding:16px 28px;border-radius:16px;font-weight:900;font-size:17px;text-decoration:none;transition:filter .15s;box-shadow:0 6px 18px rgba(22,163,74,0.28);margin-bottom:12px}
 .btn-download:hover{filter:brightness(.95)}
-.preview-link{display:block;text-align:center;font-size:13px;color:var(--muted);text-decoration:none;margin-bottom:14px;padding:4px;transition:color .15s}
+.preview-link{display:block;text-align:center;font-size:13px;color:var(--muted);text-decoration:none;margin-bottom:8px;padding:4px;transition:color .15s}
 .preview-link:hover{color:var(--green);text-decoration:underline}
 .email-note{background:#F0FDF4;border:1px solid #BBF7D0;border-radius:12px;padding:12px 16px;font-size:13px;color:#166534;margin-bottom:12px}
 .next-steps{background:var(--bg);border:1px solid var(--border);border-radius:14px;padding:16px 18px;text-align:left;margin-top:8px}
@@ -302,7 +315,7 @@ body{font-family:Arial,sans-serif;background:var(--bg);color:var(--text);display
 .aff-transparency{font-size:12px;color:#94A3B8;text-align:center;margin-top:14px;line-height:1.6;padding-top:12px;border-top:1px solid var(--border)}
 .saved-line{background:#F0FDF4;border:1px solid #BBF7D0;border-radius:10px;padding:10px 14px;font-size:13px;color:#166534;text-align:center;margin-top:12px;line-height:1.5}
 .warum-kostenlos{font-size:12px;color:#94A3B8;text-align:center;margin-top:10px;line-height:1.6}
-.aff-btn-check24{background:#2563EB;color:#fff}
+.aff-btn-check24{background:#1E40AF;color:#fff}
 .aff-btn-telekom{background:#E20074;color:#fff}
 .aff-note{font-size:11px;color:#94A3B8;text-align:center;margin-top:6px}
 .email-capture{background:#F0FDF4;border:1px solid #BBF7D0;border-radius:14px;padding:20px 18px}
@@ -372,7 +385,7 @@ footer p:last-child{margin-bottom:0 !important}
     <h1>Ihr Kündigungsschreiben ist fertig</h1>
     <p>Dein PDF wird automatisch heruntergeladen (Bitte kurz warten...). Drucke es anschließend aus und verschicke es.</p>
     <a class="btn-download" id="autoDownloadBtn" href="<?= htmlspecialchars($downloadUrl) ?>" download="Kuendigung-<?= htmlspecialchars($providerSlug) ?>.pdf">
-      📄 Falls der Download nicht startet: PDF manuell laden
+      Download startet nicht? Hier klicken.
     </a>
     <a class="preview-link" href="<?= htmlspecialchars($downloadUrl) ?>" target="_blank" rel="noopener">
       Vorher ansehen (in neuem Tab)
@@ -383,23 +396,30 @@ footer p:last-child{margin-bottom:0 !important}
   </div>
 
   <div class="affiliate-card">
-    <?php if ($isHandy): ?>
-    <h2>Achtung: Vermeide teure Offline-Zeiten!</h2>
-    <p>Die Kündigung bei <strong><?= htmlspecialchars($studio) ?></strong> ist vorbereitet. Da ein Anbieterwechsel oft bis zu 14 Tage dauert, sollten Sie jetzt sofort Ihren neuen Tarif sichern. Vermeiden Sie es, ohne Netz dazustehen, und profitieren Sie von bis zu <strong>240 € Wechselbonus</strong>!</p>
-    <a href="https://a.check24.net/misc/click.php?pid=1169420&aid=18&deep=handytarife&cat=7"
-       class="aff-btn aff-btn-check24" target="_blank" rel="nofollow sponsored" data-aff="check24-handy">
-      📱 Günstigeren Handytarif finden · CHECK24 →
+    <?php if ($isKfz): ?>
+    <h2>Nächster Schritt: Günstigere KFZ-Versicherung finden</h2>
+    <p>Die Kündigung bei <strong><?= htmlspecialchars($studio) ?></strong> ist vorbereitet. Vergleichen Sie jetzt Tarife und sparen Sie bis zu 50% beim Wechsel.</p>
+    <a href="https://a.check24.net/misc/click.php?pid=1169420&aid=18&deep=kfz-versicherung&cat=1"
+       class="aff-btn aff-btn-check24" target="_blank" rel="nofollow sponsored" data-aff="check24-kfz">
+      KFZ-Versicherung vergleichen · CHECK24
     </a>
-    <a href="https://www.awin1.com/awclick.php?gid=361937&mid=11430&awinaffid=2838186&linkid=4581534&clickref=generate"
-       class="aff-btn aff-btn-telekom" target="_blank" rel="nofollow sponsored" data-aff="telekom-awin">
-      Direkt zu Telekom wechseln · MagentaMobil →
+    <?php elseif ($isHandy): ?>
+    <h2>Nächster Schritt: Günstigeren Tarif sichern</h2>
+    <p>Die Kündigung bei <strong><?= htmlspecialchars($studio) ?></strong> ist vorbereitet. Wechseln Sie jetzt – im gleichen Netz oder zu einem anderen Anbieter.</p>
+    <a href="https://www.tariffuxx.de/handytarife?r=1126248&subid=generate-<?= htmlspecialchars($providerSlug) ?>"
+       class="aff-btn" style="background:#3B82F6;color:#fff;margin-bottom:10px;" target="_blank" rel="nofollow sponsored" data-aff="tariffuxx-generate">
+      Im gleichen Netz bleiben &amp; sparen → Tariffuxx
+    </a>
+    <a href="https://a.check24.net/misc/click.php?pid=1169420&aid=18&deep=handytarife&cat=7"
+       class="aff-btn" style="background:#1E40AF;color:#fff;font-weight:700;" target="_blank" rel="nofollow sponsored" data-aff="check24-handy">
+      Alle Anbieter vergleichen · CHECK24
     </a>
     <?php else: ?>
-    <h2>Kündigung fertig! Zeit für den nächsten Schritt.</h2>
-    <p>Sie verlassen <strong><?= htmlspecialchars($studio) ?></strong>. Nutzen Sie den Schwung und prüfen Sie, ob Sie auch bei Ihrem Handytarif monatlich bares Geld sparen können.</p>
-    <a href="https://a.check24.net/misc/click.php?pid=1169420&aid=18&deep=handytarife&cat=7"
-       class="aff-btn aff-btn-check24" target="_blank" rel="nofollow sponsored" data-aff="check24-fitness">
-      📱 Handytarife kostenlos vergleichen · CHECK24 →
+    <h2>Zuhause weitertrainieren – ohne Mitgliedschaft</h2>
+    <p>Sie verlassen <strong><?= htmlspecialchars($studio) ?></strong>. Bleiben Sie fit – mit dem interaktiven Plankpad Balance Board für zuhause.</p>
+    <a href="https://www.awin1.com/awclick.php?gid=593291&mid=118181&awinaffid=2838186&linkid=4693133&clickref=fitness-generate"
+       class="aff-btn" style="background:#EA580C;color:#fff;" target="_blank" rel="nofollow sponsored" data-aff="plankpad-generate">
+      🏋️ Zuhause trainieren mit Plankpad → jetzt entdecken
     </a>
     <?php endif; ?>
   </div>

@@ -15,10 +15,13 @@ document.addEventListener('DOMContentLoaded', function () {
       req.style.display = 'inline';
       if (section) section.classList.add('is-active');
       const pageType = document.documentElement.dataset.type;
-      hint.textContent =
-        pageType === 'handy'
-          ? 'Pflichtfeld: E-Mail-Adresse des Anbieters — die Kündigung wird dorthin gesendet.'
-          : 'Pflichtfeld: E-Mail-Adresse des Fitnessstudios — die Kündigung wird dorthin gesendet.';
+      if (pageType === 'kfz') {
+        hint.textContent = 'Pflichtfeld: E-Mail-Adresse des Versicherers — die Kündigung wird dorthin gesendet.';
+      } else if (pageType === 'handy') {
+        hint.textContent = 'Pflichtfeld: E-Mail-Adresse des Anbieters — die Kündigung wird dorthin gesendet.';
+      } else {
+        hint.textContent = 'Pflichtfeld: E-Mail-Adresse des Fitnessstudios — die Kündigung wird dorthin gesendet.';
+      }
     } else {
       inp.required = false;
       inp.value = '';
