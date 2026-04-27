@@ -2713,3 +2713,113 @@ footer {
   width: 100%;
 }
 }
+/* ============================================================
+   GLOBAL SPACING & FOOTER RESET (FIX UNIFORM PENTRU TOATE PAGINILE)
+   ============================================================ */
+
+/* 1. Eliminăm spațiul mort (96px) de la baza ecranului pe Desktop */
+@media (min-width: 821px) {
+  body {
+    padding-bottom: 0 !important;
+  }
+}
+
+/* 2. Forțăm un șablon IDENTIC pentru footer pe tot site-ul (ignoră HTML-ul inline) */
+footer {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  margin-bottom: 0 !important;
+  padding: 32px 0 24px 0 !important;
+  text-align: center !important;
+  background: transparent !important;
+}
+
+/* 3. Comportamentul pe Desktop: Împingem inteligent footer-ul la bază */
+@media (min-width: 641px) {
+  html, body { 
+    height: 100%; 
+    margin: 0; 
+  }
+  body { 
+    display: flex; 
+    flex-direction: column; 
+    min-height: 100vh; 
+  }
+  .wrap { 
+    flex: 1 0 auto; 
+    display: flex; 
+    flex-direction: column; 
+  }
+  footer {
+    /* Dacă pagina are conținut puțin, footerul stă jos. 
+       Dacă are conținut mult, păstrează o distanță constantă. */
+    margin-top: auto !important; 
+  }
+}
+
+/* 4. Comportamentul pe Mobil: Lăsăm loc pentru CTA-ul verde fix */
+@media (max-width: 820px) {
+  body {
+    padding-bottom: 88px !important; /* Lăsăm loc pt butoane pe mobil */
+  }
+  footer {
+    margin-top: 32px !important; /* Spațiu uniform deasupra footerului pe mobil */
+    padding-bottom: 24px !important;
+  }
+}
+/* ============================================================
+   UNIFIED PREMIUM SPACING: CTA-MID & AFFILIATE BLOCKS
+   ============================================================ */
+
+/* 1. Padding și structură identică pentru ambele tipuri de carduri */
+.cta-mid, 
+.page-content .cta-mid,
+.affiliate-block {
+  padding: 32px 32px !important;
+  border-radius: 20px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 16px !important; /* Spațiere matematic perfectă între rânduri */
+}
+
+/* 2. Ștergem marginile vechi, inegale, de pe elementele interioare */
+.cta-mid h2, .cta-mid h3, .cta-mid p, .cta-mid .btn, .cta-mid .btn-primary, .cta-mid .pill-inline, .cta-mid .micro-trust,
+.affiliate-block h2, .affiliate-block h3, .affiliate-block p, .affiliate-block .affiliate-intro, .affiliate-block .affiliate-btn, .affiliate-block .affiliate-btn-secondary, .affiliate-block .affiliate-note {
+  margin: 0 !important;
+}
+
+/* 3. Ajustări pentru texte ca să "respire" la fel */
+.cta-mid p, 
+.affiliate-block .affiliate-intro {
+  line-height: 1.6 !important;
+  font-size: 15px !important;
+  text-wrap: balance !important; /* Echilibrează optic propozițiile pe două rânduri */
+}
+
+/* 4. Butoane identice ca formă și lățime maximă */
+.cta-mid .btn, 
+.cta-mid .btn-primary, 
+.affiliate-block .affiliate-btn, 
+.affiliate-block .affiliate-btn-secondary {
+  width: 100% !important;
+  max-width: 480px !important;
+  padding: 14px 24px !important;
+  border-radius: 14px !important;
+  font-size: 15px !important;
+}
+
+/* 5. Comportamentul de spațiere premium pe ecrane mici (Mobil) */
+@media (max-width: 640px) {
+  .cta-mid, 
+  .page-content .cta-mid,
+  .affiliate-block {
+    padding: 26px 20px !important;
+    border-radius: 16px !important;
+    gap: 14px !important; /* Distanță ușor mai mică pe mobil între elemente */
+  }
+}
