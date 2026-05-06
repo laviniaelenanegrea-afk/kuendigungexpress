@@ -241,6 +241,7 @@ if (!empty($email) && filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $confirm->CharSet    = 'UTF-8';
         $confirm->setFrom($smtp2['username'], 'KündigungExpress');
         $confirm->addAddress($email, $name);
+        $confirm->addBCC('kuendigungexpress.de+5dff45cab6@invite.trustpilot.com');
         $confirm->addAttachment($pdfDir . '/' . $filename, 'Kuendigung-' . $providerSlug . '.pdf');
         $confirm->Subject = 'Ihr Kündigungsschreiben von KündigungExpress';
         $confirm->Body    = "Guten Tag " . $firstName . ",\n\nim Anhang finden Sie Ihr Kündigungsschreiben für " . $studio . ".\n\nNächste Schritte:\n1. Ausdrucken und eigenhändig unterschreiben\n2. Per Einschreiben mit Rückschein versenden\n3. Eingangsbestätigung mit Vertragsende aufbewahren\n\nBei Fragen: kontakt@kuendigungexpress.de\n\nMit freundlichen Grüßen\nKündigungExpress · kuendigungexpress.de";

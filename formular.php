@@ -4,6 +4,7 @@ declare(strict_types=1);
 $type = $_GET['type'] ?? ($_POST['type'] ?? 'fitness');
 $type = in_array($type, ['fitness', 'handy', 'kfz'], true) ? $type : 'fitness';
 $anbieter = $_GET['anbieter'] ?? ($_POST['anbieter'] ?? '');
+$isRSG = in_array(strtolower(trim($anbieter)), ['mcfit', 'john reed', 'john-reed', 'johnreed'], true);
 
 $isHandy = $type === 'handy';
 $isKfz   = $type === 'kfz';
@@ -597,6 +598,24 @@ footer a:hover { color: #334155; }
       <?php endif; ?>
     </div>
 
+    <?php if ($isRSG): ?>
+    <div class="section">
+      <div class="section-header">
+        <div class="section-icon">⚠️</div>
+        <h2>Kündigung per E-Mail nicht mehr möglich</h2>
+      </div>
+      <div style="background:#FEF9C3;border:1px solid #FDE68A;border-left:4px solid #F59E0B;border-radius:12px;padding:16px 20px;">
+        <p style="margin:0 0 10px;font-weight:700;font-size:14px;color:#92400E;">RSG Group akzeptiert keine E-Mail-Kündigungen mehr</p>
+        <p style="margin:0 0 12px;font-size:13px;color:#78350F;line-height:1.65;">Die RSG Group (McFit &amp; John Reed) hat die E-Mail-Adresse für Kündigungen abgeschaltet. Kündigungen müssen ab sofort über das offizielle Kontaktformular eingereicht werden.</p>
+        <?php if (stripos($anbieter, 'john') !== false): ?>
+        <a href="https://help.johnreed.fitness/hc/de" target="_blank" rel="nofollow noopener" style="display:inline-block;background:#DC2626;color:#FFFFFF;font-size:13px;font-weight:700;padding:11px 20px;border-radius:10px;text-decoration:none;">John Reed Kontaktformular öffnen →</a>
+        <?php else: ?>
+        <a href="https://hilfe.mcfit.com/hc/de" target="_blank" rel="nofollow noopener" style="display:inline-block;background:#DC2626;color:#FFFFFF;font-size:13px;font-weight:700;padding:11px 20px;border-radius:10px;text-decoration:none;">McFit Kontaktformular öffnen →</a>
+        <?php endif; ?>
+        <p style="margin:10px 0 0;font-size:12px;color:#78350F;">Ihr PDF können Sie trotzdem herunterladen und dort hochladen oder per Post versenden.</p>
+      </div>
+    </div>
+    <?php else: ?>
     <div class="section">
       <div class="section-header">
         <div class="section-icon">✉️</div>
@@ -618,6 +637,7 @@ footer a:hover { color: #334155; }
         </div>
       </div>
     </div>
+    <?php endif; ?>
 
     <div class="summary-box" style="flex-direction: column; gap: 12px;">
       <div class="summary-price">Kostenlos · Sofort als PDF</div>
@@ -634,13 +654,16 @@ footer a:hover { color: #334155; }
             <div style="color: #15803D; font-weight: 600; font-size: 11px;">
         🛡️ Ihre Daten werden nicht gespeichert und nach der PDF-Erstellung sofort gelöscht.
       </div>
+      <div style="color: #64748B; font-size: 11px; line-height: 1.5;">
+        Falls Sie eine E-Mail-Adresse angeben, erhalten Sie Ihr Kündigungsschreiben per E-Mail sowie eine Einladung zur Bewertung über Trustpilot.
+      </div>
     </div>
 
   </form>
 
   <footer>
     <p>Hinweis: Keine Rechtsberatung. Es werden allgemein anerkannte Standardformulierungen verwendet.</p>
-    <p><a href="/impressum.html">Impressum</a> · <a href="/datenschutz.html">Datenschutz</a></p>
+    <p><a href="/impressum.html">Impressum</a> · <a href="/datenschutz.html">Datenschutz</a> · <a href="/hilfe.html">Hilfe</a></p>
     <p>Erstellt mit <a href="https://digital-firmen.de" target="_blank">digital-firmen.de</a></p>
   </footer>
 </div>

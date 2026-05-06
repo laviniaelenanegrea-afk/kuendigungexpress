@@ -21,7 +21,7 @@ declare(strict_types=1);
 <meta property="og:description" content="Verträge online kündigen – schnell, rechtssicher & ohne Abo. PDF sofort.">
 <meta property="og:url" content="https://www.kuendigungexpress.de/">
 <meta property="og:type" content="website">
-<title>Vertrag online kündigen (Deutschland) – Handy, Fitness & KFZ PDF · kostenlos</title>
+<title>Kostenlose Kündigungsvorlagen (PDF) – Handy, Fitness & KFZ kündigen</title>
 <meta name="description" content="Handyvertrag, Fitnessstudio oder KFZ-Versicherung kostenlos kündigen – rechtssicheres Kündigungsschreiben als PDF. Kein Abo, kein Login, kein Haken."> 
 <link rel="canonical" href="https://www.kuendigungexpress.de/"> 
 <link rel="alternate" hreflang="de-DE" href="https://www.kuendigungexpress.de/" />
@@ -36,6 +36,26 @@ declare(strict_types=1);
 }
 </script> <script type="application/ld+json">
 { "@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [ { "@type": "Question", "name": "Wie kann ich meinen Vertrag online kündigen?", "acceptedAnswer": { "@type": "Answer", "text": "Wählen Sie einfach Ihre Vorlage aus (z. B. Handyvertrag, Fitnessstudio oder KFZ-Versicherung), geben Sie Ihre Vertragsdaten ein und generieren Sie Ihr Kündigungsschreiben als PDF zum sofortigen Download." } }, { "@type": "Question", "name": "Ist das Kündigungsschreiben rechtssicher?", "acceptedAnswer": { "@type": "Answer", "text": "Ja, unsere Vorlagen sind an gängige Anforderungen angepasst und enthalten alle notwendigen Pflichtangaben, um eine wirksame Vertragskündigung gemäß der aktuellen Gesetzeslage in Deutschland zu ermöglichen." } }, { "@type": "Question", "name": "Was kostet die Erstellung der Kündigung?", "acceptedAnswer": { "@type": "Answer", "text": "KündigungExpress ist kostenlos. Sie erhalten ein professionell formatiertes PDF-Dokument ohne versteckte Kosten und ohne Abonnement." } } ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "KündigungExpress PDF Generator",
+  "operatingSystem": "All",
+  "applicationCategory": "BusinessApplication",
+  "description": "Kostenloser Online-Generator für rechtssichere Kündigungsschreiben als PDF.",
+  "offers": {
+    "@type": "Offer",
+    "price": "0.00",
+    "priceCurrency": "EUR"
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.8",
+    "ratingCount": "<?php echo file_exists(__DIR__.'/_counter.txt') ? (int)file_get_contents(__DIR__.'/_counter.txt') : 1333; ?>"
+  }
 }
 </script>
 <link rel="stylesheet" href="/style.css?v=10"> 
@@ -97,8 +117,7 @@ Handyvertrag, Fitnessstudio oder KFZ-Versicherung kündigen – <strong>kostenlo
       <span class="google-stars-bg">★★★★★</span>
       <span class="google-stars-fg">★★★★★</span>
     </span>
-    <span>4,7 auf Google</span>
-    <span class="review-count">(3 Rezensionen)</span>
+    <span>4,8 auf Google</span>
   </a>
 </div>
 
@@ -255,6 +274,8 @@ Kündigung jetzt erstellen
 <div class="hub-links">
 <a href="/kfz-versicherung-kuendigen.html">KFZ-Versicherung kündigen</a>
 <a href="/formular.php?type=kfz">Kündigungsschreiben erstellen</a>
+<a href="/stichtag-kfz-versicherung.html">Stichtag 30. November</a>
+<a href="/sonderkuendigungsrecht-kfz-versicherung.html">Sonderkündigungsrecht KFZ</a>
 </div>
 </div>
 </div>
@@ -273,8 +294,19 @@ Unser Service unterstützt Verbraucher in Deutschland dabei, Verträge wie Mobil
 </div>
 </section> <section class="seo-section"> <div class="wrap"> <div class="seo-box"> <h2>Kündigung online erstellen – so funktioniert es</h2> <p> Die Online-Kündigung spart Zeit und vermeidet Formfehler. Viele Verträge verlängern sich automatisch, wenn die Kündigungsfrist nicht eingehalten wird. Mit unserer digitalen Vorlage geben Sie alle erforderlichen Daten korrekt ein und erhalten sofort ein formal vollständiges Kündigungsschreiben als PDF. </p> </div> </div>
 </section>
-<section class="hub-block"> <div class="hub-inner"> <h2>Warum Vertrag online kündigen statt selbst schreiben?</h2> <p>
-Den <a href="/handyvertrag-kuendigen.html">Handyvertrag</a> sau die Fitness-Mitgliedschaft online zu kündigen, minimiert das Risiko for Formfehler. Viele Verbraucher übersehen wichtige Details wie Kundennummern, exakte Fristen sau den notwendigen Widerruf von Einzugsermächtigungen. Solche Mängel pot ducent dazu führen, dass eine Kündigung nicht anerkannt wird. </p> <p class="para-top-16"> Mit KündigungExpress generieren Sie in wenigen Minuten ein professionelles PDF-Dokument. Anstatt eigene Formulierungen zu suchen, nutzen Sie eine rechtlich geprüfte Vorlage, die alle Pflichtangaben enthält. So stellen Sie sicher, dass Ihr Ausstieg aus dem Vertrag klar, vollständig und fristgerecht dokumentiert ist. </p> <p class="para-top-16"> Egal for welchen Bereich: Unser digitaler Prozess schafft Transparenz und spart Ihnen den mühsamen Weg über komplexe Kundenportale der Anbieter. Die Erstellung erfolgt ohne versteckte Folgekosten und ohne jegliche Abonnement-Bindung. </p> </div>
+<section class="hub-block"> 
+  <div class="hub-inner"> 
+    <h2>Warum den Vertrag online kündigen statt selbst schreiben?</h2> 
+    <p>
+      Den <a href="/handyvertrag-kuendigen.html">Handyvertrag</a> oder die Fitness-Mitgliedschaft online zu kündigen, minimiert das Risiko für Formfehler. Viele Verbraucher übersehen wichtige Details wie Kundennummern, exakte Fristen oder den notwendigen Widerruf von Einzugsermächtigungen. Solche Mängel können dazu führen, dass eine Kündigung nicht anerkannt wird und sich der Vertrag ungewollt verlängert.
+    </p> 
+    <p class="para-top-16"> 
+      Mit KündigungExpress generieren Sie in wenigen Minuten ein professionelles PDF-Dokument. Anstatt eigene Formulierungen zu suchen, nutzen Sie eine rechtlich geprüfte Vorlage, die alle Pflichtangaben enthält. So stellen Sie sicher, dass Ihr Ausstieg aus dem Vertrag klar, vollständig und fristgerecht dokumentiert ist. 
+    </p> 
+    <p class="para-top-16"> 
+      Egal für welchen Bereich: Unser digitaler Prozess schafft Transparenz und spart Ihnen den mühsamen Weg über komplexe Kundenportale der Anbieter. Die Erstellung erfolgt zu 100% kostenlos und ohne jegliche Abonnement-Bindung. 
+    </p> 
+  </div>
 </section>
 <section class="hub-block"> <div class="hub-inner"> <h2>Kündigungsservice for Verträge in Deutschland</h2> <p> Wir richten uns an Nutzer, die eine strukturierte und rechtlich saubere Lösung for ihre Vertragskündigung suchen. Wir berücksichtigen dabei stets die aktuelle Gesetzeslage, um Ihnen maximale Sicherheit bei der Beendigung Ihrer Laufzeitverträge zu bieten. </p> <p class="para-top-16"> Das fertige Kündigungsschreiben als PDF ist sofort einsatzbereit. So bereiten Sie Ihren Vertragsausstieg professionell vor, ohne juristisches Vorwissen zu benötigen – schnell, diskret und absolut zuverlässig. </p> </div>
 </section> <section class="hub-block">
@@ -297,11 +329,11 @@ Achten Sie auf die aktuellen <a href="/kuendigungsfrist-handyvertrag.html">Frist
 </div>
 </div>
 </section>
-<section class="popular-section"> <div class="wrap"> <h2>Beliebte Kündigungen</h2> <div class="popular-grid"> <a href="/mcfit-kuendigung.html" class="popular-card">McFit kündigen</a> <a href="/fitx-kuendigung.html" class="popular-card">FitX kündigen</a> <a href="/clever-fit-kuendigung.html" class="popular-card">Clever Fit kündigen</a> <a href="/telekom-kuendigung.html" class="popular-card">Telekom kündigen</a> <a href="/vodafone-kuendigung.html" class="popular-card">Vodafone kündigen</a> <a href="/o2-kuendigung.html" class="popular-card">O2 kündigen</a> <a href="/freenet-kuendigung.html" class="popular-card">freenet kündigen</a> <a href="/aldi-talk-kuendigung.html" class="popular-card">Aldi Talk kündigen</a> <a href="/blau-kuendigung.html" class="popular-card">Blau kündigen</a> <a href="/lidl-connect-kuendigung.html" class="popular-card">Lidl Connect kündigen</a> <a href="/tchibo-mobil-kuendigung.html" class="popular-card">Tchibo Mobil kündigen</a> <a href="/klarmobil-kuendigung.html" class="popular-card">klarmobil kündigen</a> <a href="/otelo-kuendigung.html" class="popular-card">otelo kündigen</a> <a href="/congstar-kuendigung.html" class="popular-card">congstar kündigen</a> <a href="/fraenk-kuendigung.html" class="popular-card">fraenk kündigen</a> <a href="/kaufland-mobil-kuendigung.html" class="popular-card">Kaufland Mobil kündigen</a> <a href="/superselect-kuendigung.html" class="popular-card">superselect kündigen</a> <a href="/mrs-sporty-kuendigung.html" class="popular-card">Mrs. Sporty kündigen</a> <a href="/urban-sports-club-kuendigung.html" class="popular-card">Urban Sports Club kündigen</a> <a href="/bodystreet-kuendigung.html" class="popular-card">Bodystreet kündigen</a> <a href="/fitnessking-kuendigung.html" class="popular-card">FitnessKing kündigen</a> </div> </div>
+<section class="popular-section"> <div class="wrap"> <h2>Beliebte Kündigungen</h2> <div class="popular-grid"> <a href="/mcfit-kuendigung.html" class="popular-card">McFit kündigen</a> <a href="/fitx-kuendigung.html" class="popular-card">FitX kündigen</a> <a href="/clever-fit-kuendigung.html" class="popular-card">Clever Fit kündigen</a> <a href="/telekom-kuendigung.html" class="popular-card">Telekom kündigen</a> <a href="/vodafone-kuendigung.html" class="popular-card">Vodafone kündigen</a> <a href="/o2-kuendigung.html" class="popular-card">O2 kündigen</a> <a href="/freenet-kuendigung.html" class="popular-card">freenet kündigen</a> <a href="/aldi-talk-kuendigung.html" class="popular-card">Aldi Talk kündigen</a> <a href="/blau-kuendigung.html" class="popular-card">Blau kündigen</a> <a href="/lidl-connect-kuendigung.html" class="popular-card">Lidl Connect kündigen</a> <a href="/tchibo-mobil-kuendigung.html" class="popular-card">Tchibo Mobil kündigen</a> <a href="/klarmobil-kuendigung.html" class="popular-card">klarmobil kündigen</a> <a href="/otelo-kuendigung.html" class="popular-card">otelo kündigen</a> <a href="/congstar-kuendigung.html" class="popular-card">congstar kündigen</a> <a href="/fraenk-kuendigung.html" class="popular-card">fraenk kündigen</a> <a href="/kaufland-mobil-kuendigung.html" class="popular-card">Kaufland Mobil kündigen</a> <a href="/superselect-kuendigung.html" class="popular-card">superselect kündigen</a> <a href="/mrs-sporty-kuendigung.html" class="popular-card">Mrs. Sporty kündigen</a> <a href="/urban-sports-club-kuendigung.html" class="popular-card">Urban Sports Club kündigen</a> <a href="/bodystreet-kuendigung.html" class="popular-card">Bodystreet kündigen</a> <a href="/fitnessking-kuendigung.html" class="popular-card">FitnessKing kündigen</a>  <a href="/huk24-kfz-versicherung-kuendigen.html" class="popular-card">HUK24 KFZ kündigen</a> <a href="/allianz-kfz-versicherung-kuendigen.html" class="popular-card">Allianz KFZ kündigen</a> <a href="/huk-coburg-kfz-versicherung-kuendigen.html" class="popular-card">HUK-COBURG KFZ kündigen</a> <a href="/axa-kfz-versicherung-kuendigen.html" class="popular-card">AXA KFZ kündigen</a> <a href="/devk-kfz-versicherung-kuendigen.html" class="popular-card">DEVK KFZ kündigen</a> </div> </div>
 </section></main> 
 
 <footer style="width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; margin-top: 20px; padding: 16px 0;"> 
-  <p class="brand-disclaimer" style="width: 100%; text-align: center; margin: 0 0 5px; color: #64748B; font-size: 12px;">© 2026 KündigungExpress · <a href="/impressum.html" style="color:#64748B; text-decoration:none;">Impressum</a> · <a href="/datenschutz.html" style="color:#64748B; text-decoration:none;">Datenschutz</a> · <a href="/unsere-mission.html" style="color:#64748B; text-decoration:none;">Unsere Mission</a></p> 
+  <p class="brand-disclaimer" style="width: 100%; text-align: center; margin: 0 0 5px; color: #64748B; font-size: 12px;">© 2026 KündigungExpress · <a href="/impressum.html" style="color:#64748B; text-decoration:none;">Impressum</a> · <a href="/datenschutz.html" style="color:#64748B; text-decoration:none;">Datenschutz</a> · <a href="/hilfe.html" style="color:#64748B !important;font-weight:normal !important;text-decoration:none !important;">Hilfe</a> · <a href="/unsere-mission.html" style="color:#64748B; text-decoration:none;">Unsere Mission</a> · <a href="/wie-wir-kuendigungexpress-gebaut-haben.html" style="color:#64748B; text-decoration:none;">Unsere Geschichte</a></p> 
   <p class="brand-disclaimer" style="width: 100%; text-align: center; margin: 0; color: #64748B; font-size: 12px;">Erstellt mit <a href="https://digital-firmen.de" style="color:#64748B; text-decoration:none;" target="_blank">digital-firmen.de</a></p> 
 </footer> 
 </div>

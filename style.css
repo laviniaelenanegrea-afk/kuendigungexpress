@@ -2823,3 +2823,20 @@ footer {
     gap: 14px !important; /* Distanță ușor mai mică pe mobil între elemente */
   }
 }
+/* ============================================================
+   FIX DEFINITIV: Culoare Linkuri Footer (Suprascrie verdele)
+   ============================================================ */
+body .wrap.page-content footer p.brand-disclaimer a:not(.btn):not(.affiliate-btn),
+body .wrap footer p.brand-disclaimer a:not(.btn):not(.affiliate-btn),
+body footer p.brand-disclaimer a:not(.btn):not(.affiliate-btn) {
+    color: #64748B !important;
+    font-weight: normal !important;
+    text-decoration: none !important;
+}
+
+body .wrap.page-content footer p.brand-disclaimer a:not(.btn):not(.affiliate-btn):hover,
+body .wrap footer p.brand-disclaimer a:not(.btn):not(.affiliate-btn):hover,
+body footer p.brand-disclaimer a:not(.btn):not(.affiliate-btn):hover {
+    color: #475569 !important;
+    opacity: 0.8 !important;
+}
