@@ -44,6 +44,7 @@ $emailFile = __DIR__ . '/_data/email_list.csv';
 $submissions = 0;
 $fitnessSubmissions = 0;
 $handySubmissions = 0;
+$kfzSubmissions = 0;
 $cutoff = mktime(0, 0, 0, 2, 2, 2026); // only count from 02.02.2026
 
 if (is_dir($dataDir)) {
@@ -51,8 +52,11 @@ if (is_dir($dataDir)) {
         $data = json_decode(file_get_contents($file), true);
         if (is_array($data) && ($data['createdAt'] ?? 0) >= $cutoff) {
             $submissions++;
-            if (($data['type'] ?? 'fitness') === 'handy') {
+            $t = $data['type'] ?? 'fitness';
+            if ($t === 'handy') {
                 $handySubmissions++;
+            } elseif ($t === 'kfz') {
+                $kfzSubmissions++;
             } else {
                 $fitnessSubmissions++;
             }
@@ -79,7 +83,8 @@ $pdfLast7 = 0;
 $pdfLast24h = 0;
 $emailSentCount = 0;
 $providerCounts = [];
-$dailyCounts = []; // for last 14-day trend
+$dailyCounts = []; // for last 14-day trend (total)
+$dailyByType = ['fitness' => [], 'handy' => [], 'kfz' => []]; // per-type daily
 $sevenDaysAgo = time() - (7 * 24 * 60 * 60);
 $oneDayAgo = time() - (24 * 60 * 60);
 $fourteenDaysAgo = time() - (14 * 24 * 60 * 60);
@@ -101,6 +106,11 @@ if (is_dir($dataDir)) {
             $day = date('Y-m-d', $ts);
             if (!isset($dailyCounts[$day])) $dailyCounts[$day] = 0;
             $dailyCounts[$day]++;
+            // Per type
+            $t = $data['type'] ?? 'fitness';
+            if (!in_array($t, ['handy', 'kfz'])) $t = 'fitness';
+            if (!isset($dailyByType[$t][$day])) $dailyByType[$t][$day] = 0;
+            $dailyByType[$t][$day]++;
         }
     }
 }
@@ -280,6 +290,7 @@ $recentCount = count(array_filter($recentPurchases, fn($t) => $t >= $sevenDaysAg
     }
     .badge-fitness { background: #DCFCE7; color: #166534; }
     .badge-handy   { background: #DBEAFE; color: #1E40AF; }
+    .badge-kfz     { background: #FEF3C7; color: #92400E; }
     footer {
       text-align: center;
       font-size: 12px;
@@ -320,6 +331,11 @@ $recentCount = count(array_filter($recentPurchases, fn($t) => $t >= $sevenDaysAg
         <div class="stat-sub"><?= $submissions > 0 ? round(($handySubmissions/$submissions)*100) : 0 ?>% aller PDFs</div>
       </div>
       <div class="stat-card">
+        <div class="stat-label">KFZ PDFs</div>
+        <div class="stat-value" style="color:#D97706"><?= $kfzSubmissions ?></div>
+        <div class="stat-sub"><?= $submissions > 0 ? round(($kfzSubmissions/$submissions)*100) : 0 ?>% aller PDFs</div>
+      </div>
+      <div class="stat-card">
         <div class="stat-label">E-Mail an Anbieter</div>
         <div class="stat-value blue"><?= $emailRate ?>%</div>
         <div class="stat-sub"><?= $emailSentCount ?> direkt versendet</div>
@@ -334,61 +350,121 @@ $recentCount = count(array_filter($recentPurchases, fn($t) => $t >= $sevenDaysAg
     <!-- TREND: LAST 14 DAYS -->
     <div class="section">
       <h2>PDFs pro Tag — letzte 14 Tage</h2>
+      <div style="display:flex;gap:12px;margin-bottom:14px;font-size:12px;">
+        <span><span style="display:inline-block;width:10px;height:10px;border-radius:3px;background:#16A34A;margin-right:4px;"></span>Fitness</span>
+        <span><span style="display:inline-block;width:10px;height:10px;border-radius:3px;background:#2563EB;margin-right:4px;"></span>Handy</span>
+        <span><span style="display:inline-block;width:10px;height:10px;border-radius:3px;background:#D97706;margin-right:4px;"></span>KFZ</span>
+      </div>
       <div class="funnel">
         <?php
         $maxDaily = !empty($dailyCounts) ? max($dailyCounts) : 1;
-        // Fill missing days with 0
         for ($i = 13; $i >= 0; $i--) {
             $day = date('Y-m-d', time() - ($i * 86400));
-            $count = $dailyCounts[$day] ?? 0;
-            $pct = $maxDaily > 0 ? round(($count / $maxDaily) * 100) : 0;
+            $total = $dailyCounts[$day] ?? 0;
+            $fit = $dailyByType['fitness'][$day] ?? 0;
+            $han = $dailyByType['handy'][$day] ?? 0;
+            $kfz = $dailyByType['kfz'][$day] ?? 0;
+            $pctFit = $maxDaily > 0 ? round(($fit / $maxDaily) * 100) : 0;
+            $pctHan = $maxDaily > 0 ? round(($han / $maxDaily) * 100) : 0;
+            $pctKfz = $maxDaily > 0 ? round(($kfz / $maxDaily) * 100) : 0;
             $label = date('d.m', strtotime($day));
             ?>
             <div class="funnel-row">
               <div class="funnel-label"><?= $label ?></div>
-              <div class="funnel-bar-wrap">
-                <div class="funnel-bar forms" style="width:<?= max($pct, 2) ?>%"><?= $count > 0 ? $count : '' ?></div>
+              <div class="funnel-bar-wrap" style="display:flex;">
+                <?php if ($fit > 0): ?><div style="width:<?= max($pctFit, 3) ?>%;background:#16A34A;height:100%;border-radius:6px 0 0 6px;"></div><?php endif; ?>
+                <?php if ($han > 0): ?><div style="width:<?= max($pctHan, 3) ?>%;background:#2563EB;height:100%;<?= $fit === 0 ? 'border-radius:6px 0 0 6px;' : '' ?>"></div><?php endif; ?>
+                <?php if ($kfz > 0): ?><div style="width:<?= max($pctKfz, 3) ?>%;background:#D97706;height:100%;border-radius:0 6px 6px 0;"></div><?php endif; ?>
               </div>
-              <div class="funnel-count"><?= $count ?></div>
+              <div class="funnel-count"><?= $total ?></div>
             </div>
             <?php
         }
         ?>
       </div>
-      <p class="note">Tägliche PDF-Generierung. Trend-Erkennung für die 15.06.2026 Bewertung (Affiliate vs. Premium).</p>
+      <p class="note">Tägliche PDF-Generierung nach Kategorie. Trend-Erkennung für die 15.06.2026 Bewertung.</p>
     </div>
 
-    <!-- SPLIT BY PROVIDER + LEGACY -->
-    <div class="split">
+    <!-- SPLIT: TOP PROVIDERS + SEITENÜBERSICHT + LEGACY -->
+    <div class="split" style="flex-wrap:wrap;">
       <div class="section">
         <h2>Top 10 Anbieter</h2>
         <?php if (!empty($topProviders)): ?>
-          <?php foreach ($topProviders as $prov => $count): ?>
+          <?php foreach ($topProviders as $prov => $count):
+            $provLower = strtolower($prov);
+            $badgeClass = 'badge-fitness';
+            if (strpos($provLower, 'telekom') !== false || strpos($provLower, 'vodafone') !== false || strpos($provLower, 'o2') !== false || strpos($provLower, 'congstar') !== false || strpos($provLower, '1und1') !== false || strpos($provLower, 'blau') !== false || strpos($provLower, 'aldi') !== false || strpos($provLower, 'freenet') !== false || strpos($provLower, 'klarmobil') !== false || strpos($provLower, 'lidl') !== false || strpos($provLower, 'mobilcom') !== false || strpos($provLower, 'simde') !== false || strpos($provLower, 'fraenk') !== false || strpos($provLower, 'drillisch') !== false) $badgeClass = 'badge-handy';
+            if (strpos($provLower, 'allianz') !== false || strpos($provLower, 'huk') !== false || strpos($provLower, 'axa') !== false || strpos($provLower, 'ergo') !== false || strpos($provLower, 'devk') !== false || strpos($provLower, 'generali') !== false || strpos($provLower, 'versicherung') !== false || strpos($provLower, 'zurich') !== false || strpos($provLower, 'hdi') !== false || strpos($provLower, 'r+v') !== false || strpos($provLower, 'lvm') !== false || strpos($provLower, 'vhv') !== false || strpos($provLower, 'cosmosdirekt') !== false) $badgeClass = 'badge-kfz';
+          ?>
             <div class="type-row">
-              <span><?= htmlspecialchars($prov) ?></span>
-              <strong><?= $count ?> PDFs</strong>
+              <span><?= htmlspecialchars($prov) ?> <span class="type-badge <?= $badgeClass ?>" style="margin-left:4px;"><?= $badgeClass === 'badge-kfz' ? 'KFZ' : ($badgeClass === 'badge-handy' ? 'Handy' : 'Fitness') ?></span></span>
+              <strong><?= $count ?></strong>
             </div>
           <?php endforeach; ?>
         <?php else: ?>
-          <p style="color:#64748B;font-size:13px;">Keine Daten verfügbar. Tracking beginnt mit ersten PDF-Erstellungen nach Deployment.</p>
+          <p style="color:#64748B;font-size:13px;">Keine Daten verfügbar.</p>
         <?php endif; ?>
       </div>
       <div class="section">
-        <h2>Altmodell (vor 14.04.2026)</h2>
+        <h2>Seitenübersicht</h2>
         <div class="type-row">
+          <span><span class="type-badge badge-handy">Handy</span> Seiten</span>
+          <strong>38</strong>
+        </div>
+        <div class="type-row">
+          <span><span class="type-badge badge-fitness">Fitness</span> Seiten</span>
+          <strong>17</strong>
+        </div>
+        <div class="type-row">
+          <span><span class="type-badge badge-kfz">KFZ</span> Seiten</span>
+          <strong>33</strong>
+        </div>
+        <div class="type-row" style="border-top:1px solid #E2E8F0;padding-top:10px;margin-top:4px;">
+          <span>Sitemap gesamt</span>
+          <strong>104</strong>
+        </div>
+        <h2 style="margin-top:16px;">Affiliate-Partner</h2>
+        <div class="type-row">
+          <span>Check24 <span class="type-badge badge-handy">Handy</span></span>
+          <strong style="color:#16A34A;">✓</strong>
+        </div>
+        <div class="type-row">
+          <span>Tariffuxx <span class="type-badge badge-handy">Handy</span></span>
+          <strong style="color:#16A34A;">✓</strong>
+        </div>
+        <div class="type-row">
+          <span>AWIN Telekom <span class="type-badge badge-handy">Handy</span></span>
+          <strong style="color:#16A34A;">✓</strong>
+        </div>
+        <div class="type-row">
+          <span>CRASH 30GB <span class="type-badge badge-handy">Handy</span></span>
+          <strong style="color:#16A34A;">40€</strong>
+        </div>
+        <div class="type-row">
+          <span>Tarifcheck <span class="type-badge badge-kfz">KFZ</span></span>
+          <strong style="color:#F59E0B;">beantragt</strong>
+        </div>
+      </div>
+    </div>
+
+    <!-- LEGACY MODEL -->
+    <div class="section" style="margin-top:14px;">
+      <h2>Altmodell (vor 14.04.2026)</h2>
+      <div style="display:flex;gap:24px;flex-wrap:wrap;">
+        <div class="type-row" style="flex:1;min-width:140px;">
           <span>Stripe Käufe gesamt</span>
           <strong><?= $purchases ?></strong>
         </div>
-        <div class="type-row">
+        <div class="type-row" style="flex:1;min-width:140px;">
           <span>Umsatz gesamt (€4,99)</span>
           <strong>€<?= number_format($revenue, 2, ',', '.') ?></strong>
         </div>
-        <div class="type-row">
+        <div class="type-row" style="flex:1;min-width:140px;">
           <span>Letzter Kauf</span>
           <strong style="font-size:13px;"><?= $lastPurchase ?></strong>
         </div>
-        <p style="color:#64748B;font-size:12px;margin-top:10px;line-height:1.5;">Referenz vom alten bezahlten Modell. Ab 14.04.2026 läuft das Free+Affiliate Modell.</p>
       </div>
+      <p style="color:#64748B;font-size:12px;margin-top:10px;line-height:1.5;">Referenz vom alten bezahlten Modell. Ab 14.04.2026 läuft das Free+Affiliate Modell.</p>
     </div>
 
   </div>
