@@ -915,7 +915,7 @@ footer a:hover { color: #334155; }
 
   <footer>
     <p>Hinweis: Keine Rechtsberatung. Es werden allgemein anerkannte Standardformulierungen verwendet.</p>
-    <p><a href="/impressum.html">Impressum</a> · <a href="/datenschutz.html">Datenschutz</a> · <a href="/hilfe.html">Hilfe</a></p>
+    <p><a href="/impressum.html">Impressum</a> · <a href="/datenschutz.html">Datenschutz</a> · <a href="/hilfe.html">Hilfe</a> · <a href="#" onclick="return keResetConsent(event)" style="color:#64748B !important;font-weight:normal !important;text-decoration:none !important;cursor:pointer;">Cookie-Einstellungen</a></p>
     <p>Erstellt mit <a href="https://digital-firmen.de" target="_blank">digital-firmen.de</a></p>
   </footer>
 </div>
