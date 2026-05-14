@@ -1,0 +1,29 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls /c/Users/negre/Desktop/webdesign/kuendigungexpress-site/kuendigungexpress/*.html)",
+      "Bash(ls /c/Users/negre/Desktop/webdesign/kuendigungexpress-site/kuendigungexpress/*.css)",
+      "Bash(python3:*)",
+      "Bash(python affiliate_update.py)",
+      "Bash(python affiliate_fix.py)",
+      "Bash(xargs -I{} basename {})",
+      "Bash(python aff_audit.py)",
+      "Bash(rm aff_audit.py)",
+      "Bash(python add_h3.py)",
+      "Bash(rm add_h3.py)",
+      "Bash(python color_fix.py)",
+      "Bash(rm color_fix.py)",
+      "Bash(python audit_structure.py)",
+      "Bash(rm audit_structure.py)",
+      "Bash(python check_blocks.py)",
+      "Bash(rm check_blocks.py)",
+      "Bash(python reorder_cta.py)",
+      "Bash(rm reorder_cta.py)",
+      "Bash(python remove_prices.py)",
+      "Bash(python fix_issues.py)",
+      "Bash(python -c ':*)",
+      "Bash(python comprehensive_fix.py)",
+      "Bash(python remaining_fixes.py)"
+    ]
+  }
+}
