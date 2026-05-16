@@ -58,7 +58,7 @@ declare(strict_types=1);
   }
 }
 </script>
-<link rel="stylesheet" href="/style.css?v=14"> 
+<link rel="preload" href="/style.css?v=14" as="style"> <link rel="stylesheet" href="/style.css?v=15"> 
 <script src="/cookie-consent.js" defer></script>
 
 <style>
@@ -81,13 +81,14 @@ declare(strict_types=1);
     contain-intrinsic-size: 1000px;
   }
 
+  /* OVERLAY ACTUALIZAT: plasat global pentru a acoperi site-ul */
   .search-overlay {
     position: fixed;
     top: 0; left: 0; width: 100%; height: 100%;
     background: rgba(15, 23, 42, 0.65); 
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
-    z-index: 9990;
+    z-index: 9990; 
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.3s ease;
@@ -106,7 +107,7 @@ declare(strict_types=1);
   
   body.search-active #provider-search-section h2 { color: #FFFFFF !important; transition: color 0.3s ease; }
   body.search-active #provider-search-section p { color: #CBD5E1 !important; transition: color 0.3s ease; }
-  body.search-active #provider-search-section p a { color: #4ADE80 !important; transition: color 0.3s ease; }
+  body.search-active #provider-search-section p a { color: #16A34A !important; transition: color 0.3s ease; }
 
   #provider-search-section h2, 
   #provider-search-section p, 
@@ -207,17 +208,10 @@ declare(strict_types=1);
 
   @media (min-width: 821px) {
     body { padding-bottom: 0 !important; }
-    .cta-actions {
-      display: flex !important;
-      flex-direction: row !important;
-      justify-content: center !important;
-      gap: 16px !important;
-    }
-    .cta-actions .btn-primary { flex: 1; max-width: 280px; margin-bottom: 0 !important; }
     
     .hero-split {
       display: flex;
-      align-items: flex-start;
+      align-items: flex-start; 
       justify-content: space-between;
       gap: 48px;
     }
@@ -238,7 +232,7 @@ declare(strict_types=1);
   .pdf-image-wrapper {
     position: relative;
     width: 100%;
-    max-width: 360px;
+    max-width: 480px; 
     margin-left: auto;
   }
   .pdf-image-wrapper img {
@@ -253,7 +247,7 @@ declare(strict_types=1);
     position: absolute;
     bottom: -15px;
     right: -15px;
-    background: #16A34A;
+    background: var(--btn, #16A34A);
     color: white;
     font-size: 16px;
     font-weight: 900;
@@ -353,15 +347,15 @@ declare(strict_types=1);
   .calc-field { display: flex; flex-direction: column; gap: 8px; }
   .calc-label { font-size: 14px; font-weight: 700; color: #0F172A; }
   .calc-input { padding: 14px 16px; font-size: 15px; border: 2px solid #E2E8F0; border-radius: 12px; color: #0F172A; background: #F8FAFC; outline: none; transition: all 0.2s; font-family: inherit;}
-  .calc-input:focus { border-color: #16A34A; background: #ffffff; }
+  .calc-input:focus { border-color: var(--btn, #16A34A); background: #ffffff; }
   .calc-date-grid { display: grid; grid-template-columns: 1fr 1.3fr 1fr; gap: 8px; width: 100%; max-width: 100%; box-sizing: border-box; }
   .calc-date-select { padding: 14px 8px; min-width: 0; width: 100%; max-width: 100%; box-sizing: border-box; }
   @media (max-width: 480px) {
     .calc-date-select { padding: 12px 4px; font-size: 14px; }
     .calc-date-grid { gap: 6px; }
   }
-  .calc-btn { background: #16A34A; color: #fff; border: none; padding: 16px; border-radius: 12px; font-size: 16px; font-weight: 800; cursor: pointer; transition: all 0.2s; width: 100%; box-shadow: 0 4px 12px rgba(22,163,74,0.2); }
-  .calc-btn:hover { background: #15803d; transform: translateY(-1px); }
+  .calc-btn { background: var(--btn, #16A34A); color: #fff; border: none; padding: 16px; border-radius: 14px; font-size: 16px; font-weight: 900; cursor: pointer; transition: all 0.2s; width: 100%; box-shadow: 0 4px 12px rgba(22,163,74,0.2); }
+  .calc-btn:hover { transform: translateY(-1px); filter: brightness(0.95); box-shadow: 0 6px 16px rgba(22,163,74,0.3); }
   .calc-result { background: #F0FDF4; border: 1px solid #BBF7D0; border-radius: 12px; padding: 20px; display: none; text-align: center; margin-top: 24px; max-width: 100%; box-sizing: border-box; overflow-wrap: break-word; word-wrap: break-word;}
   .calc-result.active { display: block; }
   .calc-result h4 { color: #166534; font-size: 18px; font-weight: 900; margin: 0 0 8px 0; }
@@ -429,11 +423,32 @@ declare(strict_types=1);
     }
   }
 
+  /* UPDATED SEO HUB CARDS DESIGN */
   .ke-categories { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin-top:24px; }
-  .ke-cat-card { background:#FFFFFF; border:1px solid #E2E8F0; border-radius:16px; padding:24px 20px; }
-  .ke-cat-card .hub-col-title { margin-bottom:12px; }
-  .ke-cat-card .hub-links { display:flex; flex-direction:column; gap:8px; }
-  .ke-cat-card .hub-links a { font-size:14px; }
+  .ke-cat-card { background:#FFFFFF; border:1px solid #E2E8F0; border-radius:16px; padding:24px 20px; box-shadow: 0 4px 12px rgba(15,23,42,0.02); }
+  .ke-cat-card .hub-col-title { 
+      margin-bottom: 16px; 
+      font-weight: 800; 
+      color: #0F172A; 
+      text-transform: uppercase; 
+      font-size: 13px; 
+      letter-spacing: 0.05em; 
+      border-bottom: 2px solid #F1F5F9; 
+      padding-bottom: 12px; 
+  }
+  .ke-cat-card .hub-links { display:flex; flex-direction:column; gap:12px; }
+  .ke-cat-card .hub-links a { 
+      font-size: 14px; 
+      color: #475569; 
+      text-decoration: none; 
+      transition: color 0.2s ease, transform 0.2s ease; 
+      display: inline-block; 
+      font-weight: 500;
+  }
+  .ke-cat-card .hub-links a:hover { 
+      color: var(--btn, #16A34A); 
+      transform: translateX(4px); 
+  }
   @media(max-width:820px){ .ke-categories { grid-template-columns:1fr; gap:16px; } }
 
   .compare-table { width:100%; border-collapse:collapse; font-size:14px; }
@@ -442,7 +457,7 @@ declare(strict_types=1);
   .compare-table td { padding:11px 14px; border-bottom:1px solid #E2E8F0; color:#0F172A; }
   .compare-table td:not(:first-child) { text-align:center; }
   .compare-table tr:last-child td { border-bottom:none; }
-  .compare-table .us { color:#16A34A; font-weight:900; }
+  .compare-table .us { color: var(--btn, #16A34A); font-weight:900; }
   .compare-table .them { color:#64748B; } 
   .compare-highlight { background:#F0FDF4; }
 
@@ -454,12 +469,117 @@ declare(strict_types=1);
     .compare-card { border: 1px solid #E2E8F0; border-radius: 12px; padding: 12px 14px; display: flex; align-items: center; justify-content: space-between; background: #fff; }
     .compare-card.highlight { background: #F0FDF4; border-color: #BBF7D0; }
     .compare-card-label { font-size: 13px; color: #64748B; font-weight: 600; flex: 1; }
-    .compare-card-us { font-size: 13px; font-weight: 900; color: #16A34A; flex: 1; text-align: center; }
+    .compare-card-us { font-size: 13px; font-weight: 900; color: var(--btn, #16A34A); flex: 1; text-align: center; }
     .compare-card-them { font-size: 13px; color: #64748B; flex: 1; text-align: right; }
     .compare-card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; padding-bottom: 8px; border-bottom: 2px solid #E2E8F0; }
     .compare-card-header span { font-size: 11px; font-weight: 700; color: #64748B; text-transform: uppercase; letter-spacing: .04em; flex: 1; text-align: center; }
     .compare-card-header span:first-child { text-align: left; }
     .compare-card-header span:last-child { text-align: right; }
+  }
+
+  .cta-actions {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    width: 100%;
+    margin-top: 24px;
+  }
+  @media (min-width: 821px) {
+    .cta-actions {
+      grid-template-columns: repeat(3, 1fr);
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+
+  .category-card-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #FFFFFF;
+    border: 2px solid #E2E8F0;
+    border-radius: 16px;
+    padding: 20px 16px;
+    color: #0F172A;
+    font-weight: 800;
+    font-size: 16px;
+    text-align: center;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 12px rgba(15,23,42,0.03);
+    line-height: 1.4;
+    min-height: 84px; 
+  }
+  
+  .category-card-btn:hover {
+    border-color: var(--btn, #16A34A);
+    color: var(--btn, #16A34A);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 24px rgba(22,163,74,0.12);
+  }
+
+  /* BRAND GRID DESIGN (BELIEBTE ANBIETER) */
+  .popular-brand-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: clamp(24px, 5vw, 48px);
+    margin-top: 32px;
+  }
+  .popular-brand-link {
+    font-size: clamp(18px, 4vw, 24px);
+    font-weight: 900;
+    color: #94A3B8;
+    letter-spacing: -0.5px;
+    transition: color 0.3s ease, transform 0.3s ease;
+    text-decoration: none;
+    white-space: nowrap;
+    cursor: pointer;
+  }
+  @media (min-width: 821px) {
+    .popular-brand-link:hover {
+      color: #0F172A;
+      transform: translateY(-2px);
+    }
+  }
+  @media (max-width: 820px) {
+    .popular-brand-link {
+      color: #475569;
+    }
+  }
+
+  /* ACCORDION NATIVE */
+  .faq-accordion { background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 16px; margin-bottom: 12px; overflow: hidden; transition: all 0.3s ease; }
+  .faq-accordion[open] { box-shadow: 0 4px 16px rgba(15,23,42,0.04); border-color: rgba(22, 163, 74, 0.3); }
+  .faq-summary { padding: 18px 20px; font-weight: 700; font-size: 16px; color: #0F172A; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; }
+  .faq-summary::-webkit-details-marker { display: none; }
+  .faq-summary::after { content: "+"; font-size: 24px; line-height: 1; color: var(--btn, #16A34A); font-weight: 400; transition: transform 0.3s ease; }
+  .faq-accordion[open] .faq-summary::after { transform: rotate(45deg); }
+  .faq-content { padding: 0 20px 20px 20px; color: #475569; line-height: 1.7; font-size: 15px; margin: 0; }
+  
+  /* AUTOCOMPLETE DROPDOWN ITEM CLASSES */
+  .ks-item {
+      display: block;
+      padding: 14px 24px;
+      color: #0F172A;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 16px;
+      transition: background 0.2s;
+  }
+  .ks-item:hover {
+      background: #F8FAFC;
+      color: var(--btn, #16A34A);
+  }
+  .ks-item:last-child {
+      border-bottom: none;
+      border-bottom-left-radius: 16px;
+      border-bottom-right-radius: 16px;
+  }
+  .ks-item:first-child {
+      border-top-left-radius: 16px;
+      border-top-right-radius: 16px;
   }
 </style>
 
@@ -486,45 +606,50 @@ declare(strict_types=1);
     <div class="hero-split">
       
       <div class="hero-content">
-        <h1 style="font-size:clamp(40px, 6vw, 68px); font-weight:900; letter-spacing:-2.5px; line-height:1.05; margin:0 0 20px; color:#0F172A; word-wrap: break-word;">
-          Verträge<br>kündigen,<br><span style="color:#16A34A;">kostenlos &<br>rechtssicher.</span>
+        <h1 style="font-size: clamp(36px, 5.5vw, 60px); font-weight: 900; letter-spacing: -1.5px; line-height: 1.1; margin: 0 0 20px;">
+          Verträge kündigen,<br><span style="color:var(--btn, #16A34A);">kostenlos &amp;<br>rechtssicher.</span>
         </h1>
         
-        <p style="margin: 0; font-size: 18px; line-height: 1.6; color: #475569; max-width: 480px;">
-          Beenden Sie Ihre Verträge für Mobilfunk, Fitnessstudios oder Versicherungen rechtssicher und unkompliziert. Mit unserem Generator erstellen Sie Ihr Kündigungsschreiben als PDF – komplett gebührenfrei, sofort verfügbar und ohne Registrierung.
+        <p class="hero-subtitle">
+          Während andere Anbieter für PDF-Vorlagen Geld verlangen, ist unser Generator komplett kostenlos. Rechtssichere Kündigungen für Handyvertrag, Fitnessstudio und KFZ-Versicherung — ohne Anmeldung, in 2 Minuten. 
         </p>
 
         <div class="desktop-cta-only" style="margin: 32px 0 24px 0;">
-          <a href="#provider-search-section" style="display: inline-flex; align-items: center; justify-content: center; background-color: #16A34A; color: #ffffff; padding: 16px 32px; border-radius: 999px; font-weight: 800; font-size: 18px; text-decoration: none; box-shadow: 0 8px 24px rgba(22, 163, 74, 0.25); transition: transform 0.2s ease, box-shadow 0.2s ease;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 12px 32px rgba(22, 163, 74, 0.35)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 8px 24px rgba(22, 163, 74, 0.25)';" onclick="setTimeout(() => { const el = document.getElementById('providerSearch'); if(el) { el.focus({preventScroll: true}); } }, 400);">
+          <a href="#provider-search-section" style="display: inline-flex; align-items: center; justify-content: center; background-color: var(--btn, #16A34A); color: #ffffff; padding: 16px 28px; border-radius: 14px; font-weight: 900; font-size: 18px; text-decoration: none; box-shadow: 0 4px 12px rgba(22, 163, 74, 0.2); transition: transform 0.2s ease, filter 0.2s ease, box-shadow 0.2s ease;" onmouseover="this.style.transform='translateY(-1px)'; this.style.filter='brightness(0.95)'; this.style.boxShadow='0 6px 16px rgba(22, 163, 74, 0.3)';" onmouseout="this.style.transform='translateY(0)'; this.style.filter='brightness(1)'; this.style.boxShadow='0 4px 12px rgba(22, 163, 74, 0.2)';">
             Kündigung jetzt erstellen
           </a>
         </div>
 
         <div class="trust-pills-container"> 
           <span class="trust-pill">
-            <svg width="16" height="16" fill="none" stroke="#16A34A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"></path></svg>
+            <svg width="16" height="16" fill="none" stroke="var(--btn, #16A34A)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"></path></svg>
             100% Kostenlos
           </span> 
           <span class="trust-pill">
-            <svg width="16" height="16" fill="none" stroke="#16A34A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"></path></svg>
+            <svg width="16" height="16" fill="none" stroke="var(--btn, #16A34A)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"></path></svg>
             Ohne Anmeldung
           </span>
           <span class="trust-pill">
-            <svg width="16" height="16" fill="none" stroke="#16A34A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"></path></svg>
+            <svg width="16" height="16" fill="none" stroke="var(--btn, #16A34A)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"></path></svg>
             Sofort als PDF
           </span>
         </div>
 
-        <div style="display: flex; flex-direction: column; gap: 12px;">
+        <div style="display: flex; flex-direction: column; gap: 12px; position: relative; z-index: 10;">
           <div style="display: flex; align-items: center; gap: 12px;">
-            <div style="display: flex; color: #16A34A; font-size: 18px; letter-spacing: -2px;">👤👤👤</div>
-            <span style="font-size: 15px; color: #64748B;"><span style="color: #16A34A; font-weight: 800; font-size: 16px;"><?php $c=file_exists(__DIR__.'/_counter.txt')?(int)file_get_contents(__DIR__.'/_counter.txt'):1247; echo number_format($c,0,',','.'); ?></span> Kündigungen erstellt</span>
+            <div style="display: flex; color: var(--btn, #16A34A); font-size: 18px; letter-spacing: -2px;">👤👤👤</div>
+            <span style="font-size: 15px; color: #64748B;"><span style="color: var(--btn, #16A34A); font-weight: 800; font-size: 16px;"><?php $c=file_exists(__DIR__.'/_counter.txt')?(int)file_get_contents(__DIR__.'/_counter.txt'):1247; echo number_format($c,0,',','.'); ?></span> Kündigungen erstellt</span>
           </div>
           
-          <div style="display: flex; align-items: center; gap: 8px;">
-            <a href="https://g.page/r/CQUi4-fYtkH4EAE/review" target="_blank" rel="noopener" style="display: flex; align-items: center; gap: 8px; text-decoration: none; transition: opacity 0.2s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">
-              <span style="color: #F59E0B; font-size: 16px; letter-spacing: 2px;">★★★★★</span>
-              <span style="font-size: 15px; font-weight: 700; color: #0F172A;">4,8 auf Google</span>
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+                        <a href="https://g.page/r/CQUi4-fYtkH4EAE/review" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; gap: 6px; text-decoration: none; transition: opacity 0.2s; padding-left: 4px;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">
+              <svg width="16" height="16" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+                <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+                <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+                <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+              </svg>
+              <span style="font-size: 13px; font-weight: 600; color: #475569;">Zusätzlich 4,8 ★ auf Google</span>
             </a>
           </div>
         </div>
@@ -545,27 +670,24 @@ declare(strict_types=1);
 <main class="page-flow">
 
   <section id="provider-search-section" style="margin: 0 auto; max-width: 840px; padding: 0 16px; position: relative; scroll-margin-top: 110px; border-radius: 24px;">
+    
     <span id="scroll-target" style="position: absolute; top: -100px; left: 0;"></span>
-    <h2 style="text-align: center; font-size: clamp(24px, 5vw, 32px); font-weight: 900; color: #0F172A; margin-bottom: 24px; position: relative; z-index: 2;">Vertragspartner hier eingeben</h2>
-    <div style="position: relative; z-index: 2;">
+    <h2 style="text-align: center; position: relative; z-index: 2;">Vertragspartner hier eingeben</h2>
+    <div style="position: relative; z-index: 10;">
       <svg style="position: absolute; left: 24px; top: 50%; transform: translateY(-50%); width: 24px; height: 24px; color: #94A3B8; pointer-events: none;" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
       <input type="text" id="providerSearch" autocomplete="off" placeholder="z. B. Telekom, McFit, HUK-Coburg..." 
              style="width: 100%; padding: 20px 24px 20px 60px; font-size: 18px; font-weight: 600; font-family: inherit; border: 2px solid #E2E8F0; border-radius: 999px; box-shadow: 0 8px 24px rgba(15,23,42,0.06); outline: none; box-sizing: border-box; background: #fff; color: #0F172A; transition: all 0.3s ease;">
+      
+      <div id="ksList" style="display: none; position: absolute; top: 100%; left: 0; width: 100%; margin-top: 8px; padding: 8px 0; background: #fff; border: 1px solid #E2E8F0; border-radius: 16px; box-shadow: 0 12px 32px rgba(15,23,42,0.12); max-height: 300px; overflow-y: auto; z-index: 9999;"></div>
+
     </div>
-     <p style="margin-top: 16px; font-size: 15px; color: #64748B; text-align: center; position: relative; z-index: 2;">
-          Anbieter nicht in der Liste? Nutzen Sie unsere Blanko-Vorlagen zum Selbstausfüllen für 
-          <a href="/fitnessstudio-vertrag-kuendigen.html" style="color: #16A34A; text-decoration: none; font-weight: 600;">Fitness</a>, 
-          <a href="/handyvertrag-kuendigen.html" style="color: #16A34A; text-decoration: none; font-weight: 600;">Mobilfunk</a>
-          oder
-          <a href="/kfz-versicherung-kuendigen.html" style="color: #16A34A; text-decoration: none; font-weight: 600;">KFZ</a>.
-        </p>
   </section>
 
   <section class="transparency-banner">
     <div class="transparency-banner-icon">🛡️</div>
     <div class="transparency-banner-text">
       <h3>100% Kostenlos. Ohne Wenn und Aber.</h3>
-      <p>Viele Anbieter überraschen Sie am Ende mit versteckten Gebühren. Bei uns bleibt Ihr Kündigungsschreiben garantiert dauerhaft kostenfrei. Wir finanzieren uns transparent durch freiwillige Tarifvergleiche: Entscheiden Sie sich für einen Wechsel, erhalten wir eine kleine Provision.</p>
+      <p>Einige Anbieter überraschen am Ende mit versteckten Gebühren. Bei uns bleibt Ihr Kündigungsschreiben garantiert dauerhaft kostenfrei. Wir finanzieren uns transparent durch freiwillige Tarifvergleiche: Wenn Sie sich für einen Wechsel entscheiden, erhalten wir eine kleine Provision.</p>
     </div>
   </section>
 
@@ -599,7 +721,6 @@ declare(strict_types=1);
     </div>
   </section>
 
-  <!-- MICRO-TOOL LINK MAGNET: KÜNDIGUNGSFRIST-RECHNER -->
   <section class="wrap cv-auto">
     <div class="calculator-magnet">
       <div class="calc-header">
@@ -646,12 +767,12 @@ declare(strict_types=1);
       <div id="calc-result" class="calc-result">
         <h4 id="calc-output-title">Ergebnis</h4>
         <p id="calc-output-desc">-</p>
-        <a id="calc-cta" href="#" class="calc-cta" style="display:none;margin-top:16px;background-color: #16A34A; color: #ffffff; padding: 16px 32px; border-radius: 12px; font-weight: 800; font-size: 18px; text-decoration: none; text-align: center; max-width: 100%; box-sizing: border-box; box-shadow: 0 8px 24px rgba(22, 163, 74, 0.25); transition: transform 0.2s ease, box-shadow 0.2s ease;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 12px 32px rgba(22, 163, 74, 0.35)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 8px 24px rgba(22, 163, 74, 0.25)';">Jetzt Kündigung erstellen →</a>
+        <a id="calc-cta" href="#" class="calc-cta" style="display:none;margin-top:16px;background-color: var(--btn, #16A34A); color: #ffffff; padding: 16px 28px; border-radius: 14px; font-weight: 900; font-size: 16px; text-decoration: none; text-align: center; max-width: 100%; box-sizing: border-box; box-shadow: 0 4px 12px rgba(22,163,74,0.2); transition: all 0.2s ease;" onmouseover="this.style.transform='translateY(-1px)'; this.style.filter='brightness(0.95)'; this.style.boxShadow='0 6px 16px rgba(22,163,74,0.3)';" onmouseout="this.style.transform='translateY(0)'; this.style.filter='brightness(1)'; this.style.boxShadow='0 4px 12px rgba(22,163,74,0.2)';">Jetzt Kündigung erstellen</a>
       </div>
     </div>
   </section>
 
-  <section class="why-section cv-auto"> <div class="wrap"> <h2>Warum KündigungExpress?</h2> <div class="why-grid"> <div class="why-card"> <h3>Rechtssicher</h3> <p>Unsere Vorlagen sind stets auf dem neuesten Stand der deutschen Gesetzgebung.</p> </div> <div class="why-card"> <h3>Sofort verfügbar</h3> <p>Ihr fertiges PDF-Dokument steht direkt nach der Erstellung zum Download bereit.</p> </div> <div class="why-card"> <h3>Kostenlos</h3> <p>Profitieren Sie von unserem Service – ganz ohne Abonnements oder versteckte Kosten.</p> </div> <div class="why-card"> <h3>Optimiert</h3> <p>Erhalten Sie passgenaue Kündigungsschreiben für Ihre Mobilfunk-, Fitness- oder Versicherungsverträge.</p> </div> </div> </div>
+  <section class="why-section cv-auto"> <div class="wrap"> <h2>Warum KündigungExpress?</h2> <div class="why-grid"> <div class="why-card"> <h3>Rechtssicher</h3> <p>Unsere Vorlagen entsprechen stets der aktuellen deutschen Gesetzgebung.</p> </div> <div class="why-card"> <h3>Sofort verfügbar</h3> <p>Ihr fertiges PDF-Dokument steht direkt nach der Erstellung zum Download bereit.</p> </div> <div class="why-card"> <h3>Kostenlos</h3> <p>Nutzen Sie unseren Service ganz ohne Abonnements oder versteckte Kosten.</p> </div> <div class="why-card"> <h3>Optimiert</h3> <p>Erhalten Sie passgenaue Kündigungsschreiben für Mobilfunk, Fitness oder Versicherungen.</p> </div> </div> </div>
   </section>
 
   <section class="compare-section cv-auto">
@@ -668,7 +789,7 @@ declare(strict_types=1);
         <tr class="compare-highlight">
           <td>Preis</td>
           <td class="us">✓ Kostenlos</td>
-          <td class="them">4,99 – 9,99 €</td>
+          <td class="them">Häufig kostenpflichtig</td>
         </tr>
         <tr>
           <td>Registrierung</td>
@@ -702,7 +823,7 @@ declare(strict_types=1);
       <div class="compare-card highlight">
         <span class="compare-card-label">Preis</span>
         <span class="compare-card-us">✓ Kostenlos</span>
-        <span class="compare-card-them">4,99 – 9,99 €</span>
+        <span class="compare-card-them">Häufig kostenpflichtig</span>
       </div>
       <div class="compare-card">
         <span class="compare-card-label">Registrierung</span>
@@ -728,57 +849,59 @@ declare(strict_types=1);
   </section>
 
   <section class="hub-block cv-auto">
-  <div class="hub-inner">
-  <h3 class="hub-title">Rechtssicher Vertrag online kündigen</h3>
-  <p class="hub-sub"> Verwenden Sie unsere anwaltlich geprüften Vorlagen, um gesetzliche Fristen präzise einzuhalten und kostspielige Formfehler zuverlässig zu vermeiden.
-  </p>
-  <div class="ke-categories">
-  <div class="ke-cat-card">
-  <div class="hub-col-title">Fitnessstudio kündigen</div>
-  <div class="hub-links">
-  <a href="/fitnessstudio-vertrag-kuendigen.html">Fitnessstudio Vertrag kündigen</a>
-  <a href="/fitnessstudio-kuendigung-online.html">Fitnessstudio online kündigen</a>
-  <a href="/fitnessstudio-kuendigung-pdf.html">Kündigung als PDF erstellen</a>
-  <a href="/mitgliedschaft-fitnessstudio-kuendigen.html">Mitgliedschaft kündigen – SEPA</a>
-  </div>
-  </div>
-  <div class="ke-cat-card">
-  <div class="hub-col-title">Handyvertrag kündigen</div>
-  <div class="hub-links">
-  <a href="/handyvertrag-kuendigen.html">Handyvertrag online kündigen</a>
-  <a href="/kuendigungsfrist-handyvertrag.html">Fristen for Handyvertrag</a>
-  <a href="/telekom-kuendigung.html">Telekom Handyvertrag kündigen</a>
-  <a href="/vodafone-kuendigung.html">Vodafone kündigen</a>
-  </div>
-  </div>
-  <div class="ke-cat-card">
-  <div class="hub-col-title">KFZ-Versicherung kündigen</div>
-  <div class="hub-links">
-  <a href="/kfz-versicherung-kuendigen.html">KFZ-Versicherung kündigen</a>
-  <a href="/formular.php?type=kfz">Kündigungsschreiben erstellen</a>
-  <a href="/stichtag-kfz-versicherung.html">Stichtag 30. November</a>
-  <a href="/sonderkuendigungsrecht-kfz-versicherung.html">Sonderkündigungsrecht KFZ</a>
-  </div>
-  </div>
-  </div>
-  </div>
+    <div class="hub-inner">
+      <h3 class="hub-title">Ratgeber & Tipps zur Kündigung</h3>
+      <p class="hub-sub">
+        Informieren Sie sich detailliert über gesetzliche Fristen, Sonderkündigungsrechte und die sichersten Methoden, um Ihre Verträge reibungslos zu beenden.
+      </p>
+      <div class="ke-categories">
+        <div class="ke-cat-card">
+          <div class="hub-col-title">Fitnessstudios</div>
+          <div class="hub-links">
+            <a href="/fitnessstudio-kuendigung-online.html">Online kündigen leicht gemacht</a>
+            <a href="/fitnessstudio-kuendigung-email.html">Kündigung per E-Mail senden</a>
+            <a href="/fitnessstudio-kuendigung-sofort.html">Optionen zur Sofortkündigung</a>
+            <a href="/mitgliedschaft-fitnessstudio-kuendigen.html">SEPA-Mandat richtig widerrufen</a>
+            <a href="/fitnessstudio-kuendigung-pdf.html">Kündigung als PDF erstellen</a>
+          </div>
+        </div>
+        <div class="ke-cat-card">
+          <div class="hub-col-title">Mobilfunkanbieter</div>
+          <div class="hub-links">
+            <a href="/kuendigungsfrist-handyvertrag.html">Kündigungsfristen im Überblick</a>
+            <a href="/paragraph-56-tkg-kuendigung.html">Das neue TKG (§ 56) erklärt</a>
+            <a href="/sonderkuendigung-handyvertrag.html">Wann greift ein Sonderkündigungsrecht?</a>
+            <a href="/mindestlaufzeit-handyvertrag.html">Mindestlaufzeit & automatische Verlängerung</a>
+          </div>
+        </div>
+        <div class="ke-cat-card">
+          <div class="hub-col-title">KFZ-Versicherungen</div>
+          <div class="hub-links">
+            <a href="/stichtag-kfz-versicherung.html">Wichtig: Der Stichtag 30. November</a>
+            <a href="/sonderkuendigungsrecht-kfz-versicherung.html">Sonderkündigungsrecht bei Preiserhöhung</a>
+            <a href="/kfz-versicherung-kuendigen-bei-fahrzeugwechsel.html">Kündigung beim Fahrzeugwechsel</a>
+            <a href="/kfz-versicherung-kuendigen-nach-schadenfall.html">Kündigung nach einem Schadenfall</a>
+          </div>
+        </div>
+      </div>
+    </div>
   </section> 
 
   <section class="cta-final cv-auto">
-  <h2>Kündigungsvorlage direkt auswählen</h2> <p class="para-bottom-20">
-  Wir vereinfachen rechtssichere Kündigungen. Unser Generator erstellt in Sekundenschnelle ein fertiges Dokument, das sämtliche juristischen Anforderungen an eine wirksame Vertragsauflösung erfüllt – ohne zeitaufwendige Handarbeit.
+  <h2>Anbieter nach Kategorie finden</h2> <p class="para-bottom-20">
+  Wir vereinfachen rechtssichere Kündigungen. Unser Generator erstellt in Sekundenschnelle ein fertiges Dokument, das alle rechtlichen Anforderungen an eine wirksame Vertragsauflösung erfüllt – komplett ohne zeitaufwendige Handarbeit.
   </p> <div class="trust-inline">
   <span>✓ Kostenlos</span>
   <span>✓ Kein Abo</span>
   <span>✓ Anbieterunabhängig</span>
   </div> <div class="cta-actions">
-  <a href="/formular.php?type=fitness" class="btn-primary">Fitnessstudio kündigen</a>
-  <a href="/formular.php?type=handy" class="btn-primary">Handyvertrag kündigen</a>
-  <a href="/formular.php?type=kfz" class="btn-primary">KFZ-Versicherung kündigen</a>
+  <a href="/fitnessstudio-vertrag-kuendigen.html" class="category-card-btn">Fitnessstudios</a>
+  <a href="/handyvertrag-kuendigen.html" class="category-card-btn">Mobilfunkanbieter</a>
+  <a href="/kfz-versicherung-kuendigen.html" class="category-card-btn">KFZ-Versicherungen</a>
   </div>
   </section> 
 
-  <section class="seo-section cv-auto"> <div class="wrap"> <div class="seo-box"> <h2>Kostenlose Kündigungsvorlage (PDF) direkt erstellen</h2> <p> Für die wirksame Beendigung von Handyverträgen, Fitness-Mitgliedschaften oder KFZ-Versicherungen ist die gesetzliche Textform gemäß § 126b BGB entscheidend. Unsere intelligenten Formulare integrieren Pflichtangaben wie Vertragsnummern und Kündigungsfristen automatisch. Sie erhalten Ihr juristisch wasserdichtes PDF-Dokument sofort und absolut kostenfrei. </p> </div> </div>
+  <section class="seo-section cv-auto"> <div class="wrap"> <div class="seo-box"> <h2>Kostenlose Kündigungsvorlage (PDF) direkt erstellen</h2> <p> Für die wirksame Beendigung von Handyverträgen, Fitness-Mitgliedschaften oder KFZ-Versicherungen ist die gesetzliche Textform nach § 126b BGB entscheidend. Unsere intelligenten Formulare integrieren Pflichtangaben wie Vertragsnummern und Kündigungsfristen automatisch. So erhalten Sie Ihr juristisch wasserdichtes PDF-Dokument sofort und absolut kostenfrei. </p> </div> </div>
   </section>
 
   <section class="hub-block cv-auto"> 
@@ -794,35 +917,80 @@ declare(strict_types=1);
   </section>
 
   <section class="hub-block cv-auto">
-  <div class="hub-inner">
-  <h3 class="hub-title" style="text-align: center; margin-bottom: 24px;">Häufige Fragen zur Kündigung</h3>
-  <div style="display:flex;flex-direction:column;gap:0;margin-top:16px;text-align:left;">
+    <div class="hub-inner">
+      <h3 class="hub-title" style="text-align: center; margin-bottom: 24px;">Häufige Fragen zur Kündigung</h3>
+      
+      <details class="faq-accordion">
+        <summary class="faq-summary">
+          Wie funktioniert die Online-Kündigung?
+        </summary>
+        <p class="faq-content">
+          Wählen Sie einfach Ihren Vertragspartner aus und ergänzen Sie Ihre persönlichen Daten. Anschließend steht Ihr fertig formatiertes Kündigungsschreiben sofort als PDF-Download zur Verfügung.
+        </p>
+      </details>
 
-  <div style="padding:18px 0;border-bottom:1px solid #E2E8F0;">
-  <p style="font-weight:700;margin:0 0 8px;font-size:15px;color:#0F172A;">Wie funktioniert die Online-Kündigung?</p>
-  <p style="margin:0;color:#475569;line-height:1.7;">Wählen Sie einfach Ihren Vertragspartner aus und ergänzen Sie Ihre persönlichen Daten. Anschließend steht Ihr fertig formatiertes Kündigungsschreiben sofort als PDF-Download zur Verfügung.</p>
-  </div>
+      <details class="faq-accordion">
+        <summary class="faq-summary">
+          Sind die Vorlagen rechtlich sicher?
+        </summary>
+        <p class="faq-content">
+          Ja. Sämtliche Vorlagen erfüllen die Vorgaben der gesetzlichen Textform nach § 126b BGB. Zudem enthalten sie wichtige Schutzklauseln, wie den Widerruf der Einzugsermächtigung und die Aufforderung zu einer schriftlichen Kündigungsbestätigung.
+        </p>
+      </details>
 
-  <div style="padding:18px 0;border-bottom:1px solid #E2E8F0;">
-  <p style="font-weight:700;margin:0 0 8px;font-size:15px;color:#0F172A;">Sind die Vorlagen rechtlich sicher?</p>
-  <p style="margin:0;color:#475569;line-height:1.7;">Ja. Sämtliche Vorlagen erfüllen die Vorgaben der gesetzlichen Textform nach § 126b BGB. Zudem enthalten sie wichtige Schutzklauseln, wie den Widerruf der Einzugsermächtigung und die Aufforderung zu einer schriftlichen Kündigungsbestätigung.</p>
-  </div>
+      <details class="faq-accordion">
+        <summary class="faq-summary">
+          Was kostet die Erstellung der Kündigung?
+        </summary>
+        <p class="faq-content">
+          Unser Service ist uneingeschränkt kostenlos. Sie generieren Ihr professionelles PDF-Dokument ohne versteckte Gebühren, Abofallen oder den Zwang, ein Benutzerkonto anzulegen.
+        </p>
+      </details>
 
-  <div style="padding:18px 0;border-bottom:1px solid #E2E8F0;">
-  <p style="font-weight:700;margin:0 0 8px;font-size:15px;color:#0F172A;">Was kostet die Erstellung der Kündigung?</p>
-  <p style="margin:0;color:#475569;line-height:1.7;">Unser Service ist uneingeschränkt kostenlos. Sie generieren Ihr professionelles PDF-Dokument ohne versteckte Gebühren, Abofallen oder den Zwang, ein Benutzerkonto anzulegen.</p>
-  </div>
+      <details class="faq-accordion">
+        <summary class="faq-summary">
+          Was muss ich beim Handyvertrag kündigen beachten?
+        </summary>
+        <p class="faq-content">
+          Dank der aktuellen TKG-Reform können Mobilfunkverträge nach Ablauf der Mindestlaufzeit meist monatlich gekündigt werden. Achten Sie auf die korrekte Angabe Ihrer Ruf- und Kundennummer, um eine reibungslose Bearbeitung sicherzustellen.
+        </p>
+      </details>
 
-  <div style="padding:18px 0;">
-  <p style="font-weight:700;margin:0 0 8px;font-size:15px;color:#0F172A;">Was muss ich beim Handyvertrag kündigen beachten?</p>
-  <p style="margin:0;color:#475569;line-height:1.7;">Dank der aktuellen TKG-Reform können Mobilfunkverträge nach Ablauf der Mindestlaufzeit meist monatlich gekündigt werden. Achten Sie auf die korrekte Angabe Ihrer Ruf- und Kundennummer, um eine reibungslose Bearbeitung sicherzustellen.</p>
-  </div>
-
-  </div>
-  </div>
+    </div>
   </section>
 
-  <section class="popular-section cv-auto"> <div class="wrap"> <h2>Beliebte Kündigungen</h2> <div class="popular-grid"> <a href="/mcfit-kuendigung.html" class="popular-card">McFit kündigen</a> <a href="/fitx-kuendigung.html" class="popular-card">FitX kündigen</a> <a href="/clever-fit-kuendigung.html" class="popular-card">Clever Fit kündigen</a> <a href="/telekom-kuendigung.html" class="popular-card">Telekom kündigen</a> <a href="/vodafone-kuendigung.html" class="popular-card">Vodafone kündigen</a> <a href="/o2-kuendigung.html" class="popular-card">O2 kündigen</a> <a href="/freenet-kuendigung.html" class="popular-card">freenet kündigen</a> <a href="/aldi-talk-kuendigung.html" class="popular-card">Aldi Talk kündigen</a> <a href="/blau-kuendigung.html" class="popular-card">Blau kündigen</a> <a href="/lidl-connect-kuendigung.html" class="popular-card">Lidl Connect kündigen</a> <a href="/tchibo-mobil-kuendigung.html" class="popular-card">Tchibo Mobil kündigen</a> <a href="/klarmobil-kuendigung.html" class="popular-card">klarmobil kündigen</a> <a href="/otelo-kuendigung.html" class="popular-card">otelo kündigen</a> <a href="/congstar-kuendigung.html" class="popular-card">congstar kündigen</a> <a href="/fraenk-kuendigung.html" class="popular-card">fraenk kündigen</a> <a href="/kaufland-mobil-kuendigung.html" class="popular-card">Kaufland Mobil kündigen</a> <a href="/superselect-kuendigung.html" class="popular-card">superselect kündigen</a> <a href="/mrs-sporty-kuendigung.html" class="popular-card">Mrs. Sporty kündigen</a> <a href="/urban-sports-club-kuendigung.html" class="popular-card">Urban Sports Club kündigen</a> <a href="/bodystreet-kuendigung.html" class="popular-card">Bodystreet kündigen</a> <a href="/fitnessking-kuendigung.html" class="popular-card">FitnessKing kündigen</a>  <a href="/huk24-kfz-versicherung-kuendigen.html" class="popular-card">HUK24 KFZ kündigen</a> <a href="/allianz-kfz-versicherung-kuendigen.html" class="popular-card">Allianz KFZ kündigen</a> <a href="/huk-coburg-kfz-versicherung-kuendigen.html" class="popular-card">HUK-COBURG KFZ kündigen</a> <a href="/axa-kfz-versicherung-kuendigen.html" class="popular-card">AXA KFZ kündigen</a> <a href="/devk-kfz-versicherung-kuendigen.html" class="popular-card">DEVK KFZ kündigen</a> </div> </div>
+  <section class="popular-section cv-auto"> 
+    <div class="wrap"> 
+      <h2>Beliebte Kündigungen</h2> 
+      <div class="popular-brand-grid"> 
+        <a href="/mcfit-kuendigung.html" class="popular-brand-link">McFit</a> 
+        <a href="/fitx-kuendigung.html" class="popular-brand-link">FitX</a> 
+        <a href="/clever-fit-kuendigung.html" class="popular-brand-link">Clever Fit</a> 
+        <a href="/telekom-kuendigung.html" class="popular-brand-link">Telekom</a> 
+        <a href="/vodafone-kuendigung.html" class="popular-brand-link">Vodafone</a> 
+        <a href="/o2-kuendigung.html" class="popular-brand-link" style="font-family: Arial, sans-serif;">O₂</a> 
+        <a href="/freenet-kuendigung.html" class="popular-brand-link">freenet</a> 
+        <a href="/aldi-talk-kuendigung.html" class="popular-brand-link">ALDI TALK</a> 
+        <a href="/blau-kuendigung.html" class="popular-brand-link">Blau</a> 
+        <a href="/lidl-connect-kuendigung.html" class="popular-brand-link">Lidl Connect</a> 
+        <a href="/tchibo-mobil-kuendigung.html" class="popular-brand-link">Tchibo MOBIL</a> 
+        <a href="/klarmobil-kuendigung.html" class="popular-brand-link">klarmobil</a> 
+        <a href="/otelo-kuendigung.html" class="popular-brand-link">otelo</a> 
+        <a href="/congstar-kuendigung.html" class="popular-brand-link">congstar</a> 
+        <a href="/fraenk-kuendigung.html" class="popular-brand-link">fraenk</a> 
+        <a href="/kaufland-mobil-kuendigung.html" class="popular-brand-link">Kaufland mobil</a> 
+        <a href="/superselect-kuendigung.html" class="popular-brand-link">Super Select</a> 
+        <a href="/mrs-sporty-kuendigung.html" class="popular-brand-link">Mrs. Sporty</a> 
+        <a href="/urban-sports-club-kuendigung.html" class="popular-brand-link">Urban Sports Club</a> 
+        <a href="/bodystreet-kuendigung.html" class="popular-brand-link">Bodystreet</a> 
+        <a href="/fitnessking-kuendigung.html" class="popular-brand-link">FitnessKING</a>  
+        <a href="/huk24-kfz-versicherung-kuendigen.html" class="popular-brand-link">HUK24</a> 
+        <a href="/allianz-kfz-versicherung-kuendigen.html" class="popular-brand-link">Allianz</a> 
+        <a href="/huk-coburg-kfz-versicherung-kuendigen.html" class="popular-brand-link">HUK-Coburg</a> 
+        <a href="/axa-kfz-versicherung-kuendigen.html" class="popular-brand-link">AXA</a> 
+        <a href="/devk-kfz-versicherung-kuendigen.html" class="popular-brand-link">DEVK</a> 
+      </div> 
+    </div>
   </section>
 
 </main> 
@@ -837,46 +1005,200 @@ declare(strict_types=1);
 
 <style>
 @media (max-width: 820px) {
-  html body .popular-grid {
+  html body .popular-brand-grid {
     padding-bottom: 32px !important;
   }
 }
 </style>
 
 <div id="nuclear-mobile-cta" style="display: none; position: fixed !important; bottom: 0 !important; left: 0 !important; right: 0 !important; background: #ffffff !important; border-top: 1px solid #E2E8F0 !important; padding: 12px 16px !important; padding-bottom: calc(12px + env(safe-area-inset-bottom)) !important; z-index: 2147483647 !important; box-shadow: 0 -8px 32px rgba(15,23,42,0.1) !important; width: 100% !important; box-sizing: border-box !important; transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease !important; transform: translateY(0);">
-    <a href="#provider-search-section" style="flex: 1 !important; width: 100% !important; background: #16A34A !important; color: #ffffff !important; text-align: center !important; padding: 16px !important; border-radius: 12px !important; font-weight: 900 !important; text-decoration: none !important; font-size: 16px !important; display: block !important; cursor: pointer !important; box-sizing: border-box !important;" onclick="setTimeout(() => { const el = document.getElementById('providerSearch'); if(el) { el.focus({preventScroll: true}); } }, 400);">🔍 Anbieter finden & kündigen</a>
+    <a href="#provider-search-section" style="flex: 1 !important; width: 100% !important; background: var(--btn, #16A34A) !important; color: #ffffff !important; text-align: center !important; padding: 16px !important; border-radius: 14px !important; font-weight: 900 !important; text-decoration: none !important; font-size: 16px !important; display: block !important; cursor: pointer !important; box-sizing: border-box !important;" onclick="event.preventDefault(); var el=document.getElementById('provider-search-section'); if(el){ var y=el.getBoundingClientRect().top+window.pageYOffset-100; window.scrollTo({top:y, behavior:'smooth'}); setTimeout(function(){ if(window.pageYOffset<y-50||window.pageYOffset>y+50){ window.scrollTo(0,y); } }, 600); }">🔍 Anbieter finden & kündigen</a>
 </div>
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
+    
+    // --- 1. SEARCH LOGIC & AUTOCOMPLETE ---
+    const providersList = [
+        // Mobilfunk
+        { name: "Telekom", url: "/telekom-kuendigung.html", tags: ["t-mobile", "tmobile", "magenta"] },
+        { name: "Vodafone", url: "/vodafone-kuendigung.html", tags: ["kabel", "internet"] },
+        { name: "O₂", url: "/o2-kuendigung.html", tags: ["o2", "telefonica"] },
+        { name: "1&1", url: "/1und1-kuendigung.html", tags: ["1 und 1", "eins und eins"] },
+        { name: "Congstar", url: "/congstar-kuendigung.html", tags: [] },
+        { name: "Freenet", url: "/freenet-kuendigung.html", tags: [] },
+        { name: "ALDI TALK", url: "/aldi-talk-kuendigung.html", tags: ["aldi", "medion"] },
+        { name: "Blau", url: "/blau-kuendigung.html", tags: ["blau.de"] },
+        { name: "Lidl Connect", url: "/lidl-connect-kuendigung.html", tags: ["lidl"] },
+        { name: "Tchibo MOBIL", url: "/tchibo-mobil-kuendigung.html", tags: ["tchibo"] },
+        { name: "klarmobil", url: "/klarmobil-kuendigung.html", tags: [] },
+        { name: "otelo", url: "/otelo-kuendigung.html", tags: [] },
+        { name: "fraenk", url: "/fraenk-kuendigung.html", tags: [] },
+        { name: "Kaufland mobil", url: "/kaufland-mobil-kuendigung.html", tags: ["kaufland"] },
+        { name: "Super Select", url: "/superselect-kuendigung.html", tags: ["superselect"] },
+        { name: "mobilcom-debitel", url: "/mobilcom-debitel-kuendigung.html", tags: ["mobilcom", "debitel", "freenet"] },
+        { name: "SIM.de", url: "/simde-kuendigung.html", tags: ["sim de", "simde"] },
+        { name: "Drillisch", url: "/drillisch-kuendigung.html", tags: [] },
+        { name: "DeutschlandSIM", url: "/deutschlandsim-kuendigung.html", tags: ["deutschland sim"] },
+        { name: "winSIM", url: "/winsim-kuendigung.html", tags: ["win sim"] },
+        { name: "simplytel", url: "/simplytel-kuendigung.html", tags: ["simply"] },
+        { name: "PremiumSIM", url: "/premiumsim-kuendigung.html", tags: ["premium sim"] },
+        { name: "smartmobil", url: "/smartmobil-kuendigung.html", tags: ["smart mobil"] },
+        { name: "maXXim", url: "/maxxim-kuendigung.html", tags: ["maxim"] },
+        { name: "yourfone", url: "/yourfone-kuendigung.html", tags: [] },
+        { name: "discoTEL", url: "/discotel-kuendigung.html", tags: [] },
+        { name: "HIGH mobile", url: "/high-mobile-kuendigung.html", tags: ["high"] },
+        { name: "EDEKA mobil", url: "/edeka-mobil-kuendigung.html", tags: ["edeka"] },
+        { name: "EDEKA smart", url: "/edeka-smart-kuendigung.html", tags: ["edeka"] },
+        { name: "ja! Mobil", url: "/ja-mobil-kuendigung.html", tags: ["ja mobil", "rewe"] },
+        { name: "NORMA Connect", url: "/norma-connect-kuendigung.html", tags: ["norma"] },
+        { name: "AY YILDIZ", url: "/ay-yildiz-kuendigung.html", tags: ["ay yildiz", "ayyildiz"] },
+        { name: "FONIC", url: "/fonic-kuendigung.html", tags: [] },
+        { name: "Lycamobile", url: "/lycamobile-kuendigung.html", tags: ["lyca"] },
+        { name: "Lebara", url: "/lebara-kuendigung.html", tags: [] },
+        { name: "Ortel Mobile", url: "/ortel-mobile-kuendigung.html", tags: ["ortel"] },
+        
+        // Fitness
+        { name: "McFit", url: "/mcfit-kuendigung.html", tags: ["mc fit"] },
+        { name: "FitX", url: "/fitx-kuendigung.html", tags: [] },
+        { name: "Clever Fit", url: "/clever-fit-kuendigung.html", tags: ["cleverfit"] },
+        { name: "John Reed", url: "/john-reed-kuendigung.html", tags: ["johnreed"] },
+        { name: "Urban Sports Club", url: "/urban-sports-club-kuendigung.html", tags: ["urban sports", "usc"] },
+        { name: "Fitness First", url: "/fitness-first-kuendigung.html", tags: [] },
+        { name: "Holmes Place", url: "/holmes-place-kuendigung.html", tags: [] },
+        { name: "Bodystreet", url: "/bodystreet-kuendigung.html", tags: [] },
+        { name: "FitnessKING", url: "/fitnessking-kuendigung.html", tags: ["fitnessking"] },
+        { name: "Mrs. Sporty", url: "/mrs-sporty-kuendigung.html", tags: ["mrssporty", "mrs sporty"] },
+        { name: "Kieser Training", url: "/kieser-training-kuendigung.html", tags: ["kieser"] },
+        { name: "Pfitzenmeier", url: "/pfitzenmeier-kuendigung.html", tags: [] },
+        { name: "INJOY", url: "/injoy-kuendigung.html", tags: [] },
+        { name: "Body & Soul", url: "/body-and-soul-kuendigung.html", tags: ["body and soul", "body & soul", "body+soul"] },
+        { name: "High5", url: "/high5-kuendigung.html", tags: ["high 5"] },
+        { name: "Fitness Express", url: "/fitness-express-kuendigung.html", tags: [] },
+        { name: "7/11 Fitness", url: "/7-11-fitness-kuendigung.html", tags: ["711", "seven eleven"] },
+        
+        // KFZ
+        { name: "Allianz", url: "/allianz-kfz-versicherung-kuendigen.html", tags: ["allianz direct"] },
+        { name: "HUK-Coburg", url: "/huk-coburg-kfz-versicherung-kuendigen.html", tags: ["huk"] },
+        { name: "HUK24", url: "/huk24-kfz-versicherung-kuendigen.html", tags: [] },
+        { name: "ERGO", url: "/ergo-kfz-versicherung-kuendigen.html", tags: [] },
+        { name: "AXA", url: "/axa-kfz-versicherung-kuendigen.html", tags: [] },
+        { name: "DEVK", url: "/devk-kfz-versicherung-kuendigen.html", tags: [] },
+        { name: "ADAC", url: "/adac-kfz-versicherung-kuendigen.html", tags: [] },
+        { name: "Generali", url: "/generali-kfz-versicherung-kuendigen.html", tags: [] },
+        { name: "HDI", url: "/hdi-kfz-versicherung-kuendigen.html", tags: [] },
+        { name: "R+V", url: "/r-und-v-kfz-versicherung-kuendigen.html", tags: ["r und v", "r&v"] },
+        { name: "CosmosDirekt", url: "/cosmosdirekt-kfz-versicherung-kuendigen.html", tags: ["cosmos direkt", "cosmos"] },
+        { name: "LVM", url: "/lvm-kfz-versicherung-kuendigen.html", tags: [] },
+        { name: "VHV", url: "/vhv-kfz-versicherung-kuendigen.html", tags: [] },
+        { name: "Württembergische", url: "/wuerttembergische-kfz-versicherung-kuendigen.html", tags: ["wurttembergische"] },
+        { name: "DA Direkt", url: "/da-direkt-kfz-versicherung-kuendigen.html", tags: ["da-direkt"] },
+        { name: "Verti", url: "/verti-kfz-versicherung-kuendigen.html", tags: [] },
+        { name: "Nürnberger", url: "/nuernberger-kfz-versicherung-kuendigen.html", tags: ["nurnberger"] },
+        { name: "Gothaer", url: "/gothaer-kfz-versicherung-kuendigen.html", tags: [] },
+        { name: "Zurich", url: "/zurich-kfz-versicherung-kuendigen.html", tags: [] },
+        { name: "Provinzial", url: "/provinzial-kfz-versicherung-kuendigen.html", tags: [] },
+        { name: "Alte Leipziger", url: "/alte-leipziger-kfz-versicherung-kuendigen.html", tags: [] },
+        { name: "WGV", url: "/wgv-kfz-versicherung-kuendigen.html", tags: [] },
+        { name: "Sparkassen Versicherung", url: "/sparkassen-versicherung-kfz-kuendigen.html", tags: ["sparkasse", "sv"] },
+        { name: "Öffentliche Braunschweig", url: "/oeffentliche-braunschweig-kfz-kuendigen.html", tags: ["öffentliche"] },
+        { name: "SIGNAL IDUNA", url: "/signal-iduna-kfz-versicherung-kuendigen.html", tags: ["signal", "iduna"] },
+        { name: "Itzehoer", url: "/itzehoer-kfz-versicherung-kuendigen.html", tags: [] }
+    ];
+
     const searchInput = document.getElementById('providerSearch');
-    if(searchInput) {
+    const ksList = document.getElementById('ksList');
+    const overlay = document.getElementById('search-overlay');
+
+    if(searchInput && ksList) {
+        
         searchInput.addEventListener('focus', () => {
             document.body.classList.add('search-active');
-            searchInput.style.borderColor = '#16A34A';
+            searchInput.style.borderColor = 'var(--btn, #16A34A)';
             searchInput.style.boxShadow = '0 0 0 4px rgba(22,163,74,0.15)';
+            searchInput.dispatchEvent(new Event('input')); 
         });
+
         searchInput.addEventListener('blur', () => {
             document.body.classList.remove('search-active');
             searchInput.style.borderColor = '#E2E8F0';
             searchInput.style.boxShadow = '0 8px 24px rgba(15,23,42,0.06)';
+            
+            setTimeout(() => { ksList.style.display = 'none'; }, 200);
         });
-        
-        const overlay = document.getElementById('search-overlay');
+
         if(overlay) {
             overlay.addEventListener('click', () => searchInput.blur());
         }
+
+        searchInput.addEventListener('input', function(e) {
+            const val = e.target.value.toLowerCase().trim();
+            ksList.innerHTML = ''; 
+            
+            if (val.length > 0) {
+                const matches = providersList.filter(p => {
+                    const matchName = p.name.toLowerCase().includes(val);
+                    const matchTags = p.tags.some(tag => tag.startsWith(val) || tag.includes(' ' + val));
+                    return matchName || matchTags;
+                });
+                
+                if (matches.length > 0) {
+                    matches.forEach(match => {
+                        const a = document.createElement('a');
+                        a.href = match.url;
+                        a.className = 'ks-item';
+                        
+                        const safeVal = val.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                        const regex = new RegExp(`(${safeVal})`, 'gi');
+                        
+                        if (match.name.toLowerCase().includes(val)) {
+                            a.innerHTML = match.name.replace(regex, '<span style="color:var(--btn, #16A34A);">$1</span>');
+                        } else {
+                            a.textContent = match.name;
+                        }
+                        
+                        ksList.appendChild(a);
+                    });
+                } else {
+                    ksList.innerHTML = '<div style="padding: 14px 24px; color: #64748B; font-size: 15px; line-height: 1.6;">Kein Anbieter gefunden. Nutzen Sie unsere Blanko-Vorlagen für <a href="/formular.php?type=fitness" style="color:var(--btn, #16A34A); font-weight:700; text-decoration:none;">Fitness</a>, <a href="/formular.php?type=handy" style="color:var(--btn, #16A34A); font-weight:700; text-decoration:none;">Mobilfunk</a> oder <a href="/formular.php?type=kfz" style="color:var(--btn, #16A34A); font-weight:700; text-decoration:none;">KFZ</a>.</div>';
+                }
+                ksList.style.display = 'block';
+            } else {
+                ksList.style.display = 'none';
+            }
+        });
+
+        searchInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                const firstLink = ksList.querySelector('a.ks-item');
+                if (firstLink) {
+                    window.location.href = firstLink.href;
+                }
+            }
+        });
     }
 
+    // --- ACCORDION BEHAVIOR (ONE OPEN AT A TIME) ---
+    const accordions = document.querySelectorAll('.faq-accordion');
+    accordions.forEach(acc => {
+        acc.addEventListener('click', (e) => {
+            if (e.target.tagName === 'SUMMARY') {
+                accordions.forEach(otherAcc => {
+                    if (otherAcc !== acc && otherAcc.open) {
+                        otherAcc.removeAttribute('open');
+                    }
+                });
+            }
+        });
+    });
+
+    // --- 2. MOBILE CTA VISIBILITY ---
     const mobileCta = document.getElementById('nuclear-mobile-cta');
     const searchSection = document.getElementById('provider-search-section');
-    
     let lastWidth = window.innerWidth;
 
-    function checkMobileWidth() {
-        return window.innerWidth <= 820;
-    }
-
+    function checkMobileWidth() { return window.innerWidth <= 820; }
     function handleInitialDisplay() {
         if (checkMobileWidth()) {
             mobileCta.style.display = 'block';
@@ -888,7 +1210,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     handleInitialDisplay();
-    
     window.addEventListener('resize', () => {
         if (window.innerWidth !== lastWidth) {
             lastWidth = window.innerWidth;
@@ -912,13 +1233,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
         }, { threshold: 0.15 }); 
-        
         observer.observe(searchSection);
     }
 
-    // JS PENTRU KÜNDIGUNGSFRIST-RECHNER
-
-    // Populate day dropdown (1-31)
+    // --- 3. KÜNDIGUNGSFRIST-RECHNER ---
     const daySelect = document.getElementById('calc-day');
     if (daySelect) {
         for (let d = 1; d <= 31; d++) {
@@ -929,7 +1247,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Populate year dropdown (2000 to current year + 2, descending – most recent first)
     const yearSelect = document.getElementById('calc-year');
     if (yearSelect) {
         const currentYear = new Date().getFullYear();
@@ -958,9 +1275,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            // Build date - month is 1-indexed in select, but Date constructor is 0-indexed
             const startDate = new Date(parseInt(yearVal), parseInt(month) - 1, parseInt(day));
-            // Verifică dacă data e validă (ex: 31 februarie devine 3 martie — invalid input)
             if (startDate.getDate() != parseInt(day) || startDate.getMonth() != parseInt(month) - 1) {
                 alert("Dieses Datum existiert nicht. Bitte prüfen Sie Ihre Eingabe.");
                 return;
@@ -977,7 +1292,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (type === 'kfz') {
                 const today = new Date();
                 const currentYear = today.getFullYear();
-                let stichtag = new Date(currentYear, 10, 30); // 30 nov (luna 10 = noiembrie 0-indexed)
+                let stichtag = new Date(currentYear, 10, 30); 
                 if (today > stichtag) {
                     stichtag = new Date(currentYear + 1, 10, 30);
                 }
@@ -986,21 +1301,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 noticeTitle = "Stichtag: 30.11." + stichtagYear;
                 noticeText = "Noch " + daysLeft + " Tage. Ihre Kündigung muss spätestens am 30. November " + stichtagYear + " beim Versicherer vorliegen. KFZ-Versicherungen laufen in der Regel bis zum Jahresende.";
             } else if (type === 'handy') {
-                // TKG se aplică retroactiv pentru toate contractele Handy (§ 56 TKG, valabil din 01.12.2021 inclusiv pentru Altverträge)
                 const today = new Date();
-                // Calcul: Mindestlaufzeit standard 24 luni, dacă a trecut → monatlich kündbar acum cu 1 lună frist
                 const minLaufzeitEnd = new Date(startDate);
                 minLaufzeitEnd.setMonth(minLaufzeitEnd.getMonth() + 24);
                 
                 if (minLaufzeitEnd <= today) {
-                    // Mindestlaufzeit expirată — kündbar acum
                     const kuendbarAb = new Date(today);
                     kuendbarAb.setMonth(kuendbarAb.getMonth() + 1);
                     const dateStr = kuendbarAb.toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit', year: 'numeric' });
                     noticeTitle = "Sofort kündbar!";
                     noticeText = "Ihre Mindestlaufzeit ist abgelaufen. Dank § 56 TKG sind Sie jederzeit mit 1 Monat Frist kündbar — Vertragsende zum " + dateStr + ". Das gilt auch für Altverträge.";
                 } else {
-                    // Încă în Mindestlaufzeit — calcul data primă kündigung
                     const kuendbarAb = new Date(minLaufzeitEnd);
                     kuendbarAb.setMonth(kuendbarAb.getMonth() + 1);
                     const dateStr = kuendbarAb.toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit', year: 'numeric' });
@@ -1009,14 +1320,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     noticeText = "Bei einer Standard-Mindestlaufzeit von 24 Monaten endet diese am " + minEndStr + ". Danach gilt § 56 TKG: monatliche Kündigung mit 1 Monat Frist möglich. Bei abweichender Laufzeit prüfen Sie Ihren Vertrag.";
                 }
             } else {
-                // Fitness / BGB
                 const limitDate = new Date('2022-03-01');
                 const today = new Date();
                 
                 if (startDate >= limitDate) {
-                    // Vertrag nou — regulile BGB modernizate, Mindestlaufzeit standard 12-24 luni fitness
                     const minLaufzeitEnd = new Date(startDate);
-                    minLaufzeitEnd.setMonth(minLaufzeitEnd.getMonth() + 24); // assume 24 luni standard
+                    minLaufzeitEnd.setMonth(minLaufzeitEnd.getMonth() + 24); 
                     
                     if (minLaufzeitEnd <= today) {
                         const kuendbarAb = new Date(today);
@@ -1033,7 +1342,6 @@ document.addEventListener('DOMContentLoaded', () => {
                         noticeText = "Bei einer Standard-Erstlaufzeit von 24 Monaten endet diese am " + minEndStr + ". Danach gilt: monatliche Kündigung mit 1 Monat Frist (Gesetz für faire Verbraucherverträge). Bei kürzerer Laufzeit ist Ihr Datum entsprechend früher.";
                     }
                 } else {
-                    // Altvertrag — 3 căi de ieșire
                     noticeTitle = "3 Wege aus Ihrem Altvertrag";
                     noticeText = "Altverträge (vor März 2022) haben oft eine Kündigungsfrist von bis zu 3 Monaten. Aber: Bei fehlendem Kündigungsbutton oder Sonderkündigungsgründen (Umzug über 30 km, Krankheit mit Attest, Schwangerschaft) sind Sie sofort kündbar. Unser kostenloses PDF deckt alle Fälle rechtssicher ab.";
                 }
@@ -1043,7 +1351,6 @@ document.addEventListener('DOMContentLoaded', () => {
             resultDesc.innerText = noticeText;
             resultBox.classList.add('active');
 
-            // CTA mapping spre hub corespunzător
             const ctaMap = {
                 kfz: '/kfz-versicherung-kuendigen.html',
                 handy: '/handyvertrag-kuendigen.html',
@@ -1054,8 +1361,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 cta.style.display = 'inline-block';
             }
 
-            // Scroll to result card after a short delay (lasă DOM-ul să se reaășeze)
-            // DIAGNOSTIC: scrollIntoView dezactivat temporar pentru a testa daca cauzeaza overflow lateral
             setTimeout(() => {
                 const scrollTop = resultBox.getBoundingClientRect().top + window.pageYOffset - 100;
                 window.scrollTo({ top: scrollTop, behavior: 'smooth' });

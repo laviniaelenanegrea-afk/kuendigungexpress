@@ -408,7 +408,7 @@ footer p:last-child{margin-bottom:0 !important}
 <meta name="ke-provider" content="<?= htmlspecialchars($studio, ENT_QUOTES) ?>">
 <meta name="ke-type" content="<?= htmlspecialchars($type, ENT_QUOTES) ?>">
 <script src="/clarity-loader.js" async></script>
-<link rel="stylesheet" href="/style.css?v=14"></head>
+<link rel="preload" href="/style.css?v=14" as="style"> <link rel="stylesheet" href="/style.css?v=15"></head>
 <body>
 <header class="site-header"><a href="/" class="brand">KündigungExpress</a></header>
 <div class="wrap">

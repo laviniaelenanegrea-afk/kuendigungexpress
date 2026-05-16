@@ -19,7 +19,7 @@ declare(strict_types=1);
 
 // === CONFIGURARE ===
 $RETENTION_DAYS = 90;
-$TOKEN = 'change-this-to-a-long-random-string-abc123xyz789'; // schimbă!
+$TOKEN = 'ke2026jsondata'; // diferit de cleanup-pdfs ca să nu poată fi confuz
 $DIRS = [
     __DIR__ . '/_data',
     __DIR__ . '/_orders',

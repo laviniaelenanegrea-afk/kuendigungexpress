@@ -68,7 +68,7 @@ function fehler(string $msg, string $contact): void {
     
     <script src="/cookie-consent.js" defer></script>
 
-<link rel="stylesheet" href="/style.css?v=14"></head>
+<link rel="preload" href="/style.css?v=14" as="style"> <link rel="stylesheet" href="/style.css?v=15"></head>
 <body>";
   echo "<div class='wrap'><div class='card'>";
   echo "<div class='err-icon'>⚠️</div>";
@@ -207,7 +207,7 @@ try {
     .note{font-size:12px;color:#94A3B8;margin-top:14px}
     footer{text-align:center;font-size:12px;color:#94A3B8;padding:16px 24px}
     footer a{color:inherit;text-decoration:none}
-  </style><link rel="stylesheet" href="/style.css?v=14"></head><body>";
+  </style><link rel="preload" href="/style.css?v=14" as="style"> <link rel="stylesheet" href="/style.css?v=15"></head><body>";
   echo "<div class='wrap'><div class='card'>";
   echo "<div class='spin'></div>";
   echo "<h1>Weiterleitung zu Stripe</h1>";

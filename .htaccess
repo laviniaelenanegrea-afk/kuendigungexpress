@@ -1,3 +1,9 @@
+RewriteEngine On
+
+# Servește intern fișierul .php când cineva accesează URL-ul .html
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.*)\.html$ $1.php [L,NC]
+
 # --- Protect config files ---
 <Files "_smtp_config.php">
   Require all denied
@@ -10,9 +16,6 @@
 <Files "_security_headers.php">
   Require all denied
 </Files>
-
-# --- Protect private folders (recommended) ---
-# (In case there isn't already a separate .htaccess inside those folders)
 
 # --- Redirect old form URL to the new PHP form ---
 Redirect 301 /formular.html /formular.php
@@ -29,6 +32,6 @@ Redirect 301 /formular.html /formular.php
   # CSP (safe for your inline CSS/JS and Microsoft Clarity)
   Header set Content-Security-Policy "default-src 'self'; img-src 'self' data: https://c.clarity.ms; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' https://www.clarity.ms https://scripts.clarity.ms; connect-src 'self' https://*.clarity.ms; base-uri 'self'; form-action 'self'; frame-ancestors 'self'"
 
-  # Optional: try to remove Vary header (if IONOS allows it)
+  # Optional: try to remove Vary header
   Header unset Vary
 </IfModule>
