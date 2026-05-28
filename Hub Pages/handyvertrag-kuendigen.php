@@ -57,7 +57,7 @@ declare(strict_types=1);
 ]
 }
 </script>
-<link rel="preload" href="/style.css?v=14" as="style"> <link rel="stylesheet" href="/style.css?v=15"> 
+<link rel="preload" href="/style.css?v=15" as="style"> <link rel="stylesheet" href="/style.css?v=15"> 
 <script src="/cookie-consent.js" defer></script>
 
 <style>

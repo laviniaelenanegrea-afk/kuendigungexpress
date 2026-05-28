@@ -84,6 +84,7 @@ $terminationMode = (string)($_POST['terminationMode'] ?? 'next_possible');
 $terminationDate = clean_text((string)($_POST['terminationDate'] ?? ''));
 $providerEmail   = clean_text((string)($_POST['providerEmail'] ?? ''));
 $sendEmail       = isset($_POST['sendEmail']) ? '1' : '0';
+$trustpilotConsent = isset($_POST['trustpilotConsent']) ? '1' : '0';
 $type            = ($_POST['type'] ?? 'fitness');
 $type            = in_array($type, ['handy', 'fitness', 'kfz'], true) ? $type : 'fitness';
 
@@ -219,6 +220,7 @@ $trackingRecord = [
     'emailSent'   => isset($sendEmail) && $sendEmail === '1' && !empty($providerEmail),
     'hasContract' => !empty($rawContract),
     'hasEmail'    => !empty($email),
+    'tpConsent'   => $trustpilotConsent === '1',
 ];
 @file_put_contents($trackingFile, json_encode($trackingRecord, JSON_UNESCAPED_UNICODE));
 $downloadUrl = '/pdf/' . $filename;
@@ -277,7 +279,10 @@ if (!empty($email) && filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $confirm->CharSet    = 'UTF-8';
         $confirm->setFrom($smtp2['username'], 'KündigungExpress');
         $confirm->addAddress($email, $name);
-        $confirm->addBCC('kuendigungexpress.de+5dff45cab6@invite.trustpilot.com');
+        // Trustpilot-Einladung nur bei ausdrücklicher Einwilligung (DSGVO Art. 6 Abs. 1 lit. a)
+        if ($trustpilotConsent === '1') {
+            $confirm->addBCC('kuendigungexpress.de+5dff45cab6@invite.trustpilot.com');
+        }
         $confirm->addAttachment($pdfDir . '/' . $filename, 'Kuendigung-' . $providerSlug . '.pdf');
         $confirm->Subject = 'Ihr Kündigungsschreiben von KündigungExpress';
         $confirm->Body    = "Guten Tag " . $firstName . ",\n\nim Anhang finden Sie Ihr Kündigungsschreiben für " . $studio . ".\n\nNächste Schritte:\n1. Ausdrucken und eigenhändig unterschreiben\n2. Per Einschreiben mit Rückschein versenden\n3. Eingangsbestätigung mit Vertragsende aufbewahren\n\nBei Fragen: kontakt@kuendigungexpress.de\n\nMit freundlichen Grüßen\nKündigungExpress · kuendigungexpress.de";
@@ -326,23 +331,6 @@ body{font-family:Arial,sans-serif;background:var(--bg);color:var(--text);display
 .next-steps h2{font-size:13px;font-weight:800;margin-bottom:10px}
 .next-steps ol{padding-left:18px;display:flex;flex-direction:column;gap:7px}
 .next-steps li{font-size:13px;color:var(--muted);line-height:1.5}
-.intent-survey{background:#FFF7ED;border:1px solid #FED7AA;border-radius:18px;padding:22px 24px;margin:18px 0;text-align:center}
-.intent-survey h3{font-size:15px;font-weight:800;color:var(--text);margin-bottom:4px}
-.intent-survey p{font-size:14px;color:var(--muted);margin-bottom:14px}
-.survey-btns{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
-.survey-btn{background:#fff;border:1.5px solid #FB923C;color:#9A3412;font-weight:700;font-size:13px;padding:10px 14px;border-radius:10px;cursor:pointer;transition:all .15s}
-.survey-btn:hover{background:#FB923C;color:#fff}
-.survey-thanks{display:none;color:#15803D;font-weight:700;font-size:14px;margin-top:10px}
-.intent-survey.answered{background:#F0FDF4;border-color:#16A34A;border-width:2px;transition:all .3s}
-.intent-survey.answered h3,
-.intent-survey.answered p,
-.intent-survey.answered .survey-btns{display:none}
-.intent-survey.answered .survey-thanks{
-  display:flex; align-items:center; justify-content:center; gap:10px; font-size:16px; font-weight:800; color:#15803D; padding:8px 0;
-}
-.intent-survey.answered .survey-thanks::before{
-  content:"✓"; display:inline-flex; align-items:center; justify-content:center; width:28px; height:28px; background:#16A34A; color:#fff; border-radius:50%; font-weight:900; font-size:16px; flex-shrink:0;
-}
 .affiliate-card{background:var(--card);border:2px solid rgba(22,163,74,0.3);border-radius:24px;padding:28px 28px 24px;box-shadow:0 8px 32px rgba(22,163,74,0.10)}
 .affiliate-card h2{font-size:18px;font-weight:900;margin-bottom:8px;color:var(--text);text-align:center}
 .affiliate-card p{font-size:14px;color:var(--muted);line-height:1.65;margin-bottom:18px;text-align:center}
@@ -384,7 +372,7 @@ footer p{margin-top:0 !important;margin-bottom:3px !important;font-size:12px;col
 footer p:last-child{margin-bottom:0 !important}
 .site-header{display:none;position:fixed;top:0;left:0;right:0;height:56px;background:#fff;border-bottom:1px solid var(--border);z-index:1000;align-items:center;justify-content:center}
 .site-header .brand{font-weight:900;font-size:18px;color:var(--text);text-decoration:none}
-.engagement-strip { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-top: 18px; }
+.engagement-strip { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 24px; max-width: 560px; margin-left: auto; margin-right: auto; }
 .eng-col { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 18px 16px; text-align: center; display: flex; flex-direction: column; }
 .eng-icon { font-size: 22px; margin-bottom: 6px; line-height: 1; }
 .eng-review .eng-icon { color: #f59e0b; font-size: 14px; letter-spacing: 1px; }
@@ -408,7 +396,7 @@ footer p:last-child{margin-bottom:0 !important}
 <meta name="ke-provider" content="<?= htmlspecialchars($studio, ENT_QUOTES) ?>">
 <meta name="ke-type" content="<?= htmlspecialchars($type, ENT_QUOTES) ?>">
 <script src="/clarity-loader.js" async></script>
-<link rel="preload" href="/style.css?v=14" as="style"> <link rel="stylesheet" href="/style.css?v=15"></head>
+<link rel="preload" href="/style.css?v=15" as="style"> <link rel="stylesheet" href="/style.css?v=15"></head>
 <body>
 <header class="site-header"><a href="/" class="brand">KündigungExpress</a></header>
 <div class="wrap">
@@ -416,7 +404,7 @@ footer p:last-child{margin-bottom:0 !important}
   <div class="success-card">
     <div class="check-circle">✓</div>
     <div class="saved-banner">
-      🎉 Kostenlos — andere Dienste verlangen <strong>4,99 €</strong> für dieses Dokument.
+      🎉 Kostenlos — andere Dienste verlangen <strong>Geld</strong> für dieses Dokument.
     </div>
     <h1>Ihr Kündigungsschreiben ist fertig</h1>
     <p>Dein PDF wird automatisch heruntergeladen (Bitte kurz warten...). Drucke es anschließend aus und verschicke es.</p>
@@ -441,15 +429,14 @@ footer p:last-child{margin-bottom:0 !important}
     </a>
     <?php elseif ($isHandy): ?>
     <h2>Nächster Schritt: Günstigeren Tarif sichern</h2>
-    <p>Die Kündigung bei <strong><?= htmlspecialchars($studio) ?></strong> ist vorbereitet. Wechseln Sie jetzt – im gleichen Netz oder zu einem anderen Anbieter.</p>
+    <p>Die Kündigung bei <strong><?= htmlspecialchars($studio) ?></strong> ist vorbereitet. Vergleichen Sie jetzt Tarife und sparen Sie Geld.</p>
     <a href="https://www.tariffuxx.de/handytarife?r=1126248&subid=generate-<?= htmlspecialchars($providerSlug) ?>"
-       class="aff-btn" style="background:#3B82F6;color:#fff;margin-bottom:10px;" target="_blank" rel="nofollow sponsored" data-aff="tariffuxx-generate">
-      Im gleichen Netz bleiben &amp; sparen → Tariffuxx
+       class="aff-btn" style="background:#3B82F6;color:#fff;margin-bottom:12px;" target="_blank" rel="nofollow sponsored" data-aff="tariffuxx-generate">
+      Tarife im gleichen Netz vergleichen →
     </a>
-    <a href="https://a.check24.net/misc/click.php?pid=1169420&aid=18&deep=handytarife&cat=7"
-       class="aff-btn" style="background:#1E40AF;color:#fff;font-weight:700;" target="_blank" rel="nofollow sponsored" data-aff="check24-handy">
-      Alle Anbieter vergleichen · CHECK24
-    </a>
+    <div style="text-align: center; font-size: 13px;">
+      oder <a href="https://a.check24.net/misc/click.php?pid=1169420&aid=18&deep=handytarife&cat=7" target="_blank" rel="nofollow sponsored" style="color: var(--muted); text-decoration: underline; font-weight: 600;">alle Anbieter bei CHECK24 vergleichen</a>
+    </div>
     <?php else: ?>
     <h2>Zuhause weitertrainieren – ohne Mitgliedschaft</h2>
     <p>Sie verlassen <strong><?= htmlspecialchars($studio) ?></strong>. Bleiben Sie fit – mit dem interaktiven Plankpad Balance Board für zuhause.</p>
@@ -460,37 +447,11 @@ footer p:last-child{margin-bottom:0 !important}
     <?php endif; ?>
   </div>
 
-  <div class="intent-survey" id="intentSurvey">
-    <h3>Eine kurze Frage hilft uns sehr:</h3>
-    <p>Wechseln Sie zu einem neuen Anbieter?</p>
-    <div class="survey-btns">
-      <button type="button" class="survey-btn" data-answer="switching">Ja, ich suche noch</button>
-      <button type="button" class="survey-btn" data-answer="have-replacement">Habe schon einen</button>
-      <button type="button" class="survey-btn" data-answer="no-replacement">Nein, kein neuer Vertrag</button>
-    </div>
-    <div class="survey-thanks" id="surveyThanks"><span>Vielen Dank! Ihre Antwort wurde gespeichert.</span></div>
-  </div>
-
-  <div class="engagement-strip">
-    <div class="eng-col eng-reminder">
-      <div class="eng-icon">📬</div>
-      <h3>Frist-Erinnerung</h3>
-      <p>Nie wieder eine Frist verpassen.</p>
-      <form class="capture-form" id="captureForm">
-        <input type="email" id="captureEmail" placeholder="ihre@email.de" required>
-        <button type="submit">Aktivieren</button>
-      </form>
-      <label class="capture-consent">
-        <input type="checkbox" id="captureConsent" required>
-        Einverstanden mit Fristerinnerungen per E-Mail. Abmeldung jederzeit möglich.
-      </label>
-      <div class="capture-success" id="captureSuccess">✓ Eingetragen!</div>
-    </div>
-
+ <div class="engagement-strip">
     <div class="eng-col eng-review">
       <div class="eng-icon">★★★★★</div>
       <h3>Bewertung hinterlassen</h3>
-      <p>Sie haben kostenlos bekommen, wofür andere zahlen. Eine kurze Bewertung hilft uns, das für alle gratis zu halten.</p>
+      <p>Sie haben kostenlos bekommen, wofür andere zahlen. Eine kurze Bewertung hilft uns sehr.</p>
       <div class="review-btns">
         <a href="https://g.page/r/CQUi4-fYtkH4EAE/review" class="review-btn" target="_blank" rel="nofollow">⭐ Google</a>
         <a href="https://www.trustpilot.com/review/kuendigungexpress.de" class="review-btn" target="_blank" rel="nofollow">⭐ Trustpilot</a>
@@ -506,14 +467,14 @@ footer p:last-child{margin-bottom:0 !important}
     </div>
   </div>
 
-  <div class="back-link">
+     <div class="back-link">
     Noch eine Kündigung? <a href="/">Zur Startseite</a>
   </div>
 
 </div>
 
 <footer>
-  <p class="brand-disclaimer">© 2026 KündigungExpress · <a href="/impressum.html" style="color:#64748B !important;font-weight:normal !important;text-decoration:none !important;">Impressum</a> · <a href="/datenschutz.html" style="color:#64748B !important;font-weight:normal !important;text-decoration:none !important;">Datenschutz</a></p>
+  <p class="brand-disclaimer">© 2026 KündigungExpress · <a href="/impressum.html" style="color:#64748B !important;font-weight:normal !important;text-decoration:none !important;">Impressum</a> · <a href="/datenschutz.html" style="color:#64748B !important;font-weight:normal !important;text-decoration:none !important;">Datenschutz</a> · <a href="/hilfe.html" style="color:#64748B !important;font-weight:normal !important;text-decoration:none !important;">Hilfe</a> · <a href="#" onclick="return keResetConsent(event)" style="color:#64748B !important;font-weight:normal !important;text-decoration:none !important;cursor:pointer;">Cookie-Einstellungen</a></p>
   <p class="brand-disclaimer">Erstellt mit <a href="https://digital-firmen.de" style="color:#64748B !important;font-weight:normal !important;text-decoration:none !important;" target="_blank">digital-firmen.de</a></p>
 </footer>
 

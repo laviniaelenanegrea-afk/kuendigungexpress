@@ -129,7 +129,7 @@ $providerEmails = [
     'drillisch online gmbh' => 'kontakt@drillisch-online.de',
     'winsim' => 'kontakt@winsim.de',
     'smartmobil' => 'kontakt@smartmobil.de',
-    'simplytel' => 'kontakt@winsim.de',
+    'simplytel' => 'kontakt@simplytel.de',
     'premiumsim' => 'kontakt@premiumsim.de',
     'maxxim' => 'kontakt@maxxim.de',
     'sim.de' => 'kontakt@sim.de',
@@ -534,7 +534,7 @@ input.ke-invalid, select.ke-invalid, textarea.ke-invalid {
   font-size: 17px;
   font-weight: 900;
   cursor: pointer;
-  transition: filter .15s ease, transform .15s ease;
+  transition: filter .15s ease, transform .15s ease, background .2s;
   box-shadow: 0 4px 14px rgba(22,163,74,0.25);
 }
 .btn-submit:hover {
@@ -630,6 +630,48 @@ footer a:hover { color: #334155; }
   footer { margin-top: 0; padding: 16px 16px 16px; text-align: left; background: var(--bg);}
   footer p { text-align: left; margin-bottom: 4px !important; }
 }
+
+/* =========================================
+   MODAL INTERSTITIAL & LOADING CSS
+   ========================================= */
+.modal-overlay {
+    position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(15, 23, 42, 0.85);
+    backdrop-filter: blur(5px);
+    z-index: 99999;
+    display: none;
+    align-items: center; justify-content: center;
+    padding: 20px;
+}
+.modal-box {
+    background: #fff;
+    border-radius: 24px;
+    width: 100%; max-width: 440px;
+    padding: 32px 24px;
+    text-align: center;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    animation: modalPop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+@keyframes modalPop {
+    0% { transform: scale(0.9); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+.modal-icon { font-size: 40px; margin-bottom: 16px; line-height: 1; }
+.modal-title { font-size: 20px; font-weight: 900; color: #0F172A; margin-bottom: 12px; }
+.modal-text { font-size: 15px; color: #475569; line-height: 1.6; margin-bottom: 24px; }
+.modal-cta {
+    display: block; width: 100%; color: #fff; text-decoration: none;
+    font-weight: 900; font-size: 16px; padding: 16px; border-radius: 14px;
+    margin-bottom: 16px; transition: transform 0.15s, filter 0.15s;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+.modal-cta:hover { filter: brightness(0.95); transform: translateY(-1px); }
+.modal-skip {
+    background: none; border: none; color: #64748B; font-size: 14px;
+    font-weight: 600; cursor: pointer; text-decoration: underline; padding: 8px;
+    transition: color 0.15s;
+}
+.modal-skip:hover { color: #334155; }
 </style>
 <script src="/formular.js" defer></script>
     
@@ -720,6 +762,15 @@ footer a:hover { color: #334155; }
         <div class="field full">
           <label>Ihre E-Mail <span style="font-weight:400;text-transform:none;letter-spacing:0">(Optional, für Bestätigung/Kopie)</span></label>
           <input name="email" type="email" placeholder="Ihre private E-Mail (z.B. name@gmx.de)" autocomplete="email">
+        </div>
+        <div class="field full">
+          <div class="checkbox-row">
+            <input id="trustpilotConsent" name="trustpilotConsent" type="checkbox" value="1">
+            <div class="checkbox-label">
+              <b>Bewertungs-Einladung erhalten</b>
+              <div class="hint">Ich möchte nach Erhalt eine einmalige Einladung zur Bewertung auf Trustpilot bekommen. Hierzu wird meine E-Mail-Adresse an Trustpilot übermittelt. Diese Einwilligung ist freiwillig und kann jederzeit widerrufen werden.</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -902,12 +953,12 @@ footer a:hover { color: #334155; }
     </div>
 
     <div class="mobile-sticky-submit">
-        <button class="btn-submit" type="submit">PDF jetzt erstellen →</button>
+        <button class="btn-submit" type="submit" id="mainSubmitBtn">PDF jetzt erstellen →</button>
     </div>
     
     <div class="secure-note" style="flex-direction: column; gap: 6px;">
       <div style="color: #64748B; font-size: 11px; line-height: 1.5;">
-        Falls Sie eine eigene E-Mail-Adresse angegeben haben, erhalten Sie Ihr PDF zusätzlich als Kopie sowie eine Einladung zur Bewertung auf Trustpilot.
+        Falls Sie eine eigene E-Mail-Adresse angegeben haben, erhalten Sie Ihr PDF zusätzlich als Kopie. Eine Einladung zur Bewertung auf Trustpilot senden wir nur, wenn Sie dem oben ausdrücklich zugestimmt haben.
       </div>
     </div>
 
@@ -915,13 +966,30 @@ footer a:hover { color: #334155; }
 
   <footer>
     <p>Hinweis: Keine Rechtsberatung. Es werden allgemein anerkannte Standardformulierungen verwendet.</p>
-    <p><a href="/impressum.html">Impressum</a> · <a href="/datenschutz.html">Datenschutz</a> · <a href="/hilfe.html">Hilfe</a> · <a href="#" onclick="return keResetConsent(event)" style="color:#64748B !important;font-weight:normal !important;text-decoration:none !important;cursor:pointer;">Cookie-Einstellungen</a></p>
-    <p>Erstellt mit <a href="https://digital-firmen.de" target="_blank">digital-firmen.de</a></p>
+    <p>
+<a href="/impressum.html" style="color:#64748B !important;font-weight:normal !important;text-decoration:none !important;">Impressum</a> · <a href="/datenschutz.html" style="color:#64748B !important;font-weight:normal !important;text-decoration:none !important;">Datenschutz</a> · <a href="/hilfe.html" style="color:#64748B !important;font-weight:normal !important;text-decoration:none !important;">Hilfe</a> · <a href="#" onclick="return keResetConsent(event)" style="color:#64748B !important;font-weight:normal !important;text-decoration:none !important;">Cookie-Einstellungen</a></p>
+    <p>Erstellt mit <a href="https://digital-firmen.de"style="color:#64748B !important;font-weight:normal !important;text-decoration:none !important;> target="_blank">digital-firmen.de</a></p>
   </footer>
+</div>
+
+<div class="modal-overlay" id="upsellModal">
+  <div class="modal-box">
+    <div class="modal-icon">⏳</div>
+    <div class="modal-title">Einen Moment noch...</div>
+    <div class="modal-text" id="modalText">
+      </div>
+    <a href="#" target="_blank" rel="nofollow sponsored" class="modal-cta" id="modalMainCta">
+      🔥 Tarife vergleichen
+    </a>
+    <button type="button" class="modal-skip" id="modalSkip">
+      Nein danke, Kündigung jetzt herunterladen
+    </button>
+  </div>
 </div>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+    // === 1. Inline Validation System ===
     const inputs = document.querySelectorAll('input[required], input[name="zip"], input[name="email"], input[name="contractNo"]');
     
     inputs.forEach(input => {
@@ -958,6 +1026,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    // === 2. Mobile Sticky Button Behavior ===
     const stickySubmit = document.querySelector('.mobile-sticky-submit');
     if (stickySubmit && window.innerWidth <= 640) {
         const allFormInputs = document.querySelectorAll('input, select');
@@ -970,6 +1039,111 @@ document.addEventListener('DOMContentLoaded', function() {
                     stickySubmit.style.transform = 'translateY(0)'; 
                 }, 200); 
             });
+        });
+    }
+
+    // === 3. Loading State & Contextual Interstitial Modal ===
+    const keForm = document.getElementById('keForm');
+    const submitBtns = document.querySelectorAll('.btn-submit');
+    const modal = document.getElementById('upsellModal');
+    let formIsSubmitting = false;
+
+    if (keForm) {
+        keForm.addEventListener('submit', function(e) {
+            // Dacă deja trimitem, oprim orice dublu click
+            if (formIsSubmitting) {
+                e.preventDefault();
+                return;
+            }
+            
+            // Oprim formularul din drum ca să executăm animația
+            e.preventDefault(); 
+            formIsSubmitting = true;
+
+            // Faza 1: Labor Illusion (0ms)
+            submitBtns.forEach(btn => {
+                btn.style.pointerEvents = 'none';
+                btn.style.background = '#475569';
+                btn.style.boxShadow = 'none';
+                btn.innerHTML = '🔄 Daten werden verschlüsselt...';
+            });
+
+            // Faza 2: Validare vizuală (400ms)
+            setTimeout(() => {
+                submitBtns.forEach(btn => {
+                    btn.innerHTML = '📄 PDF wird generiert...';
+                });
+            }, 400);
+
+            // Faza 3: Routing & Modal (800ms)
+            setTimeout(() => {
+                const type = document.querySelector('input[name="type"]').value;
+                const anbieterRaw = document.querySelector('input[name="anbieter"]').value || '';
+                const anbieter = anbieterRaw.toLowerCase();
+
+                // Dacă NU este telefonie mobilă, trimitem formularul direct (bypass)
+                if (type !== 'handy') {
+                    HTMLFormElement.prototype.submit.call(keForm);
+                    return;
+                }
+
+                // Logica inteligentă pentru Telecom (Handy)
+                let affiliateLink = '';
+                let modalText = '';
+                let btnText = '';
+                let btnColor = '';
+
+                if (anbieter.includes('telekom') || anbieter.includes('congstar') || anbieter.includes('fraenk')) {
+                    // Cazul 1: Tariffuxx (Aceeași rețea, mai ieftin)
+                    affiliateLink = 'https://www.tariffuxx.de/handytarife?r=1126248&subid=modal_gen';
+                    modalText = `Sie kündigen bei <strong>${anbieterRaw}</strong>. Wussten Sie, dass Sie Ihre Rufnummer mitnehmen und im gleichen Netz bleiben können, aber bis zu 50% sparen?`;
+                    btnText = '🔥 Im gleichen Netz bleiben & sparen';
+                    btnColor = '#3B82F6'; 
+                } else if (anbieter.includes('o2') || anbieter.includes('vodafone') || anbieter.includes('drillisch') || anbieter.includes('1&1') || anbieter.includes('freenet') || anbieter.includes('telefonica')) {
+                    // Cazul 2: Telekom via Awin (Network Upgrade)
+                    affiliateLink = 'https://www.awin1.com/awclick.php?gid=361937&mid=11430&awinaffid=2838186&linkid=4581533&clickref=modal_gen';
+                    modalText = `Schlechtes Netz bei <strong>${anbieterRaw}</strong>? Sichern Sie sich jetzt das beste D1-Netz Deutschlands (Telekom) und nehmen Sie Ihre Rufnummer einfach mit.`;
+                    btnText = '🔥 Zum besten Netz Deutschlands wechseln';
+                    btnColor = '#E20074'; 
+                } else {
+                    // Cazul 3: Check24 (Fallback Comparator)
+                    affiliateLink = 'https://a.check24.net/misc/click.php?pid=1169420&aid=18&deep=handytarife&cat=7';
+                    modalText = `Sie kündigen bei <strong>${anbieterRaw}</strong>. Zahlen Sie künftig nicht mehr als nötig! Vergleichen Sie jetzt Tarife und sichern Sie sich exklusive Wechselboni.`;
+                    btnText = '🔥 Handytarife vergleichen & sparen';
+                    btnColor = '#1E40AF'; 
+                }
+
+                // Inserăm datele dinamice în Modal
+                document.getElementById('modalText').innerHTML = modalText;
+                const mainCta = document.getElementById('modalMainCta');
+                mainCta.innerText = btnText;
+                mainCta.style.background = btnColor;
+                mainCta.href = affiliateLink;
+                
+                // Afișăm Modalul
+                modal.style.display = 'flex';
+            }, 800);
+        });
+    }
+
+    // === 4. Modal Interactions ===
+    const modalMainCta = document.getElementById('modalMainCta');
+    const modalSkip = document.getElementById('modalSkip');
+
+    if (modalMainCta) {
+        modalMainCta.addEventListener('click', function() {
+            // Lăsăm link-ul să se deschidă (are target="_blank"), dar închidem modalul și forțăm generarea PDF-ului
+            setTimeout(() => {
+                modal.style.display = 'none';
+                HTMLFormElement.prototype.submit.call(keForm);
+            }, 150);
+        });
+    }
+
+    if (modalSkip) {
+        modalSkip.addEventListener('click', function() {
+            modal.style.display = 'none';
+            HTMLFormElement.prototype.submit.call(keForm);
         });
     }
 });

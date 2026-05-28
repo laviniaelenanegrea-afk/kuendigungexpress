@@ -251,7 +251,7 @@ declare(strict_types=1);
 { "@type": "Question", "name": "Ist dieses Kündigungsschreiben kostenlos?", "acceptedAnswer": { "@type": "Answer", "text": "Ja. KündigungExpress erstellt Ihr Kündigungsschreiben komplett kostenlos als PDF, ohne Registrierung und ohne Abo." } }
 ] }
 </script>
-<link rel="preload" href="/style.css?v=14" as="style"> <link rel="stylesheet" href="/style.css?v=15">
+<link rel="preload" href="/style.css?v=15" as="style"> <link rel="stylesheet" href="/style.css?v=15">
 </head>
 <body>
 

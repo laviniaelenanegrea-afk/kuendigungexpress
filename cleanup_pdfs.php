@@ -27,7 +27,7 @@ if (!is_dir($pdfDir)) {
     exit(1);
 }
 
-$files = glob($pdfDir . '/kuendigung_*.pdf') ?: [];
+$files = glob($pdfDir . '/Kuendigung-*.pdf') ?: [];
 
 foreach ($files as $file) {
     if (!is_file($file)) continue;
@@ -36,5 +36,5 @@ foreach ($files as $file) {
     }
 }
 
-$remaining = count(glob($pdfDir . '/kuendigung_*.pdf') ?: []);
+$remaining = count(glob($pdfDir . '/Kuendigung-*.pdf') ?: []);
 echo date('Y-m-d H:i:s') . " — Deleted: $deleted | Errors: $errors | Remaining: $remaining\n";

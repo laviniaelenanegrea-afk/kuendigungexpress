@@ -1,0 +1,1752 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Case Study KündigungExpress – Website die Umsatz generiert, nicht nur Traffic | Digital-Firmen</title>
+<meta name="description" content="Wie KündigungExpress mit einer klaren Conversion-Struktur organischen Traffic direkt in Umsatz verwandelt – ohne Abo, ohne Support-Aufwand. Eine Fallstudie von Digital-Firmen über Website-Architektur die funktioniert.">
+
+<link rel="canonical" href="https://digital-firmen.de/case-study-kuendigungexpress">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Case Study KündigungExpress – Website die Umsatz generiert, nicht nur Traffic | Digital-Firmen">
+<meta property="og:description" content="Wie KündigungExpress mit einer klaren Conversion-Struktur organischen Traffic direkt in Umsatz verwandelt – ohne Abo, ohne Support-Aufwand. Eine Fallstudie von Digital-Firmen.">
+<meta property="og:url" content="https://digital-firmen.de/case-study-kuendigungexpress">
+<meta property="og:image" content="https://digital-firmen.de/assets/og-case-study-kuendigung.jpg">
+<meta property="og:site_name" content="Digital-Firmen">
+<meta property="og:locale" content="de_DE">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Case Study KündigungExpress – Website die Umsatz generiert, nicht nur Traffic | Digital-Firmen">
+<meta name="twitter:description" content="Klare Conversion-Struktur statt technischer Komplexität – wie KündigungExpress Traffic in Umsatz verwandelt. Fallstudie von Digital-Firmen.">
+<meta name="twitter:image" content="https://digital-firmen.de/assets/og-case-study-kuendigung.jpg">
+
+ <link rel="icon" href="/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+<link rel="stylesheet" href="/css/style.css">
+<style>
+  /* overflow-x:clip on html prevents horizontal scroll without breaking position:sticky */
+  html { overflow-x: clip; }
+
+  /* ── HEADER STICKY ── */
+  .header {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background: rgba(245, 247, 250, 0.92);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+    transition: background 0.3s ease, box-shadow 0.3s ease, height 0.3s ease;
+    height: 96px;
+  }
+  .header.scrolled {
+    background: rgba(245, 247, 250, 0.75) !important;
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+    height: 72px;
+  }
+  @media (max-width: 1023px) {
+    .header { height: 72px; }
+    .header.scrolled { height: 60px; }
+    .main-nav { display: none !important; }
+  }
+
+  /* ── BURGER ── */
+  .burger {
+    display: none;
+    width: 2.25rem;
+    height: 1.75rem;
+    position: relative;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    z-index: 10002;
+    flex-shrink: 0;
+  }
+  .burger span {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: hsl(220 30% 15%);
+    border-radius: 2px;
+    transition: transform 0.35s cubic-bezier(0.22,1,0.36,1), opacity 0.25s ease;
+  }
+  .burger span:nth-child(1) { top: 0; }
+  .burger span:nth-child(2) { top: calc(50% - 1px); }
+  .burger span:nth-child(3) { top: calc(100% - 2px); }
+  .burger.active span:nth-child(1) { transform: translateY(calc(50% + (100% - 2px) / 2 - (50% - 1px))) rotate(45deg); }
+  .burger.active span:nth-child(2) { opacity: 0; }
+  .burger.active span:nth-child(3) { transform: translateY(calc(-50% - (100% - 2px) / 2 + (50% - 1px))) rotate(-45deg); }
+  @media (max-width: 1023px) {
+    .burger { display: block !important; }
+  }
+  @media (min-width: 1024px) {
+    .burger { display: none !important; }
+  }
+
+  /* ── MOBILE MENU ── */
+  .mobile-menu {
+    position: fixed;
+    top: 0; right: 0;
+    width: 320px;
+    height: 100vh;
+    background: hsl(220 60% 20% / 0.97);
+    backdrop-filter: blur(12px);
+    z-index: 10010;
+    transform: translateX(100%);
+    transition: transform 0.35s ease;
+    display: flex;
+    flex-direction: column;
+    padding: 24px;
+  }
+  .mobile-menu.open { transform: translateX(0); }
+  .mobile-menu ul { list-style: none; padding: 0; margin: 56px 0 auto; }
+  .mobile-menu li { margin: 18px 0; }
+  .mobile-menu a { font-size: 18px; font-weight: 500; color: hsl(210 40% 85%); text-decoration: none; }
+  .mobile-menu .menu-cta {
+    display: block; width: 100%; padding: 18px 0;
+    border-radius: 16px; background: hsl(25 95% 55%);
+    color: #fff; font-size: 16px; font-weight: 700;
+    text-align: center; margin-top: auto;
+  }
+  .menu-overlay {
+    position: fixed; inset: 0;
+    background: rgba(15, 23, 42, 0.45);
+    backdrop-filter: blur(2px);
+    z-index: 10005;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+  .menu-overlay.open { opacity: 1; pointer-events: auto; }
+  .mobile-close {
+    position: absolute; top: 24px; right: 24px;
+    width: 32px; height: 32px;
+    background: none; border: none; padding: 0; cursor: pointer; z-index: 11001;
+  }
+  .mobile-close span {
+    position: absolute; top: 50%; left: 50%;
+    width: 24px; height: 2px;
+    background: #ffffff; border-radius: 2px; transform-origin: center;
+  }
+  .mobile-close span:nth-child(1) { transform: translate(-50%, -50%) rotate(45deg); }
+  .mobile-close span:nth-child(2) { transform: translate(-50%, -50%) rotate(-45deg); }
+  @media (min-width: 1024px) {
+    .mobile-menu, .menu-overlay { display: none !important; }
+  }
+
+
+
+  .cs-main { background: #ffffff; }
+
+  /* ── LAYOUT SHELL ── */
+  .cs-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* ── SECTION RHYTHM ── */
+  .cs-section {
+    padding: 80px 0;
+    border-top: 1px solid hsl(220 15% 90%);
+  }
+  .cs-section:first-of-type { border-top: none; }
+
+  /* ── HERO ── */
+  .cs-hero {
+    padding-top: calc(96px + 56px);
+    padding-bottom: 64px;
+    background: #ffffff;
+    border-bottom: 1px solid hsl(220 15% 90%);
+  }
+  .cs-hero-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 72px;
+    align-items: stretch;
+  }
+  .cs-hero-meta { display: flex; flex-direction: column; }
+  .cs-hero-badge-row { margin-bottom: 22px; }
+  .cs-hero-desc {
+    color: hsl(220 10% 42%);
+    margin: 0 0 36px;
+    max-width: 46ch;
+    font-size: 18px;
+    line-height: 1.7;
+  }
+  .cs-hero-stats {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    border-top: 1px solid hsl(220 15% 90%);
+    padding-top: 28px;
+    gap: 0;
+  }
+  .cs-hero-stat {
+    padding-right: 20px;
+    border-right: 1px solid hsl(220 15% 90%);
+    min-width: 0;
+  }
+  .cs-hero-stat:nth-child(2) { padding-left: 20px; }
+  .cs-hero-stat:last-child { padding-left: 20px; border-right: none; }
+  .cs-stat-label {
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: hsl(220 10% 55%);
+    display: block;
+    margin-bottom: 5px;
+  }
+  .cs-stat-value {
+    font-weight: 600;
+    color: var(--foreground);
+    display: block;
+    hyphens: auto;
+  }
+
+  /* ── HERO VISUAL ── */
+  .cs-hero-visual {
+    width: 100%;
+    align-self: start;
+    overflow: visible;
+  }
+  .cs-hero-img-main {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: -8px;
+    transform: translateY(-50%);
+    width: 82%;
+    height: auto;
+    border: 1px solid hsl(220 15% 88%);
+    border-radius: 6px;
+    box-shadow: 0 8px 28px -8px hsl(220 60% 20% / 0.12);
+  }
+  .cs-hero-img-mobile {
+    display: block;
+    position: relative;
+    margin-left: auto;
+    margin-top: 58px;
+    width: 52%;
+    height: auto;
+    border: 4px solid #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 16px 40px -12px hsl(220 60% 20% / 0.2);
+  }
+  /* ── FULL-WIDTH INTRO — text-only sections ── */
+  .cs-intro .section-badge {
+    margin-bottom: 16px;
+  }
+
+  /* ─────────────────────────────────────────────────────
+     SPLIT LAYOUT
+     Both columns occupy identical height via align-items:stretch.
+     Text col:   flex column — content at top, optional insight at bottom.
+     Visual col: flex column — funnel-stack fills full height with
+                 justify-content:space-between so first image top-aligns
+                 with text top, last image bottom-aligns with text bottom.
+  ───────────────────────────────────────────────────── */
+  .cs-split {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 64px;
+    align-items: stretch;
+  }
+  .cs-split--flip {
+    grid-template-columns: 1fr 1.4fr;
+  }
+  .cs-split--flip .cs-split-text  { order: 2; }
+  .cs-split--flip .cs-split-visual { order: 1; }
+
+  /* Text column — flex so insight can anchor to bottom */
+  .cs-split-text {
+    display: flex;
+    flex-direction: column;
+  }
+  .cs-split-text .cs-insight {
+    margin-top: 28px;   /* consistent spacing, not auto-push */
+  }
+
+  /* Visual column — default stretches with grid row */
+  .cs-split-visual {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  /* ── FACT PANEL SECTIONS ──
+     Grid uses align-items:start so both columns size to content.
+     Text column grows naturally. Visual column sticks as user scrolls. */
+  .cs-split--facts {
+    align-items: start !important;
+  }
+  .cs-split-visual--facts {
+    /* position controlled entirely by JS translateY — no CSS sticky */
+    align-self: start !important;
+    height: auto !important;
+  }
+
+  /* ── FUNNEL STACK SECTIONS (02, 03, 04) — same sticky scroll behaviour */
+  .cs-split--stack {
+    align-items: start !important;
+  }
+  .cs-split-visual--stack {
+    align-self: start !important;
+    height: auto !important;
+  }
+
+  /* ── FUNNEL STACK ── */
+  .cs-funnel-stack {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 32px;
+    height: auto;
+  }
+  /* figure is now the direct child of cs-funnel-stack */
+  .cs-funnel-stack figure {
+    margin: 0;
+  }
+  .cs-funnel-stack figure img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid hsl(220 15% 88%);
+    border-radius: 4px;
+  }
+  .cs-funnel-stack figure:nth-child(1) {
+    width: 88%; align-self: flex-start;
+    box-shadow: 0 4px 14px -4px hsl(220 60% 20% / 0.08);
+  }
+  .cs-funnel-stack figure:nth-child(2) {
+    width: 88%; align-self: flex-end;
+    box-shadow: 0 6px 20px -6px hsl(220 60% 20% / 0.12);
+  }
+  .cs-funnel-stack figure:nth-child(3) {
+    width: 94%; align-self: center;
+    box-shadow: 0 12px 32px -8px hsl(220 60% 20% / 0.18);
+  }
+
+  /* ── FACT PANEL — bullet column used in sections 06 / 07 / 08 ── */
+  .cs-fact-panel {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid hsl(220 15% 90%);
+    border-radius: 12px;
+    overflow: hidden;
+    width: 100%;
+  }
+  .cs-fact-item {
+    padding: 18px 22px;
+    border-bottom: 1px solid hsl(220 15% 90%);
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+  }
+  .cs-fact-item:last-child { border-bottom: none; }
+  .cs-fact-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+    flex-shrink: 0;
+    margin-top: 6px;
+  }
+  .cs-fact-item p {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.65;
+    color: hsl(220 10% 38%);
+  }
+  .cs-fact-label {
+    display: block;
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--foreground);
+    margin-bottom: 2px;
+  }
+
+  /* ── TYPOGRAPHY ── */
+  .cs-main h1, .cs-main h2, .cs-main h3 { color: var(--foreground); }
+  .cs-main h1 { font-size: clamp(2.4rem, 4vw, 3rem); font-weight: 800; line-height: 1.12; letter-spacing: -0.025em; }
+  .cs-main h2 { font-size: 30px; line-height: 1.2; letter-spacing: -0.02em; margin: 0 0 20px; }
+  .cs-main p  { font-size: 17px; line-height: 1.75; color: hsl(220 10% 42%); }
+
+  /* ── INSIGHT CALLOUT ── */
+  .cs-insight {
+    margin-top: 28px;
+    padding: 16px 20px;
+    border-left: 3px solid var(--accent);
+    background: hsl(25 95% 55% / 0.06);
+    border-radius: 0 4px 4px 0;
+  }
+  .cs-insight p { margin: 0; font-size: 17px; line-height: 1.75; color: hsl(220 10% 42%); }
+
+  /* ── MOBILE FLOW SECTION ── */
+  .cs-flow-section { background: hsl(220 20% 96%); }
+  .cs-flow-intro   { margin-bottom: 52px; }
+
+  /* ─────────────────────────────────────────────────────
+     MOBILE CARDS — section 05
+     Standalone cards: border, border-radius, shadow, padding.
+     Three-column grid, collapses to 1-col at ≤599 px.
+  ───────────────────────────────────────────────────── */
+  /* ─────────────────────────────────────────────────────
+   MOBILE CARDS — aligned with global .card system
+───────────────────────────────────────────────────── */
+
+.cs-mobile-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  align-items: stretch;
+}
+
+.cs-mobile-card {
+  background: #ffffff;
+  border: 1px solid hsl(25 95% 55% / 0.25);
+  border-radius: var(--radius);
+  padding: 28px 26px 32px;
+  display: flex;
+  flex-direction: column;
+
+  transition:
+    transform 0.25s cubic-bezier(0.2, 0.6, 0.2, 1),
+    box-shadow 0.25s cubic-bezier(0.2, 0.6, 0.2, 1),
+    border-color 0.25s cubic-bezier(0.2, 0.6, 0.2, 1);
+}
+
+.cs-mobile-card:hover {
+  transform: translateY(-2px);
+  border-color: hsl(25 95% 55% / 0.45);
+  box-shadow: var(--shadow-card);
+}
+  .cs-mobile-card-step {
+    width: 40px; height: 40px;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 15px; line-height: 1;
+    color: #ffffff; background: var(--accent);
+    border-radius: 999px;
+    box-shadow: 0 6px 16px -4px hsl(25 95% 55% / 0.45);
+    margin-bottom: 20px;
+    flex-shrink: 0;
+  }
+  /* Reset figure margin globally for editorial figures */
+  /* Global editorial figure reset */
+  figure.cs-figure {
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Mobile card figure: inherits the block/width behaviour from cs-mobile-card-img */
+  figure.cs-figure--mobile {
+    margin: 0;
+    padding: 0;
+    display: block;
+    width: 100%;
+    flex-shrink: 0;
+    margin-bottom: 24px;
+  }
+  figure.cs-figure--mobile img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid hsl(220 15% 90%);
+    border-radius: 8px;
+  }
+
+  /* Hero figure: positioning context for the absolute mobile overlay image */
+  figure.cs-hero-figure {
+    margin: 0;
+    padding: 0;
+    padding-bottom: 0;
+    position: relative;
+    display: block;
+    width: 100%;
+    overflow: visible;
+  }
+  .cs-mobile-card-img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid hsl(220 15% 90%);
+    border-radius: 8px;
+  }
+  .cs-mobile-card h3 {
+    font-size: 17px;
+    font-weight: 700;
+    margin: 20px 0 8px;
+    color: var(--foreground);
+  }
+  .cs-mobile-card p {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.7;
+    color: hsl(220 10% 46%);
+  }
+
+  /* ── LEARNINGS (dark) ── */
+  .cs-learnings { background: var(--primary); border-top: none; }
+  .cs-learnings-head {
+    padding-bottom: 44px;
+    border-bottom: 1px solid hsl(220 20% 32%);
+    margin-bottom: 52px;
+  }
+  .cs-learnings-head .section-badge {
+    background: hsl(25 95% 55% / 0.18);
+    color: hsl(25 95% 65%);
+    margin-bottom: 14px;
+  }
+  .cs-learnings h2 { color: #ffffff; }
+  .cs-learnings h3 { color: var(--accent); }
+  .cs-learnings p  { font-size: 17px; line-height: 1.75; color: hsl(220 15% 80%); }
+  .cs-learnings-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-top: 1px solid hsl(220 20% 32%);
+  }
+  .cs-learning-item {
+    padding: 40px 36px 40px 0;
+    border-right: 1px solid hsl(220 20% 32%);
+  }
+  .cs-learning-item:nth-child(2) { padding-left: 36px; }
+  .cs-learning-item:last-child   { border-right: none; padding-right: 0; padding-left: 36px; }
+  .cs-learning-item h3 { font-weight: 700; letter-spacing: 0.03em; margin: 0 0 14px; }
+  .cs-learning-item p  { margin: 0; }
+
+  /* ── CTA STRIP ── */
+  .cs-cta-strip { background: hsl(220 20% 96%); border-top: 1px solid hsl(220 15% 90%); padding: 72px 0; }
+  .cs-cta-inner {
+    display: flex; align-items: center;
+    justify-content: space-between; gap: 48px;
+  }
+  .cs-cta-inner h2 { font-size: 26px; letter-spacing: -0.02em; margin-bottom: 10px; }
+  .cs-cta-inner > div:first-child p { font-size: 16px; margin: 0; }
+
+  /* ══════════════════════════════════════════
+     RESPONSIVE — TABLET (≤1023px)
+  ══════════════════════════════════════════ */
+  @media (max-width: 1023px) {
+    .cs-container { padding: 0 20px; }
+    .cs-section { padding: 56px 0; }
+
+    /* Hero */
+    .cs-hero { padding-top: calc(72px + 40px); padding-bottom: 48px; }
+    .cs-hero-desc { font-size: 16px; max-width: 100%; }
+    .cs-hero-grid { grid-template-columns: 1fr; gap: 0; }
+    .cs-hero-visual { display: none; }
+    .cs-hero-stats { grid-template-columns: repeat(3, 1fr); gap: 0; }
+
+    /* Split sections */
+    .cs-split,
+    .cs-split--flip { grid-template-columns: 1fr; gap: 32px; }
+    .cs-split--flip .cs-split-text  { order: 1; }
+    .cs-split--flip .cs-split-visual { order: 2; }
+
+    /* Funnel stack */
+    .cs-split-visual { height: auto; }
+    .cs-funnel-stack { height: auto; justify-content: flex-start; gap: 12px; }
+    .cs-funnel-stack figure { width: 100% !important; align-self: stretch !important; }
+    .cs-funnel-stack figure img { width: 100%; height: auto; display: block; }
+
+    /* Fact panel */
+    .cs-split--facts { align-items: unset !important; }
+    .cs-split-visual--facts { position: static !important; top: auto !important; height: auto !important; }
+    .cs-split--stack { align-items: unset !important; }
+    .cs-split-visual--stack { position: static !important; top: auto !important; height: auto !important; }
+
+    /* Mobile cards */
+    .cs-mobile-grid { grid-template-columns: 1fr; gap: 16px; }
+
+    /* Learnings */
+    .cs-learnings-grid { grid-template-columns: 1fr; }
+    .cs-learning-item {
+      padding: 28px 0;
+      border-right: none;
+      border-bottom: 1px solid hsl(220 20% 32%);
+    }
+    .cs-learning-item:nth-child(2) { padding-left: 0; }
+    .cs-learning-item:last-child   { padding-left: 0; border-bottom: none; }
+    .cs-learnings-head { padding-bottom: 32px; margin-bottom: 0; }
+
+    /* CTA strip */
+    .cs-cta-strip { padding: 56px 0; }
+    .cs-cta-inner { flex-direction: column; align-items: flex-start; gap: 20px; }
+    .cs-cta-inner .btn {
+      width: 100%;
+      min-height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    /* No hover transforms on touch */
+    .cs-mobile-card:hover { transform: none; box-shadow: none; border-color: hsl(25 95% 55% / 0.25); }
+    .cs-main p a:hover, .cs-main li a:hover { transform: none; text-shadow: none; }
+    .cs-main p a, .cs-main li a { display: inline !important; }
+  }
+
+  /* ══════════════════════════════════════════
+     RESPONSIVE — MOBILE (≤599px)
+  ══════════════════════════════════════════ */
+  @media (max-width: 599px) {
+    .cs-container { padding: 0 16px; }
+    .cs-section { padding: 40px 0; }
+
+    /* Hero — fits badge, h1, desc, stats on one screen */
+    .cs-hero { padding-top: calc(72px + 24px); padding-bottom: 32px; }
+
+    /* Badge row: all 3 pills on one line */
+    .cs-hero-badge-row {
+      display: flex;
+      flex-wrap: nowrap;
+      gap: 6px;
+      margin-bottom: 16px;
+      overflow: hidden;
+    }
+    .cs-hero-badge-row .section-badge {
+      font-size: 10px !important;
+      padding: 4px 10px !important;
+      white-space: nowrap !important;
+      letter-spacing: 0.05em !important;
+    }
+
+    /* H1 — prevent ugly mid-word breaks */
+    .cs-main h1 {
+      font-size: clamp(1.45rem, 5.5vw, 1.85rem);
+      line-height: 1.18;
+      letter-spacing: -0.025em;
+      margin: 0 0 14px;
+      hyphens: none;
+      word-break: normal;
+      overflow-wrap: break-word;
+    }
+
+    /* Description — tighter to reduce line count */
+    .cs-hero-desc {
+      font-size: 15px;
+      line-height: 1.68;
+      margin-bottom: 20px;
+      max-width: 100%;
+    }
+
+    /* Show main image below stats on mobile */
+    .cs-hero-visual {
+      display: block !important;
+      position: static !important;
+      margin-top: 20px;
+    }
+    figure.cs-hero-figure {
+      position: static !important;
+      overflow: hidden;
+    }
+    .cs-hero-img-main {
+      position: static !important;
+      transform: none !important;
+      top: auto !important;
+      left: auto !important;
+      width: 100% !important;
+      height: auto !important;
+      border-radius: 8px;
+    }
+    .cs-hero-img-mobile { display: none; }
+
+    /* Stats: 3-col, short labels, no wrapping */
+    .cs-hero-stats {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      padding-top: 16px;
+    }
+    .cs-hero-stat {
+      padding: 0 8px 0 0 !important;
+      border-right: 1px solid hsl(220 15% 88%) !important;
+    }
+    .cs-hero-stat:nth-child(2) { padding-left: 8px !important; }
+    .cs-hero-stat:last-child { border-right: none !important; padding-left: 8px !important; }
+    .cs-stat-label { font-size: 9px; letter-spacing: 0.06em; margin-bottom: 4px; }
+    .cs-stat-value { font-size: 12px; line-height: 1.25; hyphens: auto; }
+
+    /* Headings & text */
+    .cs-main h2 { font-size: clamp(1.2rem, 4.5vw, 1.4rem) !important; line-height: 1.22 !important; letter-spacing: -0.02em !important; margin-bottom: 12px !important; }
+    .cs-main h3 { font-size: 16px; }
+    .cs-main p  { font-size: 15px; line-height: 1.7; }
+
+    /* Split sections */
+    .cs-split, .cs-split--flip { gap: 20px; }
+
+    /* Fact panel */
+    .cs-fact-item { padding: 12px 14px; gap: 10px; }
+    .cs-fact-item p { font-size: 14px; }
+    .cs-fact-label { font-size: 13px; }
+
+    /* Insight callout */
+    .cs-insight { padding: 12px 14px; }
+    .cs-insight p { font-size: 15px; }
+
+    /* Flow cards */
+    .cs-mobile-card { padding: 18px 16px 22px; }
+    .cs-mobile-card h3 { font-size: 15px; }
+    .cs-mobile-card p { font-size: 14px; }
+
+    /* Learnings dark section */
+    .cs-learnings-head { padding-bottom: 20px; }
+    .cs-learning-item { padding: 22px 0; }
+    .cs-learning-item h3 { font-size: 15px; }
+    .cs-learnings p { font-size: 15px; }
+
+    /* CTA strip */
+    .cs-cta-strip { padding: 40px 0; }
+    .cs-cta-inner h2 { font-size: 19px; }
+    .cs-cta-inner p { font-size: 15px; }
+    .cs-cta-inner .btn {
+      width: 100% !important;
+      min-height: 52px !important;
+      height: auto !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      text-align: center !important;
+      padding: 14px 24px !important;
+      font-size: 15px !important;
+      line-height: 1.3 !important;
+      white-space: normal !important;
+      box-sizing: border-box !important;
+    }
+    .footer-insights a,
+    .footer-legal a { font-size: 14px; margin-bottom: 10px; }
+    .footer-bottom { margin-top: 28px; padding-top: 20px; font-size: 13px; }
+    .faq-question { font-size: 15px !important; padding: 16px 18px !important; }
+    .faq-answer p { padding: 0 18px 18px !important; font-size: 14px !important; }
+  }
+/* Case Study badges – scoped to this page only */
+.cs-main .section-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: fit-content;
+  max-width: 100%;
+
+  padding: 8px 18px;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1;
+
+  border-radius: 999px;
+
+  background: hsl(25 95% 55% / 0.12);
+  color: var(--accent);
+
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  margin-bottom: 16px;
+}
+/* CONTEXTUAL LINKS – Case Study */
+
+.cs-main p a,
+.cs-main li a {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 600;
+  display: inline-block;
+  transition: transform 0.25s ease, text-shadow 0.25s ease, color 0.25s ease;
+}
+
+.cs-main p a:hover,
+.cs-main li a:hover {
+  transform: translateY(-2px);
+  text-shadow: 0 0 12px rgba(242, 91, 34, 0.5);
+  color: #ff7443;
+}
+.cs-main figure { margin: 0; }
+
+  /* ── CS-LIST ── */
+  .cs-main ul.cs-list {
+    margin: 20px 0;
+    padding-left: 0;
+    list-style: none;
+  }
+  .cs-main ul.cs-list li {
+    font-size: 17px;
+    line-height: 1.75;
+    color: hsl(220 10% 42%);
+    padding: 10px 0 10px 26px;
+    position: relative;
+    border-bottom: 1px solid hsl(220 15% 93%);
+  }
+  .cs-main ul.cs-list li:last-child { border-bottom: none; }
+  .cs-main ul.cs-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 19px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+
+  /* ── BREADCRUMB ── */
+  .cs-hero .breadcrumb-nav { padding: 0 0 20px; font-size: 13px; color: hsl(220 10% 55%); }
+  .cs-hero .breadcrumb-nav ol { list-style: none; margin: 0; padding: 0; display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+  .cs-hero .breadcrumb-nav a { color: hsl(220 10% 55%); text-decoration: none; }
+  .cs-hero .breadcrumb-nav a:hover { color: hsl(25 95% 55%); }
+  .breadcrumb-sep { opacity: 0.4; }
+
+  /* ── SCROLL REVEAL ── */
+  .fade-up { opacity: 0; transform: translateY(28px); transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1), transform 0.6s cubic-bezier(0.22, 1, 0.36, 1); }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+  @media (prefers-reduced-motion: reduce) { .fade-up { opacity: 1; transform: none; transition: none; } }
+
+  /* ── FAQ ACCORDION ── */
+  .faq-list { display: flex; flex-direction: column; gap: 12px; margin-top: 32px; }
+  .faq-item { background: #ffffff; border: 1px solid hsl(220 15% 90%); border-radius: 16px; box-shadow: 0 1px 4px hsl(220 20% 85% / 0.4); position: relative; overflow: hidden; transition: box-shadow 0.25s ease; }
+  .faq-item::before { content: ""; position: absolute; left: 0; top: 16px; bottom: 16px; width: 4px; border-radius: 2px; background: hsl(25 95% 55%); opacity: 0; transition: opacity 0.2s ease; }
+  .faq-item:hover { box-shadow: 0 4px 16px hsl(220 20% 70% / 0.2); }
+  .faq-item.active { background: linear-gradient(to right, hsl(25 95% 55% / 0.04), #ffffff 40%); }
+  .faq-item.active::before { opacity: 1; }
+  .faq-question { width: 100%; padding: 22px 26px; background: none; border: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; text-align: left; font-family: inherit; font-size: 17px; font-weight: 600; line-height: 1.4; color: hsl(220 15% 25%); transition: color 0.2s ease; position: relative; z-index: 2; }
+  .faq-item:hover .faq-question, .faq-item.active .faq-question { color: hsl(25 95% 55%); }
+  .faq-icon { flex-shrink: 0; font-size: 18px; transition: transform 0.3s ease; line-height: 1; }
+  .faq-item.active .faq-icon { transform: rotate(180deg) translateY(1px); }
+  .faq-answer { max-height: 0; overflow: hidden; opacity: 0; transition: max-height 0.35s ease, opacity 0.25s ease; }
+  .faq-item.active .faq-answer { max-height: 800px; opacity: 1; }
+  .faq-answer p { padding: 0 26px 22px; margin: 0; font-size: 15.5px; line-height: 1.6; color: hsl(220 10% 40%); }
+  .faq-answer a { color: hsl(25 95% 55%); font-weight: 600; }
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "@id": "https://digital-firmen.de/case-study-kuendigungexpress#article",
+  "headline": "Case Study KündigungExpress – Programmatic SEO & Micro-SaaS-Architektur",
+  "description": "Wie Digital-Firmen mit Programmatic SEO und einem kostenlosen Affiliate-Modell ein transaktionales Micro-SaaS entwickelt hat, das organischen Traffic direkt in Umsatz konvertiert – Architektur, Conversion-Logik und Skalierung im Detail.",
+  "datePublished": "2026-03-01",
+  "dateModified": "2026-03-01",
+  "image": "https://digital-firmen.de/assets/og-case-study-kuendigung.jpg",
+  "author": {
+    "@type": "Organization",
+    "name": "Digital-Firmen",
+    "url": "https://digital-firmen.de"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Digital-Firmen",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://digital-firmen.de/assets/logos/logo-dark.svg"
+    }
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://digital-firmen.de/case-study-kuendigungexpress"
+  },
+  "about": {
+    "@type": "LocalBusiness",
+    "@id": "https://digital-firmen.de/#business",
+    "name": "Digital-Firmen",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Offenbach am Main",
+      "addressRegion": "Hessen",
+      "addressCountry": "DE"
+    },
+    "areaServed": ["Offenbach am Main", "Frankfurt am Main", "Rhein-Main", "Hessen", "Deutschland"]
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Digital-Firmen", "item": "https://digital-firmen.de" },
+    { "@type": "ListItem", "position": 2, "name": "Case Study KündigungExpress", "item": "https://digital-firmen.de/case-study-kuendigungexpress" }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Was ist Programmatic SEO und wofür eignet es sich?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Programmatic SEO ist eine Architekturstrategie, bei der aus einer strukturierten Datenbank automatisch hunderte oder tausende indexierbare Landingpages erzeugt werden – jede auf eine spezifische Suchanfrage ausgerichtet. Es eignet sich für Modelle mit hohem Suchvolumen und klarer Suchintention auf Anbieter- oder Variantenebene, wie Kündigungsgeneratoren, Preisvergleiche oder lokale Verzeichnisse."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Warum ist KündigungExpress kostenlos?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "KündigungExpress finanziert sich über Affiliate-Provisionen: Nutzer, die einen Vertrag kündigen, wechseln strukturell zu einem neuen Anbieter. Die Empfehlung eines günstigeren Tarifs nach der Kündigung ist die logische Fortsetzung der Nutzerabsicht – nicht Werbung. Diese Monetarisierungslogik erlaubt ein vollständig kostenloses Kernprodukt ohne Abstriche bei der Conversion-Qualität."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Wie skaliert KündigungExpress ohne proportional steigende Kosten?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Die Kostenstruktur besteht aus Hosting und periodischer Datenbankpflege – keiner dieser Kostenpunkte wächst proportional mit dem Transaktionsvolumen. Affiliate-Provisionen entstehen nur bei tatsächlichem Abschluss, nicht als Fixkosten. Ein neuer Anbieter erfordert lediglich eine Datenbankzeile und eine URL, keinen Code und keinen Redaktionsaufwand."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Welche technischen Komponenten bilden die Basis des Systems?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Das System basiert auf serverseitiger PDF-Generierung, datenbankgestützter Anbieterlogik, Affiliate-Integration über Check24 und AWIN, programmatischer SEO-Seitenstruktur und semantischem HTML5. Jede Anbieter-Landingpage lädt Kündigungsadresse, gesetzliche Frist und Vertragstyp automatisch aus der Datenbank – der Nutzer ergänzt ausschließlich persönliche Daten. Das PDF ist kostenlos und sofort verfügbar."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Welche strukturellen Risiken hat das Modell?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Das Modell hat drei adressierbare Abhängigkeiten: rechtliche Parameter (Kündigungsfristen), die bei Gesetzesänderungen aktualisiert werden müssen – datenbankgestützt ohne Code-Eingriff; Affiliate-Konzentration auf Check24 und AWIN – Diversifikation durch weitere Partner planbar; und 100% organische Akquisition über Google – gemindert durch technische SEO-Qualität und genuine Nutzersignale."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Kann Digital-Firmen eine ähnliche Architektur für mein Unternehmen entwickeln?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Digital-Firmen analysiert zunächst, ob Ihre Ausgangssituation – Suchvolumen, Nutzerintention, Transaktionslogik – für ein programmatisches Modell geeignet ist. Der erste Schritt ist ein kostenloser Website-Check, der die strukturellen Potenziale und Voraussetzungen Ihrer digitalen Architektur bewertet. Das Ergebnis liegt innerhalb von 48 Stunden schriftlich vor."
+      }
+    }
+  ]
+}
+</script>
+</head>
+
+<body>
+<div class="menu-overlay" id="menu-overlay"></div>
+
+<header id="site-header" class="header">
+  <div class="header-inner">
+    <div class="logo-wrap">
+      <a href="/" aria-label="Zur Startseite">
+        <img src="/assets/logos/logo-dark.svg" alt="Digital-Firmen – Webdesign und Website-Optimierung für KMU">
+      </a>
+    </div>
+
+   <!-- DESKTOP NAV -->
+<nav class="main-nav" aria-label="Hauptnavigation">
+  <ul>
+    <li><a href="/landing-page-erstellen">Landing Page</a></li>
+    <li><a href="/website-optimierung">Website-Optimierung</a></li>
+    <li><a href="/website-check">Website-Check</a></li>
+    <li><a href="/#referenzen">Referenzen</a></li>
+    <li><a href="#kontakt" class="nav-cta">Kontakt</a></li>
+  </ul>
+</nav>
+<button class="burger" aria-label="Menü öffnen"><span></span><span></span><span></span></button>
+  </div>
+</header>
+<!-- MOBILE MENU -->
+<nav class="mobile-menu" id="mobile-menu" aria-label="Mobile Navigation">
+  <button class="mobile-close" aria-label="Menü schließen">
+    <span></span><span></span>
+  </button>
+  <ul>
+    <li><a href="/landing-page-erstellen">Landing Page</a></li>
+    <li><a href="/website-optimierung">Website-Optimierung</a></li>
+    <li><a href="/website-check">Website-Check</a></li>
+    <li><a href="/#referenzen">Referenzen</a></li>
+  </ul>
+  <a href="#kontakt" class="menu-cta">Kontakt aufnehmen</a>
+</nav>
+</header>
+<main id="main-content" class="cs-main">
+  <!-- HERO -->
+  <section class="cs-hero" id="hero">
+    <div class="cs-container">
+      <nav aria-label="Breadcrumb" class="breadcrumb-nav">
+        <ol>
+          <li><a href="/">Digital-Firmen</a></li>
+          <li class="breadcrumb-sep" aria-hidden="true">›</li>
+          <li aria-current="page">Case Study: KündigungExpress</li>
+        </ol>
+      </nav>
+      <div class="cs-hero-grid">
+
+        <div class="cs-hero-meta">
+          <div class="cs-hero-badge-row">
+            <span class="section-badge">Case Study</span>
+            <span class="section-badge">Legal Tech</span>
+            <span class="section-badge">Programmatic SEO</span>
+          </div>
+          <h1>Skalierbare Micro-SaaS-Architektur: Das Projekt KündigungExpress</h1>
+          <p class="cs-hero-desc">
+            Ein transaktionales Micro-SaaS, das organischen Suchtraffic ohne Abo-Modell, ohne Dashboard und ohne operativen Overhead direkt in Umsatz konvertiert. Vom ersten Seitenaufruf zum rechtssicheren Kündigungsschreiben als PDF – in unter 90 Sekunden.
+          </p>
+          <div class="cs-hero-stats">
+            <div class="cs-hero-stat">
+              <span class="cs-stat-label">Branche</span>
+              <span class="cs-stat-value">Legal Tech / B2C</span>
+            </div>
+            <div class="cs-hero-stat">
+              <span class="cs-stat-label">Modell</span>
+              <span class="cs-stat-value">Kostenlos + Affiliate</span>
+            </div>
+            <div class="cs-hero-stat">
+              <span class="cs-stat-label">Akquisition</span>
+              <span class="cs-stat-value">Programmatic SEO</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="cs-hero-visual">
+         <figure class="cs-hero-figure">
+  <img
+    src="/assets/case-study/kuendigungexpress/kuendigungexpress-homepage.webp"
+    class="cs-hero-img-main"
+    alt="KündigungExpress Online Kündigungstool – Desktop Startseite"
+    width="1200"
+    height="672"
+    fetchpriority="high"
+    decoding="async">
+
+  <img
+    src="/assets/case-study/kuendigungexpress/kuendigungexpress-fitness-section-mobile.webp"
+    class="cs-hero-img-mobile"
+    alt="KündigungExpress Kündigung online erstellen – Mobile Ansicht"
+    width="480"
+    height="1066"
+    loading="lazy"
+    decoding="async">
+
+  <!-- opțional (dacă vrei text sub imagine, dar nu e obligatoriu) -->
+  <!-- <figcaption class="sr-only">KündigungExpress – Desktop & Mobile</figcaption> -->
+</figure>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 01 · MARKTLOGIK -->
+  <section class="cs-section fade-up" id="marktlogik">
+    <div class="cs-container">
+      <div class="cs-intro">
+
+        <span class="section-badge">01 Marktlogik</span>
+        <h2>Marktlogik & strategische Positionierung eines transaktionalen Micro-SaaS</h2>
+
+        <p>
+          Der Markt f&uuml;r digitale Vertragsbeendigungen ist strukturell ineffizient. Content-Portale monetarisieren transaktionalen Traffic &uuml;ber Werbung, kostenlose PDF-Vorlagen bieten keine Anbieter-Spezifit&auml;t, und Abo-basierte Services erzeugen Registrierungsreibung vor dem eigentlichen Mehrwert. Das Ergebnis ist ein Markt mit hohem Suchvolumen, aber ohne ein Produkt, das die Nutzerabsicht direkt erf&uuml;llt.
+        </p>
+        <p>
+          Nutzer, die Anfragen wie &bdquo;McFit k&uuml;ndigen&ldquo;, &bdquo;Handyvertrag k&uuml;ndigen Vorlage&ldquo; oder &bdquo;Fitnessstudio k&uuml;ndigen fristgerecht&ldquo; eingeben, befinden sich nicht in einer Recherchephase. Sie haben eine Entscheidung bereits getroffen und ben&ouml;tigen ausschlie&szlig;lich das Dokument. Diese transaktionale Suchintention hat keinen Bedarf an erkl&auml;rendem Text &ndash; sie hat Bedarf an einer sofort einsetzbaren L&ouml;sung.
+        </p>
+        <p>
+  Das Projekt <a href="https://www.kuendigungexpress.de" 
+   target="_blank" 
+rel="noopener noreferrer external nofollow"   aria-label="KündigungExpress Online Kündigungstool besuchen">KündigungExpress</a> wurde als direkte architektonische Antwort auf diese Lücke entwickelt: ein zweckgebundenes Micro-SaaS ohne Feature-Overhead. Vertragstyp wählen, persönliche Daten eingeben, rechtssicheres Kündigungsschreiben als PDF erhalten. Der gesamte Prozess ist auf eine einzige Nutzerabsicht ausgerichtet – und toleriert keine strukturelle Ablenkung davon.
+</p>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 · PROGRAMMATIC SEO -->
+  <section class="cs-section fade-up" id="architektur">
+    <div class="cs-container">
+      <div class="cs-split cs-split--flip cs-split--stack">
+
+        <div class="cs-split-text">
+          <span class="section-badge">02 Architektur</span>
+          <h2>Programmatic SEO als Architekturprinzip</h2>
+
+          <p>
+            Das SEO-System folgt einer dreistufigen Informationsarchitektur. Auf oberster Ebene stehen thematische Kategorie-Hubs &ndash; Fitness, Mobilfunk, Streaming, Versicherungen &ndash; als topische Autorit&auml;tsanker. Darunter liegen anbieter-spezifische Landingpages: McFit, Telekom, Netflix, HUK-Coburg, Vodafone und hunderte weitere. Die dritte Ebene erfasst Long-Tail-Varianten: &bdquo;Fitnessstudio k&uuml;ndigen Vorlage fristgerecht&ldquo;, &bdquo;Handyvertrag k&uuml;ndigen Generator&ldquo;, &bdquo;K&uuml;ndigungsschreiben Telekom erstellen&ldquo;.
+          </p>
+          <p>
+            Jede Anbieter-Landingpage ist eine vorkonfigurierte Arbeitsumgebung, kein Ratgeberartikel. K&uuml;ndigungsadresse, gesetzliche Frist und Vertragstyp sind datenbankgest&uuml;tzt vorgeladen. Der Nutzer erg&auml;nzt ausschlie&szlig;lich pers&ouml;nliche Daten. Das System generiert das rechtssichere K&uuml;ndigungsschreiben als PDF. Eine Seite, eine Suchabsicht, eine Conversion-Aktion &ndash; das erzeugt eine strukturell &uuml;berlegene Abschlussrate gegen&uuml;ber generischen Vorlagen-Portalen.
+          </p>
+          <p>
+            Die interne Verlinkung verteilt PageRank-Autorit&auml;t kontrolliert von den Kategorie-Hubs auf die Spoke-Seiten. Bidirektionale Verlinkung verhindert SEO-Silos. Semantisch valides HTML5, Core-Web-Vitals-konforme Ladezeiten und Schema.org-Daten sichern die Indexierbarkeit auch bei hohem Seitenvolumen. Mehr zur strukturellen Umsetzung solcher Modelle finden Sie in unserer
+<a href="/website-optimierung">Website-Optimierung für KMU</a>.
+          </p>
+
+          <div class="cs-insight">
+            <p>Jede neu angelegte Anbieter-Datenzeile generiert automatisch eine vollst&auml;ndige, indexierbare Landingpage mit SEO-Struktur und vorausgef&uuml;lltem Formular &ndash; ohne Redaktionsaufwand.</p>
+          </div>
+        </div>
+
+        <div class="cs-split-visual cs-split-visual--stack">
+          <div class="cs-funnel-stack">
+           <figure class="cs-figure">
+  <img src="/assets/case-study/kuendigungexpress/mcfit-desktop.webp"
+       alt="McFit Kündigung – Anbieter-spezifische Landingpage"
+       width="1200" height="675"
+       loading="lazy" decoding="async">
+</figure>
+
+<figure class="cs-figure">
+  <img src="/assets/case-study/kuendigungexpress/handy-desktop.webp"
+       alt="Programmatic SEO Architektur – Mobilfunk Hub"
+       width="1200" height="675"
+       loading="lazy" decoding="async">
+</figure>
+
+<figure class="cs-figure">
+  <img src="/assets/case-study/kuendigungexpress/telekom-desktop.webp"
+       alt="Telekom Kündigung – Anbieter-spezifische Landingpage"
+       width="1200" height="675"
+       loading="lazy" decoding="async">
+</figure>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 · MONETARISIERUNG -->
+  <section class="cs-section fade-up" id="monetarisierung">
+    <div class="cs-container">
+      <div class="cs-split cs-split--stack">
+
+        <div class="cs-split-text">
+          <span class="section-badge">03 Monetarisierung</span>
+          <h2>Monetarisierungsarchitektur ohne operative Komplexität</h2>
+
+          <p>
+            KündigungExpress operiert nach einem zweistufigen Monetarisierungsmodell. Das Kernprodukt &ndash; das rechtssichere Kündigungsschreiben als PDF &ndash; ist vollständig kostenlos. Die primäre Erlösquelle sind Affiliate-Provisionen: Nutzer, die ihren Mobilfunkvertrag kündigen, befinden sich per Definition in einem aktiven Wechselprozess. Die Empfehlung eines günstigeren Tarifs über Check24 oder Telekom AWIN ist kein Werbeeinblendung &ndash; sie ist die logische Fortsetzung der Nutzerabsicht. Die zugrunde liegende Systematik erläutern wir detailliert in unserer
+<a href="/conversion-struktur-kmu">Analyse zur Conversion-Struktur für KMU</a>.
+          </p>
+          <p>
+            Die Platzierungslogik ist präzise definiert: Affiliate-Links erscheinen nach der Kündigungsanleitung, aber vor dem PDF-CTA. Der Nutzer hat die benötigte Information erhalten &ndash; der nächste natürliche Schritt ist die Tarifsuche. Jede Transaktion über einen Affiliate-Link generiert 50&thinsp;&ndash;&thinsp;130&thinsp;&euro; Provision. Kein CRM, kein Churn-Management, kein Supportaufwand. Die Kostenstruktur ist vollständig von der Umsatzentwicklung entkoppelt.
+          </p>
+          <p>
+            Das PDF bleibt als sekundäre Conversion erhalten &ndash; für Nutzer, die rechtliche Absicherung priorisieren und ein personalisiertes Dokument bevorzugen. Beide Erlösströme bedienen dieselbe Nutzerabsicht aus unterschiedlichen Winkeln. Werbefinanzierte Portale benötigen zehntausende Seitenaufrufe täglich für vergleichbare Deckungsbeiträge. KündigungExpress konvertiert denselben Traffic mit einer höheren Erlösqualität pro Sitzung.
+          </p>
+        </div>
+
+        <div class="cs-split-visual cs-split-visual--stack">
+          <div class="cs-funnel-stack">
+         <figure class="cs-figure">
+  <img src="/assets/case-study/kuendigungexpress/fitness-desktop.webp"
+       alt="Fitness-Anbieter Kündigung – Preisgestaltung"
+       width="1200" height="675"
+       loading="lazy" decoding="async">
+</figure>
+
+<figure class="cs-figure">
+  <img src="/assets/case-study/kuendigungexpress/kuendigungexpress-start.webp"
+       alt="Transparente Preisgestaltung auf KündigungExpress"
+       width="1200" height="675"
+       loading="lazy" decoding="async">
+</figure>
+
+<figure class="cs-figure">
+  <img src="/assets/case-study/kuendigungexpress/3-schritten.webp"
+       alt="3-Schritte Übersicht KündigungExpress"
+       width="1200" height="675"
+       loading="lazy" decoding="async">
+</figure>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 · CONVERSION FUNNEL -->
+  <section class="cs-section fade-up" id="conversion">
+    <div class="cs-container">
+      <div class="cs-split cs-split--flip cs-split--stack">
+
+        <div class="cs-split-text">
+          <span class="section-badge">04 Conversion</span>
+          <h2>Conversion-Architektur: Vom Seitenaufruf zur Transaktion</h2>
+
+          <p>
+            Conversion-Verluste entstehen selten durch ein schlechtes Angebot. Sie entstehen durch Prozessbr&uuml;che: ein Pflichtfeld, das nicht zum Kontext passt; eine Weiterleitung auf eine externe Zahlungsseite; eine Registrierungsaufforderung unmittelbar vor dem Abschluss. Jeder dieser Momente erzeugt eine Entscheidungspause &ndash; und jede Pause erh&ouml;ht die Abbruchwahrscheinlichkeit. Die Conversion-Architektur von K&uuml;ndigungExpress wurde mit einer einzigen Pr&auml;misse entwickelt: Was ist strukturell notwendig? Alles andere f&auml;llt weg.
+          </p>
+          <p>
+            Kein Account, keine Registrierung, keine vorgelagerte E-Mail-Bestätigung. Der Nutzer wählt seinen Anbieter, gibt Name und Adresse ein &ndash; das System füllt alle weiteren Felder datenbankgestützt vor: Kündigungsadresse, gesetzliche Frist, Vertragstyp. Ein Klick auf &bdquo;Kostenlos erstellen&ldquo; generiert das Dokument serverseitig. Das Kündigungsschreiben als PDF ist unmittelbar verfügbar &ndash; ohne Warteschleife, ohne Zahlung, ohne E-Mail-Delay. Optional kann die Kündigung direkt per E-Mail an den Anbieter gesendet werden.
+          </p>
+
+          <div class="cs-insight">
+            <p>Die Geschwindigkeit vom Seitenaufruf zum fertigen PDF ist kein UX-Detail &ndash; sie ist das Produktversprechen. Kein Zahlungsschritt, kein Login, kein Formular-Overhead. Jeder entfernte Schritt ist eine bewusste Designentscheidung gegen Abbruch.</p>
+          </div>
+        </div>
+
+        <div class="cs-split-visual cs-split-visual--stack">
+          <div class="cs-funnel-stack">
+           <figure class="cs-figure">
+  <img src="/assets/case-study/kuendigungexpress/formular-desktop.webp"
+       alt="Formular Desktop – Dateneingabe"
+       width="1200" height="675"
+       loading="lazy" decoding="async">
+</figure>
+
+<figure class="cs-figure">
+  <img src="/assets/case-study/kuendigungexpress/kuendigungexpress-formular-cta.webp"
+       alt="Conversion Funnel – Formulareinstieg"
+       width="1200" height="675"
+       loading="lazy" decoding="async">
+</figure>
+
+<figure class="cs-figure">
+  <img src="/assets/case-study/kuendigungexpress/kuendigungexpress-stripe-payment.webp"
+       alt="Sofortiger PDF-Download nach Formularübermittlung"
+       width="1200" height="675"
+       loading="lazy" decoding="async">
+</figure>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 · MOBILE EXPERIENCE -->
+  <section class="cs-section cs-flow-section fade-up" id="mobile">
+    <div class="cs-container">
+
+      <div class="cs-flow-intro">
+        <span class="section-badge">05 Mobile</span>
+        <h2>Mobile Experience als primärer Conversion-Treiber</h2>
+        <p>
+          &Uuml;ber 75&thinsp;% der transaktionalen Suchanfragen in diesem Markt kommen von Mobilger&auml;ten &ndash; h&auml;ufig in Momenten mit begrenzter Aufmerksamkeit und erh&ouml;htem Abbruchrisiko. Die mobile UX von K&uuml;ndigungExpress wurde nicht als Adaptation der Desktop-Version entwickelt, sondern als eigenst&auml;ndiger Prozessentwurf: minimale Eingaben, gro&szlig;e Tap-Fl&auml;chen, fehlertolerante Feldvalidierung und ein Checkout, der biometrische Zahlung als Standardweg behandelt &ndash; nicht als Ausnahme.
+        </p>
+      </div>
+
+      <div class="cs-mobile-grid">
+
+        <div class="cs-mobile-card">
+          <span class="cs-mobile-card-step">01</span>
+         <figure class="cs-figure cs-figure--mobile">
+  <img class="cs-mobile-card-img"
+       src="/assets/case-study/kuendigungexpress/handy-formular.webp"
+       alt="Direkter Einstieg – Mobile Formular"
+       width="720" height="1280"
+       loading="lazy" decoding="async">
+</figure>
+          <h3>Sofortiger Einstieg</h3>
+          <p>Der Nutzer landet auf der anbieter-spezifischen Landingpage und findet ein vorausgef&uuml;lltes Formular &ndash; K&uuml;ndigungsadresse und gesetzliche Frist bereits geladen. Kein erkl&auml;render Intro-Text, keine Vergleichsnavigation. Der erste sichtbare Inhalt ist die Eingabemaske.</p>
+        </div>
+
+        <div class="cs-mobile-card">
+          <span class="cs-mobile-card-step">02</span>
+        <figure class="cs-figure cs-figure--mobile">
+  <img class="cs-mobile-card-img"
+       src="/assets/case-study/kuendigungexpress/handy-checkout.webp"
+       alt="Sicherer Checkout – Mobile Payment"
+       width="720" height="1280"
+       loading="lazy" decoding="async">
+</figure>
+          <h3>Kostenlose Erstellung</h3>
+          <p>Das Formular übergibt die Daten direkt an den Server &ndash; keine externe Weiterleitung, keine Registrierungspflicht, keine Zahlung. Ein Klick auf &bdquo;Kostenlos erstellen&ldquo; generiert das personalisierte Kündigungsschreiben sofort. Optional: Direktversand per E-Mail an den Anbieter.</p>
+        </div>
+
+        <div class="cs-mobile-card">
+          <span class="cs-mobile-card-step">03</span>
+          <figure class="cs-figure cs-figure--mobile">
+  <img class="cs-mobile-card-img"
+       src="/assets/case-study/kuendigungexpress/handy-success.webp"
+       alt="Sofortige PDF-Lieferung – Mobile Success"
+       width="720" height="1280"
+       loading="lazy" decoding="async">
+</figure>
+          <h3>Sofortige Lieferung</h3>
+          <p>Das Dokument wird serverseitig generiert und ist unmittelbar als PDF verfügbar. Rechtssicher formatiert, mit korrekter Anbieteranschrift, unterschriftsbereit. Nach dem Download: Affiliate-Empfehlung für den nächsten günstigeren Tarif &ndash; der natürliche zweite Schritt im Wechselprozess.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 · BETRIEBSMODELL -->
+  <section class="cs-section fade-up" id="betrieb">
+    <div class="cs-container">
+      <div class="cs-split cs-split--facts">
+
+        <div class="cs-split-text">
+          <span class="section-badge">06 Betrieb</span>
+          <h2>Skalierbarer Betrieb ohne proportional wachsende Kostenstruktur</h2>
+
+          <p>
+            Ein digitales Produkt ist erst dann strukturell skalierbar, wenn sein Betrieb nicht proportional mit dem Umsatz w&auml;chst. Jede Transaktion auf K&uuml;ndigungExpress l&auml;uft vollst&auml;ndig systemgesteuert ab: Vertragstyp und pers&ouml;nliche Daten werden &uuml;bermittelt, anbieter-spezifische Parameter aus der Datenbank abgerufen, das Dokument serverseitig generiert und das PDF unmittelbar ausgeliefert. Kein Mitarbeiter ist eingebunden, kein Ticket wird erzeugt.
+          </p>
+          <p>
+            Das Fehlen eines Support-intensiven Modells ist keine L&uuml;cke &ndash; es ist eine Designentscheidung. Ein Produkt, das den Nutzer in unter 90 Sekunden zum Ziel f&uuml;hrt, erzeugt keine Supportanfragen jenseits technischer Infrastrukturprobleme. Die Entscheidung gegen Dashboard und Nutzerkonto war gleichzeitig die Entscheidung gegen die Support-Struktur, die diese Funktionen erfordert h&auml;tten.
+          </p>
+          <p>
+            Die einzigen operativen Wartungsaufgaben sind datenbankgest&uuml;tzt: Aktualisierung von K&uuml;ndigungsadressen, Pflege rechtlicher Parameter und Erweiterung des Anbieter-Inventars. Alle drei skalieren nicht mit dem Transaktionsvolumen. Das Betriebsmodell ist strukturell von der Umsatzentwicklung entkoppelt. Wenn Sie prüfen möchten, ob Ihre eigene digitale Architektur skalierbar aufgebaut ist,
+nutzen Sie unseren
+<a href="/website-check">Website-Check</a>.
+          </p>
+        </div>
+
+        <div class="cs-split-visual cs-split-visual--facts">
+          <div class="cs-fact-panel">
+            <div class="cs-fact-item">
+              <span class="cs-fact-dot"></span>
+              <p><span class="cs-fact-label">PDF-Generierung</span>Vollständig serverseitig, sofort nach Formularübermittlung. Kein manueller Vorgang, keine Warteschleife.</p>
+            </div>
+            <div class="cs-fact-item">
+              <span class="cs-fact-dot"></span>
+              <p><span class="cs-fact-label">Affiliate-Tracking</span>Automatisiert über Check24 und AWIN. Kein manueller Vorgang, keine Rechnungsstellung an den Nutzer.</p>
+            </div>
+            <div class="cs-fact-item">
+              <span class="cs-fact-dot"></span>
+              <p><span class="cs-fact-label">Datenbankpflege</span>Periodisch, planbar, unabh&auml;ngig vom Transaktionsvolumen. Neuer Anbieter = neue Datenzeile.</p>
+            </div>
+            <div class="cs-fact-item">
+              <span class="cs-fact-dot"></span>
+              <p><span class="cs-fact-label">Supportaufkommen</span>Strukturell minimal &ndash; vollst&auml;ndiger Prozessabschluss innerhalb der Nutzersitzung.</p>
+            </div>
+            <div class="cs-fact-item">
+              <span class="cs-fact-dot"></span>
+              <p><span class="cs-fact-label">Infrastruktur</span>Hosting, Affiliate-APIs, Datenbankserver &ndash; extern gemanagt, vertraglich abgesichert.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 07 · SKALIERUNGSLOGIK -->
+  <section class="cs-section fade-up" id="skalierung">
+    <div class="cs-container">
+      <div class="cs-split cs-split--flip cs-split--facts">
+
+        <div class="cs-split-text">
+          <span class="section-badge">07 Skalierung</span>
+          <h2>Strukturelle Skalierungslogik digitaler Geschäftsmodelle</h2>
+
+          <p>
+            Die meisten digitalen Modelle skalieren nicht linear: Mit wachsendem Umsatz steigen Support-Aufwand, Infrastrukturkosten und Produktkomplexit&auml;t. Dieses Muster entsteht, wenn Skalierung durch Nutzervolumen auf einer komplexen Infrastruktur erzeugt wird &ndash; einem Dashboard, einem Nutzerkonto, einem Subscription-Modell mit Billing-Logik.
+          </p>
+          <p>
+            K&uuml;ndigungExpress enth&auml;lt keine dieser Komplexit&auml;tsquellen. Die Kostenstruktur besteht aus Hosting und periodischer Datenbankpflege. Keiner dieser Kostenpunkte w&auml;chst proportional mit dem Transaktionsvolumen &uuml;ber eine Grundlast hinaus. Ein System mit 100 Transaktionen t&auml;glich hat nahezu identische Fixkosten wie eines mit 1.000.
+          </p>
+          <p>
+            Die einzige Skalierungsdimension ist akquisitorisch: Mehr indexierte Landingpages bedeuten mehr organische Sichtbarkeit und mehr Transaktionen. Ein neuer Anbieter erfordert eine Datenbankzeile und eine URL &ndash; keinen Code, keinen Redaktionsaufwand, keine zus&auml;tzliche Personalkapazit&auml;t. Die Skalierungsgrenze liegt nicht in der Infrastruktur, sondern im adressierbaren Suchvolumen f&uuml;r K&uuml;ndigungsabsichten im deutschsprachigen Markt.
+          </p>
+        </div>
+
+        <div class="cs-split-visual cs-split-visual--facts">
+          <div class="cs-fact-panel">
+            <div class="cs-fact-item">
+              <span class="cs-fact-dot"></span>
+              <p><span class="cs-fact-label">Fixkosten</span>Wachsen nicht proportional mit Transaktionsvolumen &uuml;ber die Grundlast hinaus.</p>
+            </div>
+            <div class="cs-fact-item">
+              <span class="cs-fact-dot"></span>
+              <p><span class="cs-fact-label">Variable Kosten</span>Affiliate-Provision nur bei tatsächlichem Abschluss &ndash; keine Vorlaufkosten, kein Risiko.</p>
+            </div>
+            <div class="cs-fact-item">
+              <span class="cs-fact-dot"></span>
+              <p><span class="cs-fact-label">Kapazit&auml;tserweiterung</span>Neuer Anbieter = Datenbankzeile + URL. Kein Code, kein Redaktionsaufwand.</p>
+            </div>
+            <div class="cs-fact-item">
+              <span class="cs-fact-dot"></span>
+              <p><span class="cs-fact-label">Personalwachstum</span>Nicht erforderlich f&uuml;r Umsatzwachstum. Betriebsmodell ist von Headcount entkoppelt.</p>
+            </div>
+            <div class="cs-fact-item">
+              <span class="cs-fact-dot"></span>
+              <p><span class="cs-fact-label">Skalierungsgrenze</span>Suchvolumen f&uuml;r K&uuml;ndigungsabsichten im deutschsprachigen Markt &ndash; substantiell und strukturell stabil.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 08 · STRUKTURELLE RISIKEN -->
+  <section class="cs-section fade-up" id="risiken">
+    <div class="cs-container">
+      <div class="cs-split cs-split--facts">
+
+        <div class="cs-split-text">
+          <span class="section-badge">08 Risiken</span>
+          <h2>Strategische Erkenntnisse für digitale Architekturprojekte</h2>
+
+          <p>
+            Jedes Modell hat strukturelle Grenzen. Eine ehrliche Architekturanalyse benennt sie. F&uuml;r K&uuml;ndigungExpress ergeben sich drei adressierbare Abh&auml;ngigkeiten.
+          </p>
+          <p>
+            <strong>Rechtliche Abh&auml;ngigkeit:</strong> K&uuml;ndigungsfristen und formale Anforderungen unterliegen dem deutschen Vertragsrecht und k&ouml;nnen sich durch Gesetzgebungs&auml;nderungen verschieben. Rechtliche Parameter sind datenbankgest&uuml;tzt gepflegt &ndash; eine &Auml;nderung erfordert keinen Code-Eingriff, sondern eine Datenbankaktualisierung. Das Anpassungsrisiko ist real, aber kontrollierbar.
+          </p>
+          <p>
+            <strong>Affiliate-Abhängigkeit:</strong> Check24 und AWIN sind die primären Erlösquellen. Eine Änderung der Provisionsbedingungen würde die Erlösstruktur direkt beeinflussen. Diversifikation durch weitere Affiliate-Partner (Vergleichsportale, Fitness-Verzeichnisse) ist bei Wachstum eine logische Maßnahme.
+          </p>
+          <p>
+            <strong>Akquisitionsabh&auml;ngigkeit:</strong> Das gesamte Nutzeraufkommen basiert auf organischer Suchsichtbarkeit. Eine algorithmische Ver&auml;nderung bei Google h&auml;tte direkten Einfluss auf die Reichweite. Technische SEO-Qualit&auml;t, strukturierte Daten und genuine Nutzersignale mindern dieses Risiko strukturell.
+          </p>
+
+          <div class="cs-insight">
+            <p>Reife Produktarchitektur benennt ihre Abh&auml;ngigkeiten. Alle drei Risiken sind bekannt, einsch&auml;tzbar und durch gezielte Ma&szlig;nahmen adressierbar.</p>
+          </div>
+        </div>
+
+        <div class="cs-split-visual cs-split-visual--facts">
+          <div class="cs-fact-panel">
+            <div class="cs-fact-item">
+              <span class="cs-fact-dot"></span>
+              <p><span class="cs-fact-label">Rechtliche Parameter</span>Datenbankgest&uuml;tzt gepflegt. &Auml;nderungen erfordern keinen Code-Eingriff. Kontinuierliche Beobachtung ist Bestandteil des Betriebs.</p>
+            </div>
+            <div class="cs-fact-item">
+              <span class="cs-fact-dot"></span>
+              <p><span class="cs-fact-label">Affiliate-Konzentration</span>Primäre Erlösquellen: Check24, AWIN. Diversifikation durch weitere Partner planbar.</p>
+            </div>
+            <div class="cs-fact-item">
+              <span class="cs-fact-dot"></span>
+              <p><span class="cs-fact-label">Google-Abh&auml;ngigkeit</span>100&thinsp;% organische Akquisition. Risiko gemindert durch technische SEO-Qualit&auml;t und genuine Nutzersignale.</p>
+            </div>
+            <div class="cs-fact-item">
+              <span class="cs-fact-dot"></span>
+              <p><span class="cs-fact-label">Mitigation</span>Zweiter Zahlungsanbieter, Direktmarketing-Kanal oder Affiliate-Programm als strukturelle Erg&auml;nzungen planbar.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+  <!-- 09 · TECHNIK -->
+
+<section class="cs-section fade-up" id="technik">
+<div class="cs-container">
+<div class="cs-intro">
+<span class="section-badge">09 Technik</span>
+<h2>Technische Architektur</h2>
+
+<p>
+Das System basiert auf einer serverseitigen Dokumentgenerierung mit
+datenbankgestützter Anbieterlogik. Jede Landingpage lädt
+anbieter-spezifische Parameter (Adresse, Kündigungsfrist,
+Vertragstyp) automatisch aus der Datenbank.
+</p>
+
+<ul class="cs-list">
+<li>Serverseitige PDF-Generierung</li>
+<li>Affiliate-Integration (Check24, AWIN/Telekom)</li>
+<li>Programmatic SEO Seitenstruktur</li>
+<li>Datenbankgetriebene Anbieterlogik</li>
+<li>Semantisches HTML5 für Indexierbarkeit</li>
+</ul>
+</div>
+</div>
+</section>
+  <!-- 10 · LEARNINGS (dark) -->
+  <section class="cs-section cs-learnings fade-up" id="learnings">
+    <div class="cs-container">
+
+      <div class="cs-learnings-head">
+        <span class="section-badge cs-learnings-badge">Erkenntnisse</span>
+        <h2>Was dieses Modell strukturell beweist</h2>
+      </div>
+
+      <div class="cs-learnings-grid">
+
+        <div class="cs-learning-item">
+          <h3>Fokus als strukturelle Architekturentscheidung</h3>
+          <p>Ein Produkt, das genau eine Aufgabe l&ouml;st, hat keine Architekturkonflikte. Keine Feature-Priorisierungsdiskussionen, keine widerstreitenden Nutzeranforderungen, keine UX-Kompromisse. Fokus ist nicht Bescheidenheit &ndash; er ist eine bewusste Entscheidung gegen Komplexit&auml;t, die Geschwindigkeit, Wartbarkeit und Conversion-Performance direkt verbessert.</p>
+        </div>
+
+        <div class="cs-learning-item">
+          <h3>Operative Einfachheit als Margenvorteil</h3>
+          <p>Kein Support-Backlog, kein Churn-Management, kein Nutzer-Onboarding, keine Billing-Zyklen. Das Modell eliminiert alle Betriebskomplexit&auml;ten, die bei skalierbaren digitalen Produkten typischerweise proportional zum Umsatz wachsen. Was bleibt, ist eine strukturell niedrige Kostenbasis mit vorhersehbarer Margenstruktur auf jeder Umsatzstufe.</p>
+        </div>
+
+        <div class="cs-learning-item">
+          <h3>Datenbankgetriebene Skalierung statt Personalwachstum</h3>
+          <p>Jede neu angelegte Anbieterzeile erzeugt eine vollst&auml;ndige, indexierbare Landingpage mit SEO-Struktur, vorausgef&uuml;lltem Formular und korrekten rechtlichen Parametern. Kapazit&auml;tserweiterung erfordert keine zus&auml;tzlichen Ressourcen in Entwicklung, Redaktion oder Betrieb. Das ist das strukturelle Versprechen von Programmatic SEO als Akquisitionsmodell.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 11 · FAQ -->
+  <section class="cs-section fade-up" id="faq">
+    <div class="cs-container">
+      <div class="cs-intro">
+        <span class="section-badge">FAQ</span>
+        <h2>Häufige Fragen zur Case Study</h2>
+        <p>Antworten auf die wichtigsten Fragen zu Programmatic SEO, Affiliate-Monetarisierung und der Architektur hinter KündigungExpress.</p>
+
+        <div class="faq-list">
+
+          <div class="faq-item">
+            <button type="button" class="faq-question" aria-expanded="false" aria-controls="faq-ke-1">
+              Was ist Programmatic SEO und wofür eignet es sich?
+              <span class="faq-icon" aria-hidden="true">⌄</span>
+            </button>
+            <div class="faq-answer" id="faq-ke-1">
+              <p>Programmatic SEO ist eine Architekturstrategie, bei der aus einer strukturierten Datenbank automatisch hunderte oder tausende indexierbare Landingpages erzeugt werden – jede auf eine spezifische Suchanfrage ausgerichtet. Es eignet sich für Modelle mit hohem Suchvolumen und klarer Suchintention auf Anbieter- oder Variantenebene, wie Kündigungsgeneratoren, Preisvergleiche oder lokale Verzeichnisse.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button type="button" class="faq-question" aria-expanded="false" aria-controls="faq-ke-2">
+              Warum ist KündigungExpress kostenlos?
+              <span class="faq-icon" aria-hidden="true">⌄</span>
+            </button>
+            <div class="faq-answer" id="faq-ke-2">
+              <p>KündigungExpress finanziert sich über Affiliate-Provisionen. Nutzer die einen Vertrag kündigen, wechseln strukturell zu einem neuen Anbieter. Die Empfehlung eines günstigeren Tarifs ist die logische Fortsetzung der Nutzerabsicht – kein Werbedruck, keine Abo-Falle. Mehr zur Conversion-Logik im Beitrag <a href="/conversion-struktur-kmu">Conversion-Struktur für KMU</a>.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button type="button" class="faq-question" aria-expanded="false" aria-controls="faq-ke-3">
+              Wie skaliert KündigungExpress ohne proportional steigende Kosten?
+              <span class="faq-icon" aria-hidden="true">⌄</span>
+            </button>
+            <div class="faq-answer" id="faq-ke-3">
+              <p>Die Kostenstruktur besteht aus Hosting und periodischer Datenbankpflege – keiner dieser Kostenpunkte wächst proportional mit dem Transaktionsvolumen. Affiliate-Provisionen entstehen nur bei realem Abschluss. Ein neuer Anbieter erfordert lediglich eine Datenbankzeile und eine URL, keinen Code und keinen Redaktionsaufwand.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button type="button" class="faq-question" aria-expanded="false" aria-controls="faq-ke-4">
+              Welche technischen Komponenten bilden die Basis des Systems?
+              <span class="faq-icon" aria-hidden="true">⌄</span>
+            </button>
+            <div class="faq-answer" id="faq-ke-4">
+              <p>Das System basiert auf serverseitiger PDF-Generierung, datenbankgestützter Anbieterlogik, Affiliate-Integration über Check24 und AWIN, programmatischer SEO-Seitenstruktur und semantischem HTML5. Jede Anbieter-Landingpage lädt Kündigungsadresse, gesetzliche Frist und Vertragstyp automatisch aus der Datenbank – der Nutzer ergänzt ausschließlich persönliche Daten. Das PDF ist sofort verfügbar, kostenlos.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button type="button" class="faq-question" aria-expanded="false" aria-controls="faq-ke-5">
+              Welche strukturellen Risiken hat das Modell?
+              <span class="faq-icon" aria-hidden="true">⌄</span>
+            </button>
+            <div class="faq-answer" id="faq-ke-5">
+              <p>Das Modell hat drei adressierbare Abhängigkeiten: rechtliche Parameter (Kündigungsfristen), die bei Gesetzesänderungen aktualisiert werden müssen – datenbankgestützt ohne Code-Eingriff; Affiliate-Konzentration auf Check24 und AWIN – Diversifikation durch weitere Partner planbar; und 100 % organische Akquisition über Google – gemindert durch technische SEO-Qualität und genuine Nutzersignale.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button type="button" class="faq-question" aria-expanded="false" aria-controls="faq-ke-6">
+              Kann Digital-Firmen eine ähnliche Architektur für mein Unternehmen entwickeln?
+              <span class="faq-icon" aria-hidden="true">⌄</span>
+            </button>
+            <div class="faq-answer" id="faq-ke-6">
+              <p>Digital-Firmen analysiert zunächst, ob Ihre Ausgangssituation – Suchvolumen, Nutzerintention, Transaktionslogik – für ein programmatisches Modell geeignet ist. Der erste Schritt ist ein <a href="/website-check">kostenloser Website-Check</a>, der die strukturellen Potenziale und Voraussetzungen Ihrer digitalen Architektur bewertet. Das Ergebnis liegt innerhalb von 48 Stunden schriftlich vor – ohne Anruf, ohne Verpflichtung.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+ <section class="cs-section cs-cta-strip" id="cta">
+  <div class="cs-container">
+    <div class="cs-cta-inner">
+
+      <div>
+        <h2>Digitale Architektur ist kein Zufall.</h2>
+        <p>
+          Wenn Sie verstehen möchten, wie Ihre Website strukturell aufgebaut sein muss,
+          um Anfragen, Umsatz oder skalierbare Modelle zu ermöglichen,
+          analysieren wir Ihre aktuelle Architektur präzise und systematisch.
+        </p>
+      </div>
+
+      <div style="flex-shrink: 0; display: flex; flex-direction: column; align-items: center; gap: 10px;">
+        <a href="/website-check" class="btn btn-primary">
+          Struktur analysieren lassen
+        </a>
+        <p style="font-size: 13px; margin: 0; color: hsl(220 10% 55%); text-align: center;">
+          Kostenlos · Analyse innerhalb von 48 Stunden
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+<footer class="site-footer">
+  <div class="footer-container">
+    <!-- Brand -->
+    <div class="footer-brand">
+      <div class="footer-brand-top">
+        <img src="/assets/logos/logo-white.svg" alt="Digital-Firmen Logo">
+      </div>
+      <p class="footer-description">
+        Landing Pages und digitale Projekte für Maker und Gründer – conversion-fokussiert, einmalig bezahlt, kein Abo.
+      </p>
+    </div>
+    <!-- Leistungen -->
+    <div class="footer-services">
+      <h4>Leistungen</h4>
+      <a href="/landing-page-erstellen">Landing Page erstellen</a>
+      <a href="/website-optimierung">Website-Optimierung</a>
+      <a href="/website-check">Website-Check</a>
+    </div>
+    <!-- Digitale Projekte -->
+    <div class="footer-insights">
+      <h4>Digitale Projekte</h4>
+      <a href="/case-study-kuendigungexpress">Case Study: KündigungExpress</a>
+      <a href="/case-study-fristenmanager">Case Study: Fristenmanager</a>
+      <a href="/warum-websites-keine-anfragen-generieren">Warum Websites keine Anfragen generieren</a>
+      <a href="/conversion-struktur-kmu">Conversion-Struktur für KMU</a>
+    </div>
+    <!-- Rechtliches -->
+    <div class="footer-legal">
+      <h4>Rechtliches</h4>
+      <a href="/impressum">Impressum</a>
+      <a href="/datenschutz">Datenschutz</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    © 2026 Digital-Firmen. Alle Rechte vorbehalten.
+  </div>
+</footer><script>
+(function(){
+  // ── STICKY FACT PANELS ──
+  var stickyListeners = [];
+
+  function initStickyPanels() {
+    stickyListeners.forEach(function(fn){ window.removeEventListener('scroll', fn); });
+    stickyListeners = [];
+
+    document.querySelectorAll('.cs-split-visual--facts').forEach(function(p){ p.style.transform = ''; });
+    document.querySelectorAll('.cs-split-text').forEach(function(t){ t.style.transform = ''; });
+
+    if (window.innerWidth < 1024) return;
+
+    var offset = 112;
+
+    document.querySelectorAll('.cs-split-visual--facts, .cs-split-visual--stack').forEach(function(panelCol) {
+      var split   = panelCol.closest('.cs-split');
+      if (!split) return;
+      var textCol = split.querySelector('.cs-split-text');
+      if (!textCol) return;
+      function update() {
+        var textH  = textCol.offsetHeight;
+        var panelH = panelCol.offsetHeight;
+
+        if (textH > panelH) {
+          textCol.style.transform = 'translateY(0)';
+          var ref1      = textCol.getBoundingClientRect().top;
+          var scrolled1 = offset - ref1;
+          var maxScroll1 = textH - panelH;
+          if      (scrolled1 < 0)           panelCol.style.transform = 'translateY(0)';
+          else if (scrolled1 > maxScroll1)  panelCol.style.transform = 'translateY(' + maxScroll1 + 'px)';
+          else                              panelCol.style.transform = 'translateY(' + scrolled1  + 'px)';
+        } else if (panelH > textH) {
+          panelCol.style.transform = 'translateY(0)';
+          var ref2      = panelCol.getBoundingClientRect().top;
+          var scrolled2 = offset - ref2;
+          var maxScroll2 = panelH - textH;
+          if      (scrolled2 < 0)           textCol.style.transform = 'translateY(0)';
+          else if (scrolled2 > maxScroll2)  textCol.style.transform = 'translateY(' + maxScroll2 + 'px)';
+          else                              textCol.style.transform = 'translateY(' + scrolled2  + 'px)';
+        } else {
+          panelCol.style.transform = 'translateY(0)';
+          textCol.style.transform  = 'translateY(0)';
+        }
+      }
+
+      window.addEventListener('scroll', update, { passive: true });
+      stickyListeners.push(update);
+      update();
+    });
+  }
+
+  window.addEventListener('load', initStickyPanels);
+  window.addEventListener('resize', initStickyPanels);
+}());
+
+/* ── FAQ ACCORDION ── */
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelectorAll('.faq-item').forEach(function (item) {
+    var btn = item.querySelector('.faq-question');
+    if (!btn) return;
+    btn.addEventListener('click', function () {
+      var isOpen = item.classList.contains('active');
+      document.querySelectorAll('.faq-item').forEach(function (i) {
+        i.classList.remove('active');
+        var b = i.querySelector('.faq-question');
+        if (b) b.setAttribute('aria-expanded', 'false');
+      });
+      if (!isOpen) {
+        item.classList.add('active');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+});
+
+/* ── SCROLL REVEAL ── */
+(function () {
+  var els = document.querySelectorAll('.fade-up');
+  if (!els.length) return;
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+    });
+  }, { threshold: 0.05, rootMargin: '0px 0px -20px 0px' });
+  els.forEach(function (el) { observer.observe(el); });
+}());
+
+(function () {
+  var header    = document.getElementById('site-header');
+  var burger    = document.querySelector('.burger');
+  var mobileMenu = document.getElementById('mobile-menu');
+  var overlay   = document.getElementById('menu-overlay');
+  var closeBtn  = document.querySelector('.mobile-close');
+
+  /* ── Sticky header ── */
+  if (header) {
+    window.addEventListener('scroll', function () {
+      header.classList.toggle('scrolled', window.scrollY > 30);
+    }, { passive: true });
+    /* Set correct state immediately on page load */
+    header.classList.toggle('scrolled', window.scrollY > 30);
+  }
+
+  /* ── Burger menu ── */
+  if (!burger || !mobileMenu || !overlay) return;
+
+  function openMenu() {
+    burger.classList.add('active');
+    mobileMenu.classList.add('open');
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeMenu() {
+    burger.classList.remove('active');
+    mobileMenu.classList.remove('open');
+    overlay.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  burger.addEventListener('click', function () {
+    mobileMenu.classList.contains('open') ? closeMenu() : openMenu();
+  });
+
+  overlay.addEventListener('click', closeMenu);
+  if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+
+  mobileMenu.querySelectorAll('a').forEach(function (a) {
+    a.addEventListener('click', closeMenu);
+  });
+}());
+</script>
+
+
+</body>
+</html>
