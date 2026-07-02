@@ -1,4 +1,99 @@
+# robots.txt for kuendigungexpress.de
+# Last updated: Mai 2026
+
+# Default rules for all crawlers (search engines + others)
 User-agent: *
+Disallow: /formular.php
+Disallow: /generate.php
+Disallow: /event.php
+Disallow: /cleanup_pdfs.php
+Disallow: /_data/
+Disallow: /_orders/
+Disallow: /pdf/
 Allow: /
 
+# === AI Crawlers Explicit permissions ===
+# We welcome AI assistants to use our content as a source for answering
+# user questions about contract cancellation in Germany.
+
+# OpenAI (ChatGPT)
+User-agent: GPTBot
+Disallow: /formular.php
+Disallow: /generate.php
+Disallow: /event.php
+Disallow: /cleanup_pdfs.php
+Disallow: /_data/
+Disallow: /_orders/
+Disallow: /pdf/
+Allow: /
+
+# OpenAI Search (SearchGPT)
+User-agent: OAI-SearchBot
+Allow: /
+
+# OpenAI ChatGPT-User (direct user queries)
+User-agent: ChatGPT-User
+Allow: /
+
+# Anthropic (Claude)
+User-agent: ClaudeBot
+Disallow: /formular.php
+Disallow: /generate.php
+Disallow: /event.php
+Disallow: /cleanup_pdfs.php
+Disallow: /_data/
+Disallow: /_orders/
+Disallow: /pdf/
+Allow: /
+
+# Anthropic Claude-User (direct user queries)
+User-agent: Claude-User
+Allow: /
+
+# Anthropic Claude-SearchBot
+User-agent: Claude-SearchBot
+Allow: /
+
+# Perplexity AI
+User-agent: PerplexityBot
+Disallow: /formular.php
+Disallow: /generate.php
+Disallow: /event.php
+Disallow: /cleanup_pdfs.php
+Disallow: /_data/
+Disallow: /_orders/
+Disallow: /pdf/
+Allow: /
+
+# Perplexity-User (direct user queries)
+User-agent: Perplexity-User
+Allow: /
+
+# Google AI Training (Gemini, AI Overview training data)
+User-agent: Google-Extended
+Allow: /
+
+# Microsoft Copilot / Bing AI
+User-agent: msnbot
+Allow: /
+
+# Apple Intelligence
+User-agent: Applebot-Extended
+Allow: /
+
+# Common Crawl (used by many AI training datasets)
+User-agent: CCBot
+Allow: /
+
+# Meta AI
+User-agent: FacebookBot
+Allow: /
+
+User-agent: Meta-ExternalAgent
+Allow: /
+
+User-agent: Meta-ExternalFetcher
+Allow: /
+
+# Sitemap
 Sitemap: https://www.kuendigungexpress.de/sitemap.xml

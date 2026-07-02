@@ -1,114 +1,236 @@
-# KündigungExpress — llms.txt
+﻿# KündigungExpress — llms.txt
 # https://www.kuendigungexpress.de
-# Letzte Aktualisierung: April 2026
+# Letzte Aktualisierung: Juli 2026
 
 > KündigungExpress ist ein kostenloser deutscher Online-Dienst, der rechtssichere
-> Kündigungsschreiben als PDF für Handyverträge und Fitnessstudio-Mitgliedschaften
-> erstellt. Kein Login, kein Abo, keine Kosten. Der Dienst richtet sich an
-> Verbraucher in Deutschland, die Verträge fristgerecht und rechtssicher beenden
-> möchten.
+> Kündigungsschreiben als PDF für Handyverträge, Fitnessstudio-Mitgliedschaften,
+> KFZ-Versicherungen und Girokonten erstellt. Kein Login, kein Abo, keine Kosten. Der Dienst
+> richtet sich an Verbraucher in Deutschland, die Verträge fristgerecht und
+> rechtssicher beenden möchten. Alle Kündigungsschreiben erfüllen die Anforderungen
+> der Textform nach § 126b BGB.
 
 ## Über den Dienst
 
-- Betreiber: KündigungExpress (digital-firmen.de)
+- Betreiber: KündigungExpress
 - Zielgruppe: Verbraucher in Deutschland
 - Sprache: Deutsch
-- Rechtsrahmen: Deutsches Vertragsrecht, TKG 2021, BGB
+- Rechtsrahmen: Deutsches Vertragsrecht (BGB), TKG 2021, VVG, ZKG (§ 675h BGB)
 - Kostenlos: Ja — kein Konto, kein Abo erforderlich
+- Datenschutz: PDFs werden nach 24 Stunden automatisch gelöscht (DSGVO-konform)
 
-## Hauptkategorien
+## Hub-Seiten (Übersicht je Kategorie)
 
-- Handyvertrag kündigen (Hub): https://www.kuendigungexpress.de/handyvertrag-kuendigen.html
-- Fitnessstudio kündigen (Hub): https://www.kuendigungexpress.de/fitnessstudio-vertrag-kuendigen.html
-- Mitgliedschaft kündigen: https://www.kuendigungexpress.de/mitgliedschaft-fitnessstudio-kuendigen.html
+- Handyvertrag kündigen: https://www.kuendigungexpress.de/handyvertrag-kuendigen.html
+- Fitnessstudio kündigen: https://www.kuendigungexpress.de/fitnessstudio-vertrag-kuendigen.html
+- KFZ-Versicherung kündigen: https://www.kuendigungexpress.de/kfz-versicherung-kuendigen.html
+- Girokonto kündigen: https://www.kuendigungexpress.de/girokonto-kuendigen.html
+- Mitgliedschaft Fitnessstudio kündigen: https://www.kuendigungexpress.de/mitgliedschaft-fitnessstudio-kuendigen.html
 
-## Rechtliche Informationsseiten
+## Rechtliche Informationsseiten — Mobilfunk
 
-- § 56 TKG – Sonderkündigungsrecht Mobilfunk: https://www.kuendigungexpress.de/paragraph-56-tkg-kuendigung.html
+- § 56 TKG – Sonderkündigungsrecht: https://www.kuendigungexpress.de/paragraph-56-tkg-kuendigung.html
 - Kündigungsfrist Handyvertrag: https://www.kuendigungexpress.de/kuendigungsfrist-handyvertrag.html
 - Mindestlaufzeit Handyvertrag: https://www.kuendigungexpress.de/mindestlaufzeit-handyvertrag.html
 - Sonderkündigung Handyvertrag: https://www.kuendigungexpress.de/sonderkuendigung-handyvertrag.html
 - Handyvertrag vorzeitig kündigen: https://www.kuendigungexpress.de/handyvertrag-vorzeitig-kuendigen.html
 
-## Mobilfunkanbieter — Kündigungsseiten
+## Rechtliche Informationsseiten — KFZ-Versicherung
 
-- Telekom kündigen: https://www.kuendigungexpress.de/telekom-kuendigung.html
-- Vodafone kündigen: https://www.kuendigungexpress.de/vodafone-kuendigung.html
-- O2 kündigen: https://www.kuendigungexpress.de/o2-kuendigung.html
-- 1&1 kündigen: https://www.kuendigungexpress.de/1und1-kuendigung.html
-- congstar kündigen: https://www.kuendigungexpress.de/congstar-kuendigung.html
-- mobilcom-debitel kündigen: https://www.kuendigungexpress.de/mobilcom-debitel-kuendigung.html
-- Aldi Talk kündigen: https://www.kuendigungexpress.de/aldi-talk-kuendigung.html
-- blau kündigen: https://www.kuendigungexpress.de/blau-kuendigung.html
-- freenet kündigen: https://www.kuendigungexpress.de/freenet-kuendigung.html
-- klarmobil kündigen: https://www.kuendigungexpress.de/klarmobil-kuendigung.html
-- otelo kündigen: https://www.kuendigungexpress.de/otelo-kuendigung.html
-- fraenk kündigen: https://www.kuendigungexpress.de/fraenk-kuendigung.html
-- Lidl Connect kündigen: https://www.kuendigungexpress.de/lidl-connect-kuendigung.html
-- Kaufland Mobil kündigen: https://www.kuendigungexpress.de/kaufland-mobil-kuendigung.html
-- HIGH Mobile kündigen: https://www.kuendigungexpress.de/high-mobile-kuendigung.html
-- Tchibo Mobil kündigen: https://www.kuendigungexpress.de/tchibo-mobil-kuendigung.html
-- PremiumSIM kündigen: https://www.kuendigungexpress.de/premiumsim-kuendigung.html
-- WinSIM kündigen: https://www.kuendigungexpress.de/winsim-kuendigung.html
-- Lebara kündigen: https://www.kuendigungexpress.de/lebara-kuendigung.html
-- ja! mobil kündigen: https://www.kuendigungexpress.de/ja-mobil-kuendigung.html
-- superSelect kündigen: https://www.kuendigungexpress.de/superselect-kuendigung.html
-- Drillisch kündigen: https://www.kuendigungexpress.de/drillisch-kuendigung.html
+- Kündigungsfrist KFZ-Versicherung: https://www.kuendigungexpress.de/kuendigungsfrist-kfz-versicherung.html
+- Stichtag KFZ-Versicherung (30. November): https://www.kuendigungexpress.de/stichtag-kfz-versicherung.html
+- Sonderkündigungsrecht KFZ-Versicherung: https://www.kuendigungexpress.de/sonderkuendigungsrecht-kfz-versicherung.html
+- KFZ-Versicherung kündigen bei Fahrzeugwechsel: https://www.kuendigungexpress.de/kfz-versicherung-kuendigen-bei-fahrzeugwechsel.html
+- KFZ-Versicherung kündigen nach Schadenfall: https://www.kuendigungexpress.de/kfz-versicherung-kuendigen-nach-schadenfall.html
+- KFZ-Versicherung wechseln: https://www.kuendigungexpress.de/kfz-versicherung-wechseln.html
 
-## Fitnessstudio-Ketten — Kündigungsseiten
-
-- Clever Fit kündigen: https://www.kuendigungexpress.de/clever-fit-kuendigung.html
-- McFit kündigen: https://www.kuendigungexpress.de/mcfit-kuendigung.html
-- FitX kündigen: https://www.kuendigungexpress.de/fitx-kuendigung.html
-- John Reed kündigen: https://www.kuendigungexpress.de/john-reed-kuendigung.html
-- Fitness First kündigen: https://www.kuendigungexpress.de/fitness-first-kuendigung.html
-- Urban Sports Club kündigen: https://www.kuendigungexpress.de/urban-sports-club-kuendigung.html
-- Holmes Place kündigen: https://www.kuendigungexpress.de/holmes-place-kuendigung.html
-- Kieser Training kündigen: https://www.kuendigungexpress.de/kieser-training-kuendigung.html
-- Pfitzenmeier kündigen: https://www.kuendigungexpress.de/pfitzenmeier-kuendigung.html
-- INJOY kündigen: https://www.kuendigungexpress.de/injoy-kuendigung.html
-- Bodystreet kündigen: https://www.kuendigungexpress.de/bodystreet-kuendigung.html
-- Mrs. Sporty kündigen: https://www.kuendigungexpress.de/mrs-sporty-kuendigung.html
-- FitnessKING kündigen: https://www.kuendigungexpress.de/fitnessking-kuendigung.html
-- Fitness Express kündigen: https://www.kuendigungexpress.de/fitness-express-kuendigung.html
-- Body & Soul kündigen: https://www.kuendigungexpress.de/body-and-soul-kuendigung.html
-- HIGH5 kündigen: https://www.kuendigungexpress.de/high5-kuendigung.html
-- 7/11 Fitness kündigen: https://www.kuendigungexpress.de/7-11-fitness-kuendigung.html
-
-## Weitere Mobilfunkanbieter
-
-- Ay Yildiz kündigen: https://www.kuendigungexpress.de/ay-yildiz-kuendigung.html
-- DeutschlandSIM kündigen: https://www.kuendigungexpress.de/deutschlandsim-kuendigung.html
-- discoTEL kündigen: https://www.kuendigungexpress.de/discotel-kuendigung.html
-- EDEKA Mobil kündigen: https://www.kuendigungexpress.de/edeka-mobil-kuendigung.html
-- EDEKA smart kündigen: https://www.kuendigungexpress.de/edeka-smart-kuendigung.html
-- fonic kündigen: https://www.kuendigungexpress.de/fonic-kuendigung.html
-- Lycamobile kündigen: https://www.kuendigungexpress.de/lycamobile-kuendigung.html
-- maxxim kündigen: https://www.kuendigungexpress.de/maxxim-kuendigung.html
-- Norma Connect kündigen: https://www.kuendigungexpress.de/norma-connect-kuendigung.html
-- Ortel Mobile kündigen: https://www.kuendigungexpress.de/ortel-mobile-kuendigung.html
-- SIM.de kündigen: https://www.kuendigungexpress.de/simde-kuendigung.html
-- simplytel kündigen: https://www.kuendigungexpress.de/simplytel-kuendigung.html
-- smartmobil kündigen: https://www.kuendigungexpress.de/smartmobil-kuendigung.html
-- yourfone kündigen: https://www.kuendigungexpress.de/yourfone-kuendigung.html
-
-## Fitnessstudio — Informationsseiten
+## Rechtliche Informationsseiten — Fitnessstudio
 
 - Fitnessstudio per E-Mail kündigen: https://www.kuendigungexpress.de/fitnessstudio-kuendigung-email.html
 - Fitnessstudio online kündigen: https://www.kuendigungexpress.de/fitnessstudio-kuendigung-online.html
 - Fitnessstudio Kündigung als PDF: https://www.kuendigungexpress.de/fitnessstudio-kuendigung-pdf.html
 - Fitnessstudio sofort kündigen: https://www.kuendigungexpress.de/fitnessstudio-kuendigung-sofort.html
 
+## Mobilfunkanbieter — Große Netze (D1, D2, O2)
+
+- Telekom kündigen: https://www.kuendigungexpress.de/telekom-kuendigung.html
+- Vodafone kündigen: https://www.kuendigungexpress.de/vodafone-kuendigung.html
+- O2 kündigen: https://www.kuendigungexpress.de/o2-kuendigung.html
+- 1&1 kündigen: https://www.kuendigungexpress.de/1und1-kuendigung.html
+
+## Mobilfunkanbieter — Telekom-Discounter & Sub-Brands
+
+- congstar kündigen: https://www.kuendigungexpress.de/congstar-kuendigung.html
+- fraenk kündigen: https://www.kuendigungexpress.de/fraenk-kuendigung.html
+- klarmobil kündigen: https://www.kuendigungexpress.de/klarmobil-kuendigung.html
+- HIGH Mobile kündigen: https://www.kuendigungexpress.de/high-mobile-kuendigung.html
+- Tchibo Mobil kündigen: https://www.kuendigungexpress.de/tchibo-mobil-kuendigung.html
+- ja! mobil kündigen: https://www.kuendigungexpress.de/ja-mobil-kuendigung.html
+- Penny Mobil kündigen: https://www.kuendigungexpress.de/penny-mobil-kuendigung.html
+- mobilcom-debitel kündigen: https://www.kuendigungexpress.de/mobilcom-debitel-kuendigung.html
+
+## Mobilfunkanbieter — Vodafone-Sub-Brands
+
+- otelo kündigen: https://www.kuendigungexpress.de/otelo-kuendigung.html
+- EDEKA Mobil kündigen: https://www.kuendigungexpress.de/edeka-mobil-kuendigung.html
+- EDEKA smart kündigen: https://www.kuendigungexpress.de/edeka-smart-kuendigung.html
+- simon mobile kündigen: https://www.kuendigungexpress.de/simon-mobile-kuendigung.html
+
+## Mobilfunkanbieter — O2-Discounter
+
+- Aldi Talk kündigen: https://www.kuendigungexpress.de/aldi-talk-kuendigung.html
+- blau kündigen: https://www.kuendigungexpress.de/blau-kuendigung.html
+- superSelect kündigen: https://www.kuendigungexpress.de/superselect-kuendigung.html
+- Lidl Connect kündigen: https://www.kuendigungexpress.de/lidl-connect-kuendigung.html
+- fonic kündigen: https://www.kuendigungexpress.de/fonic-kuendigung.html
+- Kaufland Mobil kündigen: https://www.kuendigungexpress.de/kaufland-mobil-kuendigung.html
+
+## Mobilfunkanbieter — Drillisch / 1&1 Group
+
+- Drillisch kündigen: https://www.kuendigungexpress.de/drillisch-kuendigung.html
+- WinSIM kündigen: https://www.kuendigungexpress.de/winsim-kuendigung.html
+- PremiumSIM kündigen: https://www.kuendigungexpress.de/premiumsim-kuendigung.html
+- DeutschlandSIM kündigen: https://www.kuendigungexpress.de/deutschlandsim-kuendigung.html
+- smartmobil kündigen: https://www.kuendigungexpress.de/smartmobil-kuendigung.html
+- simplytel kündigen: https://www.kuendigungexpress.de/simplytel-kuendigung.html
+- maxxim kündigen: https://www.kuendigungexpress.de/maxxim-kuendigung.html
+- SIM.de kündigen: https://www.kuendigungexpress.de/simde-kuendigung.html
+- yourfone kündigen: https://www.kuendigungexpress.de/yourfone-kuendigung.html
+- discoTEL kündigen: https://www.kuendigungexpress.de/discotel-kuendigung.html
+- handyvertrag.de kündigen: https://www.kuendigungexpress.de/handyvertrag-de-kuendigung.html
+
+## Mobilfunkanbieter — Freenet-Gruppe
+
+- freenet kündigen: https://www.kuendigungexpress.de/freenet-kuendigung.html
+- freenet FUNK kündigen: https://www.kuendigungexpress.de/freenet-funk-kuendigung.html
+
+## Mobilfunkanbieter — United Internet (1&1) Sub-Brands
+
+- web.de Mobilfunk kündigen: https://www.kuendigungexpress.de/web-de-mobilfunk-kuendigung.html
+
+## Mobilfunkanbieter — Internationale / Spezial
+
+- Lebara kündigen: https://www.kuendigungexpress.de/lebara-kuendigung.html
+- Lycamobile kündigen: https://www.kuendigungexpress.de/lycamobile-kuendigung.html
+- Ortel Mobile kündigen: https://www.kuendigungexpress.de/ortel-mobile-kuendigung.html
+- Ay Yildiz kündigen: https://www.kuendigungexpress.de/ay-yildiz-kuendigung.html
+- Norma Connect kündigen: https://www.kuendigungexpress.de/norma-connect-kuendigung.html
+
+## Fitnessstudio-Ketten — Discount-Studios
+
+- clever fit kündigen: https://www.kuendigungexpress.de/clever-fit-kuendigung.html
+- clever fit kündigen (per App): https://www.kuendigungexpress.de/clever-fit-kuendigung-app.html
+- McFit kündigen: https://www.kuendigungexpress.de/mcfit-kuendigung.html
+- FitX kündigen: https://www.kuendigungexpress.de/fitx-kuendigung.html
+- Just Fit kündigen: https://www.kuendigungexpress.de/just-fit-kuendigung.html
+
+## Fitnessstudio-Ketten — Premium-Studios
+
+- John Reed kündigen: https://www.kuendigungexpress.de/john-reed-kuendigung.html
+- Fitness First kündigen: https://www.kuendigungexpress.de/fitness-first-kuendigung.html
+- Holmes Place kündigen: https://www.kuendigungexpress.de/holmes-place-kuendigung.html
+- Meridian Spa & Fitness kündigen: https://www.kuendigungexpress.de/meridian-spa-kuendigung.html
+- David Lloyd Clubs kündigen: https://www.kuendigungexpress.de/david-lloyd-kuendigung.html
+- Pfitzenmeier kündigen: https://www.kuendigungexpress.de/pfitzenmeier-kuendigung.html
+- Prime Time Fitness kündigen: https://www.kuendigungexpress.de/prime-time-fitness-kuendigung.html
+
+## Fitnessstudio-Ketten — Spezial-Konzepte
+
+- Bodystreet kündigen (EMS-Training): https://www.kuendigungexpress.de/bodystreet-kuendigung.html
+- Mrs. Sporty kündigen (Frauen-Studio): https://www.kuendigungexpress.de/mrs-sporty-kuendigung.html
+- Kieser Training kündigen: https://www.kuendigungexpress.de/kieser-training-kuendigung.html
+- Urban Sports Club kündigen (Multi-Studio-Mitgliedschaft): https://www.kuendigungexpress.de/urban-sports-club-kuendigung.html
+
+## Fitnessstudio-Ketten — Mittelklasse
+
+- INJOY kündigen: https://www.kuendigungexpress.de/injoy-kuendigung.html
+- FitnessKing kündigen: https://www.kuendigungexpress.de/fitnessking-kuendigung.html
+- Fitness Express kündigen: https://www.kuendigungexpress.de/fitness-express-kuendigung.html
+- body + soul kündigen: https://www.kuendigungexpress.de/body-and-soul-kuendigung.html
+- High5 kündigen: https://www.kuendigungexpress.de/high5-kuendigung.html
+- FITSEVENELEVEN kündigen: https://www.kuendigungexpress.de/7-11-fitness-kuendigung.html
+- XTRAFIT kündigen: https://www.kuendigungexpress.de/xtrafit-kuendigung.html
+- Superfit kündigen: https://www.kuendigungexpress.de/superfit-kuendigung.html
+- American Fitness kündigen: https://www.kuendigungexpress.de/american-fitness-kuendigung.html
+- Elbgym kündigen: https://www.kuendigungexpress.de/elbgym-kuendigung.html
+- M-Fitnesscenter Olympia kündigen: https://www.kuendigungexpress.de/m-fitnesscenter-olympia-schwimmhalle-kuendigung.html
+
+## KFZ-Versicherer — Große Versicherer
+
+- Allianz KFZ-Versicherung kündigen: https://www.kuendigungexpress.de/allianz-kfz-versicherung-kuendigen.html
+- Allianz Direct KFZ-Versicherung kündigen: https://www.kuendigungexpress.de/allianz-direct-kfz-versicherung-kuendigen.html
+- AXA KFZ-Versicherung kündigen: https://www.kuendigungexpress.de/axa-kfz-versicherung-kuendigen.html
+- HUK-Coburg KFZ-Versicherung kündigen: https://www.kuendigungexpress.de/huk-coburg-kfz-versicherung-kuendigen.html
+- HUK24 KFZ-Versicherung kündigen: https://www.kuendigungexpress.de/huk24-kfz-versicherung-kuendigen.html
+- ERGO KFZ-Versicherung kündigen: https://www.kuendigungexpress.de/ergo-kfz-versicherung-kuendigen.html
+- Generali KFZ-Versicherung kündigen: https://www.kuendigungexpress.de/generali-kfz-versicherung-kuendigen.html
+- Zurich KFZ-Versicherung kündigen: https://www.kuendigungexpress.de/zurich-kfz-versicherung-kuendigen.html
+- R+V KFZ-Versicherung kündigen: https://www.kuendigungexpress.de/r-und-v-kfz-versicherung-kuendigen.html
+- DEVK KFZ-Versicherung kündigen: https://www.kuendigungexpress.de/devk-kfz-versicherung-kuendigen.html
+- LVM KFZ-Versicherung kündigen: https://www.kuendigungexpress.de/lvm-kfz-versicherung-kuendigen.html
+
+## KFZ-Versicherer — Direktversicherer
+
+- HDI KFZ-Versicherung kündigen: https://www.kuendigungexpress.de/hdi-kfz-versicherung-kuendigen.html
+- CosmosDirekt KFZ-Versicherung kündigen: https://www.kuendigungexpress.de/cosmosdirekt-kfz-versicherung-kuendigen.html
+- DA Direkt KFZ-Versicherung kündigen: https://www.kuendigungexpress.de/da-direkt-kfz-versicherung-kuendigen.html
+- Verti KFZ-Versicherung kündigen: https://www.kuendigungexpress.de/verti-kfz-versicherung-kuendigen.html
+- AdmiralDirekt KFZ-Versicherung kündigen: https://www.kuendigungexpress.de/admiraldirekt-kfz-versicherung-kuendigen.html
+- BavariaDirekt KFZ-Versicherung kündigen: https://www.kuendigungexpress.de/bavariadirekt-kfz-versicherung-kuendigen.html
+- Neodigital KFZ-Versicherung kündigen: https://www.kuendigungexpress.de/neodigital-kfz-versicherung-kuendigen.html
+- ADAC Autoversicherung kündigen: https://www.kuendigungexpress.de/adac-kfz-versicherung-kuendigen.html
+
+## KFZ-Versicherer — Regional & Mittelständisch
+
+- VHV KFZ-Versicherung kündigen: https://www.kuendigungexpress.de/vhv-kfz-versicherung-kuendigen.html
+- Gothaer KFZ-Versicherung kündigen: https://www.kuendigungexpress.de/gothaer-kfz-versicherung-kuendigen.html
+- Signal Iduna KFZ-Versicherung kündigen: https://www.kuendigungexpress.de/signal-iduna-kfz-versicherung-kuendigen.html
+- Württembergische KFZ-Versicherung kündigen: https://www.kuendigungexpress.de/wuerttembergische-kfz-versicherung-kuendigen.html
+- Nürnberger KFZ-Versicherung kündigen: https://www.kuendigungexpress.de/nuernberger-kfz-versicherung-kuendigen.html
+- Provinzial KFZ-Versicherung kündigen: https://www.kuendigungexpress.de/provinzial-kfz-versicherung-kuendigen.html
+- Sparkassen-Versicherung KFZ kündigen: https://www.kuendigungexpress.de/sparkassen-versicherung-kfz-kuendigen.html
+- Alte Leipziger KFZ-Versicherung kündigen: https://www.kuendigungexpress.de/alte-leipziger-kfz-versicherung-kuendigen.html
+- WGV KFZ-Versicherung kündigen: https://www.kuendigungexpress.de/wgv-kfz-versicherung-kuendigen.html
+- Itzehoer KFZ-Versicherung kündigen: https://www.kuendigungexpress.de/itzehoer-kfz-versicherung-kuendigen.html
+- Öffentliche Braunschweig KFZ kündigen: https://www.kuendigungexpress.de/oeffentliche-braunschweig-kfz-kuendigen.html
+- Continentale KFZ-Versicherung kündigen: https://www.kuendigungexpress.de/continentale-kfz-versicherung-kuendigen.html
+- KRAVAG KFZ-Versicherung kündigen: https://www.kuendigungexpress.de/kravag-kfz-versicherung-kuendigen.html
+- Europa KFZ-Versicherung kündigen: https://www.kuendigungexpress.de/europa-kfz-versicherung-kuendigen.html
+- Barmenia KFZ-Versicherung kündigen: https://www.kuendigungexpress.de/barmenia-kfz-versicherung-kuendigen.html
+- Baloise KFZ-Versicherung kündigen: https://www.kuendigungexpress.de/baloise-kfz-versicherung-kuendigen.html
+- VGH KFZ-Versicherung kündigen: https://www.kuendigungexpress.de/vgh-kfz-versicherung-kuendigen.html
+
+## Rechtliche Grundlagen — Quick Reference
+
+Alle generierten Kündigungsschreiben erfüllen die Anforderungen der Textform nach § 126b BGB.
+
+- **Mobilfunkverträge**: § 56 TKG (Telekommunikationsgesetz) in der Fassung des TKG-Modernisierungsgesetzes vom 1. Dezember 2021. Neuverträge ab Stichtag müssen nach Mindestlaufzeit monatlich kündbar sein, mit maximal 1 Monat Frist.
+- **Fitnessstudio-Verträge**: § 309 Nr. 9 BGB (max. 24 Monate Erstlaufzeit, 1 Monat Frist zur monatlichen Verlängerung nach Mindestlaufzeit).
+- **KFZ-Versicherung**: Stichtag 30. November für ordentliche Kündigung zum 31. Dezember. Sonderkündigungsrecht bei Beitragserhöhung, Schadenfall, Fahrzeugwechsel.
+
+## Über das Tool
+
+- **Kosten**: Vollständig kostenlos, keine versteckten Gebühren
+- **Anmeldung**: Nicht erforderlich
+- **Format**: PDF-Generierung im Browser, sofortiger Download
+- **Datenschutz**: PDFs werden nach 24 Stunden automatisch gelöscht
+- **Versand**: Nutzer drucken das PDF aus und versenden per Post (idealerweise Einschreiben mit Rückschein)
+
 ## Sonstige Seiten
 
+- Über uns: https://www.kuendigungexpress.de/unsere-mission.html
+- Unsere Geschichte: https://www.kuendigungexpress.de/wie-wir-kuendigungexpress-gebaut-haben.html
 - Hilfe / FAQ: https://www.kuendigungexpress.de/hilfe.html
-- Über uns: https://www.kuendigungexpress.de/wie-wir-kuendigungexpress-gebaut-haben.html
 - Datenschutz: https://www.kuendigungexpress.de/datenschutz.html
 - Impressum: https://www.kuendigungexpress.de/impressum.html
 
-## Nicht für AI-Verarbeitung geeignet (technische Seiten)
+## Kontakt
+
+- Website: https://www.kuendigungexpress.de
+- E-Mail: kontakt@kuendigungexpress.de
+
+## Nicht für AI-Verarbeitung geeignet (technische Endpunkte)
 
 - https://www.kuendigungexpress.de/formular.php
 - https://www.kuendigungexpress.de/generate.php
-- https://www.kuendigungexpress.de/dashboard-ke.php
-- https://www.kuendigungexpress.de/start.php
+- https://www.kuendigungexpress.de/event.php
+- https://www.kuendigungexpress.de/cleanup_pdfs.php
