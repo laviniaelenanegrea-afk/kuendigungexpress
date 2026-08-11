@@ -5,14 +5,10 @@ declare(strict_types=1);
 <meta charset="utf-8">
 <meta name="color-scheme" content="light">
 <link rel="preconnect" href="https://www.clarity.ms">
-<link rel="preconnect" href="https://a.check24.net">
-<link rel="preconnect" href="https://www.awin1.com">
 <link rel="dns-prefetch" href="//www.clarity.ms">
-<link rel="dns-prefetch" href="//a.check24.net">
-<link rel="dns-prefetch" href="//www.awin1.com">
 <meta name="robots" content="index,follow">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#16A34A">
+<meta name="theme-color" content="#15803D">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta property="og:image" content="https://www.kuendigungexpress.de/og-image.png">
 <meta property="og:image:width" content="1200">
@@ -58,8 +54,8 @@ declare(strict_types=1);
 ]
 }
 </script>
-<link rel="preload" href="/style.css?v=26" as="style"> <link rel="stylesheet" href="/style.css?v=26"> 
-<script src="/cookie-consent.js" defer></script> <script src="/affiliate-tracking.js" defer></script>
+<link rel="preload" href="/style.css?v=30" as="style"> <link rel="stylesheet" href="/style.css?v=30"> 
+<script src="/cookie-consent.js" defer></script>
 
 <style>
   :root {
@@ -69,14 +65,14 @@ declare(strict_types=1);
     --text:          #0F172A;
     --muted:         #475569;
     --border:        #E2E8F0;
-    --btn:           #16A34A;
+    --btn:           #15803D;
     --btnText:       #FFFFFF;
     --soft:          #F1F5F9;
     --softText:      #334155;
     --soft-strong:   #EAF7EF;
 
     /* Primary brand green — used for in-content links */
-    --primary:       #16A34A;
+    --primary:       #15803D;
 
     /* Green accents */
     --green-soft-bg:        rgba(22, 163, 74, 0.05);
@@ -236,7 +232,7 @@ declare(strict_types=1);
     position: absolute;
     bottom: -15px;
     right: -15px;
-    background: var(--btn, #16A34A);
+    background: var(--btn, #15803D);
     color: var(--btnText, white);
     font-size: 16px;
     font-weight: 900;
@@ -312,7 +308,7 @@ declare(strict_types=1);
     box-shadow: 0 4px 12px rgba(15,23,42,0.02);
   }
   .route-card-btn:hover {
-    border-color: var(--btn, #16A34A);
+    border-color: var(--btn, #15803D);
     transform: translateY(-3px);
     box-shadow: 0 12px 24px rgba(22,163,74,0.08);
   }
@@ -344,7 +340,7 @@ declare(strict_types=1);
   /* STUDIO GRID PILLS */
   .studio-grid { display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:16px; margin-top:24px; }
   .studio-pill { display:block; background: var(--card, #FFFFFF); border:1px solid var(--border, #E2E8F0); border-radius:16px; padding:14px 18px; text-decoration:none; color: var(--text, #0F172A); font-weight:600; text-align:center; transition:all .25s ease; }
-  .studio-pill:hover { background: var(--card, #FFFFFF); color: var(--text, #0F172A); transform:translateY(-4px); border-color: var(--btn, #16A34A); box-shadow: 0 0 0 2px rgba(22,163,74,0.15), 0 14px 36px rgba(22,163,74,0.15); }
+  .studio-pill:hover { background: var(--card, #FFFFFF); color: var(--text, #0F172A); transform:translateY(-4px); border-color: var(--btn, #15803D); box-shadow: 0 0 0 2px rgba(22,163,74,0.15), 0 14px 36px rgba(22,163,74,0.15); }
   @media (max-width:820px) { .studio-grid{ grid-template-columns:1fr 1fr; } }
   @media (max-width:480px) { .studio-grid{ grid-template-columns:1fr; } }
 
@@ -353,12 +349,12 @@ declare(strict_types=1);
   .faq-accordion[open] { box-shadow: 0 4px 16px rgba(15,23,42,0.04); border-color: rgba(22, 163, 74, 0.3); }
   .faq-summary { padding: 18px 20px; font-weight: 700; font-size: 16px; color: var(--text, #0F172A); cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; }
   .faq-summary::-webkit-details-marker { display: none; }
-  .faq-summary::after { content: "+"; font-size: 24px; line-height: 1; color: var(--primary, #16A34A); font-weight: 400; transition: transform 0.3s ease; }
+  .faq-summary::after { content: "+"; font-size: 24px; line-height: 1; color: var(--primary, #15803D); font-weight: 400; transition: transform 0.3s ease; }
   .faq-accordion[open] .faq-summary::after { transform: rotate(45deg); }
   .faq-content { padding: 0 20px 20px 20px; color: var(--muted, #475569); line-height: 1.7; font-size: 15px; margin: 0; }
 
   /* IN-TEXT LINKS GREEN FIX */
-  .wrap p a:not(.btn):not(.btn-primary):not(.affiliate-btn):not(.studio-pill):not(.route-card-btn), .wrap li a:not(.btn):not(.btn-primary):not(.affiliate-btn) { color: var(--primary, #16A34A) !important; font-weight:600 !important; text-decoration:none !important; }
+  .wrap p a:not(.btn):not(.btn-primary):not(.affiliate-btn):not(.studio-pill):not(.route-card-btn), .wrap li a:not(.btn):not(.btn-primary):not(.affiliate-btn) { color: var(--primary, #15803D) !important; font-weight:600 !important; text-decoration:none !important; }
   .wrap p a:not(.btn):not(.btn-primary):not(.affiliate-btn):hover { opacity:0.9; text-decoration:none !important; }
 
   /* INTERACTIVE STARS *//* ============================================================
@@ -370,7 +366,7 @@ declare(strict_types=1);
     body .guide-actions .guide-card-btn:last-child:nth-child(odd) { grid-column: 1 / -1 !important; }
   }
   body .guide-card-btn { display: flex !important; align-items: flex-start !important; gap: 18px !important; background: var(--card, #FFFFFF) !important; border: 1px solid var(--border, #E2E8F0) !important; border-radius: 16px !important; padding: 24px !important; color: var(--text, #0F172A) !important; text-decoration: none !important; transition: all 0.2s ease !important; box-shadow: 0 4px 12px rgba(15,23,42,0.02) !important; }
-  body .guide-card-btn:hover { border-color: var(--btn, #16A34A) !important; transform: translateY(-3px) !important; box-shadow: 0 12px 24px rgba(22,163,74,0.08) !important; }
+  body .guide-card-btn:hover { border-color: var(--btn, #15803D) !important; transform: translateY(-3px) !important; box-shadow: 0 12px 24px rgba(22,163,74,0.08) !important; }
   body .guide-icon { font-size: 28px !important; line-height: 1 !important; background: var(--soft, #F1F5F9) !important; padding: 14px !important; border-radius: 14px !important; transition: background 0.2s ease !important; flex-shrink: 0 !important; }
   body .guide-card-btn:hover .guide-icon { background: var(--soft-strong, #EAF7EF) !important; }
   body .guide-text-wrap { display: flex !important; flex-direction: column !important; gap: 6px !important; text-align: left !important; margin-top: 2px !important; }
@@ -402,7 +398,7 @@ declare(strict_types=1);
       
       <div class="hero-content">
         <h1 style="font-size: clamp(42px, 4.5vw, 50px); font-weight: 900; letter-spacing: -1.5px; line-height: 1.1; margin: 0 0 20px;">
-          Fitnessstudio online kündigen:<br><span style="color:var(--primary, #16A34A);">in 2 Minuten rechtssicher beenden</span>
+          Fitnessstudio online kündigen:<br><span style="color:var(--primary, #15803D);">in 2 Minuten rechtssicher beenden</span>
         </h1>
         
         <p class="hero-subtitle">
@@ -410,30 +406,30 @@ declare(strict_types=1);
         </p>
 
         <div class="desktop-cta-only" style="margin: 32px 0 24px 0;">
-          <a href="#studios-grid" style="display: inline-flex; align-items: center; justify-content: center; background-color: var(--btn, #16A34A); color: var(--btnText, #ffffff); padding: 16px 28px; border-radius: 14px; font-weight: 900; font-size: 18px; text-decoration: none; box-shadow: 0 4px 12px rgba(22, 163, 74, 0.2); transition: transform 0.2s ease, filter 0.2s ease, box-shadow 0.2s ease;" onmouseover="this.style.transform='translateY(-1px)'; this.style.filter='brightness(0.95)'; this.style.boxShadow='0 6px 16px rgba(22, 163, 74, 0.3)';" onmouseout="this.style.transform='translateY(0)'; this.style.filter='brightness(1)'; this.style.boxShadow='0 4px 12px rgba(22, 163, 74, 0.2)';">
+          <a href="#studios-grid" style="display: inline-flex; align-items: center; justify-content: center; background-color: var(--btn, #15803D); color: var(--btnText, #ffffff); padding: 16px 28px; border-radius: 14px; font-weight: 900; font-size: 18px; text-decoration: none; box-shadow: 0 4px 12px rgba(22, 163, 74, 0.2); transition: transform 0.2s ease, filter 0.2s ease, box-shadow 0.2s ease;" onmouseover="this.style.transform='translateY(-1px)'; this.style.filter='brightness(0.95)'; this.style.boxShadow='0 6px 16px rgba(22, 163, 74, 0.3)';" onmouseout="this.style.transform='translateY(0)'; this.style.filter='brightness(1)'; this.style.boxShadow='0 4px 12px rgba(22, 163, 74, 0.2)';">
             Vertrag jetzt kündigen
           </a>
         </div>
 
         <div class="trust-pills-container"> 
           <span class="trust-pill">
-            <svg width="16" height="16" fill="none" stroke="var(--btn, #16A34A)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"></path></svg>
+            <svg width="16" height="16" fill="none" stroke="var(--btn, #15803D)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"></path></svg>
             100% Kostenlos
           </span> 
           <span class="trust-pill">
-            <svg width="16" height="16" fill="none" stroke="var(--btn, #16A34A)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"></path></svg>
+            <svg width="16" height="16" fill="none" stroke="var(--btn, #15803D)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"></path></svg>
             Ohne Anmeldung
           </span>
           <span class="trust-pill">
-            <svg width="16" height="16" fill="none" stroke="var(--btn, #16A34A)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"></path></svg>
+            <svg width="16" height="16" fill="none" stroke="var(--btn, #15803D)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"></path></svg>
             Sofort als PDF
           </span>
         </div>
 
         <div style="display: flex; flex-direction: column; gap: 12px; position: relative; z-index: 10;">
           <div style="display: flex; align-items: center; gap: 12px;">
-            <div style="display: flex; color: var(--btn, #16A34A); font-size: 18px; letter-spacing: -2px;">👤👤👤</div>
-            <span style="font-size: 15px; color: #64748B;"><span style="color: var(--btn, #16A34A); font-weight: 800; font-size: 16px;"><?php $c=file_exists(__DIR__.'/_counter.txt')?(int)file_get_contents(__DIR__.'/_counter.txt'):1247; echo number_format($c,0,',','.'); ?></span> Kündigungen erstellt</span>
+            <div style="display: flex; color: var(--btn, #15803D); font-size: 18px; letter-spacing: -2px;">👤👤👤</div>
+            <span style="font-size: 15px; color: #64748B;"><span style="color: var(--btn, #15803D); font-weight: 800; font-size: 16px;"><?php $c=file_exists(__DIR__.'/_counter.txt')?(int)file_get_contents(__DIR__.'/_counter.txt'):1247; echo number_format($c,0,',','.'); ?></span> Kündigungen erstellt</span>
           </div>
           
           <div style="display: flex; flex-direction: column; gap: 8px;">
@@ -463,16 +459,6 @@ declare(strict_types=1);
 
 <div class="wrap"> 
 <main class="page-flow"> 
-
-  <section class="section-soft cv-auto" style="padding-top:20px;padding-bottom:20px;"> 
-    <h2 style="text-align:center;">So funktioniert KündigungExpress</h2> 
-    <div style="border-radius:12px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.08);display:flex;">
-      <video width="100%" controls controlsList="nodownload" oncontextmenu="return false;" preload="metadata">
-        <source src="/media/fitnessstudio-vertrag-kuendigen-anleitung.mp4" type="video/mp4">
-        Dein Browser unterstützt das Video-Tag nicht. Bitte aktualisiere deinen Browser.
-      </video>
-    </div>
-  </section> 
 
   <section id="studios-grid" class="section-accent cv-auto"> 
     <h2 style="text-align: center;">Beliebte Studios direkt kündigen</h2> 
@@ -508,7 +494,7 @@ declare(strict_types=1);
     
     <div style="margin-top: 32px; text-align: center;">
       <p style="margin-bottom: 16px; font-size: 15px; color: var(--muted, #475569); font-weight: 500;">Dein Studio ist nicht dabei?</p>
-      <a href="/formular.php?type=fitness" style="display: inline-flex; align-items: center; justify-content: center; background-color: var(--card, #FFFFFF); color: var(--text, #0F172A); padding: 14px 24px; border-radius: 14px; font-weight: 700; font-size: 15px; text-decoration: none; border: 2px solid var(--border, #E2E8F0); box-shadow: 0 4px 12px rgba(15,23,42,0.02); transition: all 0.2s ease;" onmouseover="this.style.borderColor='var(--primary, #16A34A)'; this.style.color='var(--primary, #16A34A)'; this.style.transform='translateY(-2px)';" onmouseout="this.style.borderColor='var(--border, #E2E8F0)'; this.style.color='var(--text, #0F172A)'; this.style.transform='translateY(0)';">Universal-Vorlage nutzen ➔</a>
+      <a href="/formular.php?type=fitness" style="display: inline-flex; align-items: center; justify-content: center; background-color: var(--card, #FFFFFF); color: var(--text, #0F172A); padding: 14px 24px; border-radius: 14px; font-weight: 700; font-size: 15px; text-decoration: none; border: 2px solid var(--border, #E2E8F0); box-shadow: 0 4px 12px rgba(15,23,42,0.02); transition: all 0.2s ease;" onmouseover="this.style.borderColor='var(--primary, #15803D)'; this.style.color='var(--primary, #15803D)'; this.style.transform='translateY(-2px)';" onmouseout="this.style.borderColor='var(--border, #E2E8F0)'; this.style.color='var(--text, #0F172A)'; this.style.transform='translateY(0)';">Universal-Vorlage nutzen ➔</a>
     </div>
   </section> 
 
@@ -740,7 +726,7 @@ declare(strict_types=1);
 </div>
 
 <div id="nuclear-mobile-cta" style="display: none; position: fixed !important; bottom: 0 !important; left: 0 !important; right: 0 !important; background: var(--card, #ffffff) !important; border-top: 1px solid var(--border, #E2E8F0) !important; padding: 12px 16px !important; padding-bottom: calc(12px + env(safe-area-inset-bottom)) !important; z-index: 2147483647 !important; box-shadow: 0 -8px 32px rgba(15,23,42,0.1) !important; width: 100% !important; box-sizing: border-box !important; transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease !important; transform: translateY(0);">
-    <a href="#studios-grid" style="flex: 1 !important; width: 100% !important; background: var(--btn, #16A34A) !important; color: var(--btnText, #ffffff) !important; text-align: center !important; padding: 16px !important; border-radius: 14px !important; font-weight: 900 !important; text-decoration: none !important; font-size: 16px !important; display: block !important; cursor: pointer !important; box-sizing: border-box !important;">Fitnessvertrag kündigen</a>
+    <a href="#studios-grid" style="flex: 1 !important; width: 100% !important; background: var(--btn, #15803D) !important; color: var(--btnText, #ffffff) !important; text-align: center !important; padding: 16px !important; border-radius: 14px !important; font-weight: 900 !important; text-decoration: none !important; font-size: 16px !important; display: block !important; cursor: pointer !important; box-sizing: border-box !important;">Fitnessvertrag kündigen</a>
 </div>
 
 <script>

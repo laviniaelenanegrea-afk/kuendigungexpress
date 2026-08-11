@@ -5,14 +5,10 @@ declare(strict_types=1);
 <meta charset="utf-8">
 <meta name="color-scheme" content="light">
 <link rel="preconnect" href="https://www.clarity.ms">
-<link rel="preconnect" href="https://a.check24.net">
-<link rel="preconnect" href="https://www.awin1.com">
 <link rel="dns-prefetch" href="//www.clarity.ms">
-<link rel="dns-prefetch" href="//a.check24.net">
-<link rel="dns-prefetch" href="//www.awin1.com">
 <meta name="robots" content="index,follow">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#16A34A">
+<meta name="theme-color" content="#15803D">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta property="og:image" content="https://www.kuendigungexpress.de/og-image.png">
 <meta property="og:image:width" content="1200">
@@ -33,7 +29,9 @@ declare(strict_types=1);
   { "@type": "Question", "name": "Wie lang ist die gesetzliche Kündigungsfrist?", "acceptedAnswer": { "@type": "Answer", "text": "Seit Inkrafttreten der TKG-Novelle am 1. Dezember 2021 (§ 56 TKG) gilt: Nach Ablauf der Mindestlaufzeit (in der Regel 24 Monate) kann der Vertrag jederzeit mit einer Frist von einem Monat zum Monatsende gekündigt werden. Eine stillschweigende Verlängerung um 12 Monate ist gesetzlich nicht mehr zulässig. Bei Altverträgen, die vor März 2022 abgeschlossen wurden, kann jedoch noch eine längere Frist (häufig drei Monate zum Vertragsende) gelten – maßgeblich ist Ihr individueller Vertrag. Tipp: Im Zweifel kündigen Sie immer zum nächstmöglichen Termin – der Anbieter ist verpflichtet, Ihnen das genaue Vertragsende schriftlich zu bestätigen." } }, 
   { "@type": "Question", "name": "Kann ich die Kündigung auch versenden lassen?", "acceptedAnswer": { "@type": "Answer", "text": "Ja. Nach der PDF-Erstellung können Sie optional unseren Versand-Service beauftragen: Wir drucken Ihr Schreiben, kuvertieren es und übergeben es an die Deutsche Post — für 3,99 € als Standardbrief oder 8,99 € als Einwurfeinschreiben mit Zustellnachweis. Kein Drucker, keine Briefmarke, kein Gang zur Post nötig." } }, 
   { "@type": "Question", "name": "Was passiert nach dem Versand meiner Kündigung?", "acceptedAnswer": { "@type": "Answer", "text": "Der Provider muss den Eingang prüfen und Ihnen das genaue Vertragsende schriftlich bestätigen. Bewahren Sie dieses Dokument zur Sicherheit gut auf und kontrollieren Sie anschließend Ihre Kontoauszüge." } }, 
-  { "@type": "Question", "name": "Kann ich die Rufnummer mitnehmen?", "acceptedAnswer": { "@type": "Answer", "text": "Ja, die Rufnummernmitnahme (Portierung) ist nach § 59 TKG gesetzlich garantiert und seit dem 1. Dezember 2021 für Endnutzer komplett kostenlos. Sie kann bis zu einem Monat nach Vertragsende beantragt werden. Beantragen Sie die Portierung idealerweise direkt bei Ihrem neuen Anbieter – dieser kümmert sich um den gesamten Prozess inklusive Antrag beim alten Provider. Wichtig: Achten Sie darauf, dass Name, Geburtsdatum und Adresse beim alten und neuen Anbieter exakt übereinstimmen – schon kleine Abweichungen können die Portierung verzögern. Die Übertragung erfolgt in der Regel innerhalb von 1–2 Wochen, gesetzlich darf die Verbindungsunterbrechung höchstens einen Arbeitstag betragen." } } 
+  { "@type": "Question", "name": "Kann ich die Rufnummer mitnehmen?", "acceptedAnswer": { "@type": "Answer", "text": "Ja, die Rufnummernmitnahme (Portierung) ist nach § 59 TKG gesetzlich garantiert und seit dem 1. Dezember 2021 für Endnutzer komplett kostenlos. Sie kann bis zu einem Monat nach Vertragsende beantragt werden. Beantragen Sie die Portierung idealerweise direkt bei Ihrem neuen Anbieter – dieser kümmert sich um den gesamten Prozess inklusive Antrag beim alten Provider. Wichtig: Achten Sie darauf, dass Name, Geburtsdatum und Adresse beim alten und neuen Anbieter exakt übereinstimmen – schon kleine Abweichungen können die Portierung verzögern. Die Übertragung erfolgt in der Regel innerhalb von 1–2 Wochen, gesetzlich darf die Verbindungsunterbrechung höchstens einen Arbeitstag betragen." } } ,
+{ "@type": "Question", "name": "Wie kündige ich meinen Handyvertrag richtig?", "acceptedAnswer": { "@type": "Answer", "text": "Kündigen Sie in Textform (Brief, E-Mail oder Kündigungsbutton) mit einer Frist von einem Monat nach Ablauf der Mindestlaufzeit. Geben Sie Name, Adresse, Rufnummer und Kundennummer an und fordern Sie eine Bestätigung mit dem exakten Vertragsende an. Am beweissichersten ist der Versand per Post mit Zustellnachweis." } },
+{ "@type": "Question", "name": "Was kostet die Kündigung meines Handyvertrags?", "acceptedAnswer": { "@type": "Answer", "text": "Die Kündigung selbst ist immer kostenlos. Das Kündigungsschreiben erstellen Sie bei KündigungExpress gratis als PDF – ohne Abo und ohne Login. Nur wenn Sie den optionalen Postversand nutzen, fallen Kosten ab 3,99 Euro an." } }
 ]
 }
 </script>
@@ -58,8 +56,8 @@ declare(strict_types=1);
 ]
 }
 </script>
-<link rel="preload" href="/style.css?v=26" as="style"> <link rel="stylesheet" href="/style.css?v=26"> 
-<script src="/cookie-consent.js" defer></script> <script src="/affiliate-tracking.js" defer></script>
+<link rel="preload" href="/style.css?v=30" as="style"> <link rel="stylesheet" href="/style.css?v=30"> 
+<script src="/cookie-consent.js" defer></script>
 
 <style>
   :root {
@@ -69,14 +67,14 @@ declare(strict_types=1);
     --text:          #0F172A;
     --muted:         #475569;
     --border:        #E2E8F0;
-    --btn:           #16A34A;
+    --btn:           #15803D;
     --btnText:       #FFFFFF;
     --soft:          #F1F5F9;
     --softText:      #334155;
     --soft-strong:   #EAF7EF;
 
     /* Primary brand green — used for in-content links */
-    --primary:       #16A34A;
+    --primary:       #15803D;
 
     /* Green accents */
     --green-soft-bg:        rgba(22, 163, 74, 0.05);
@@ -236,7 +234,7 @@ declare(strict_types=1);
     position: absolute;
     bottom: -15px;
     right: -15px;
-    background: var(--btn, #16A34A);
+    background: var(--btn, #15803D);
     color: var(--btnText, white);
     font-size: 16px;
     font-weight: 900;
@@ -311,7 +309,7 @@ declare(strict_types=1);
     box-shadow: 0 4px 12px rgba(15,23,42,0.02);
   }
   .route-card-btn:hover {
-    border-color: var(--btn, #16A34A);
+    border-color: var(--btn, #15803D);
     transform: translateY(-3px);
     box-shadow: 0 12px 24px rgba(22,163,74,0.08);
   }
@@ -354,7 +352,7 @@ declare(strict_types=1);
   /* STUDIO GRID PILLS */
   .studio-grid { display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:16px; margin-top:24px; }
   .studio-pill { display:block; background: var(--card, #FFFFFF); border:1px solid var(--border, #E2E8F0); border-radius:16px; padding:14px 18px; text-decoration:none; color: var(--text, #0F172A); font-weight:600; text-align:center; transition:all .25s ease; }
-  .studio-pill:hover { background: var(--card, #FFFFFF); color: var(--text, #0F172A); transform:translateY(-4px); border-color: var(--btn, #16A34A); box-shadow: 0 0 0 2px rgba(22,163,74,0.15), 0 14px 36px rgba(22,163,74,0.15); }
+  .studio-pill:hover { background: var(--card, #FFFFFF); color: var(--text, #0F172A); transform:translateY(-4px); border-color: var(--btn, #15803D); box-shadow: 0 0 0 2px rgba(22,163,74,0.15), 0 14px 36px rgba(22,163,74,0.15); }
   @media (max-width:820px) { .studio-grid{ grid-template-columns:1fr 1fr; } }
   @media (max-width:480px) { .studio-grid{ grid-template-columns:1fr; } }
 
@@ -363,12 +361,12 @@ declare(strict_types=1);
   .faq-accordion[open] { box-shadow: 0 4px 16px rgba(15,23,42,0.04); border-color: rgba(22, 163, 74, 0.3); }
   .faq-summary { padding: 18px 20px; font-weight: 700; font-size: 16px; color: var(--text, #0F172A); cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; }
   .faq-summary::-webkit-details-marker { display: none; }
-  .faq-summary::after { content: "+"; font-size: 24px; line-height: 1; color: var(--primary, #16A34A); font-weight: 400; transition: transform 0.3s ease; }
+  .faq-summary::after { content: "+"; font-size: 24px; line-height: 1; color: var(--primary, #15803D); font-weight: 400; transition: transform 0.3s ease; }
   .faq-accordion[open] .faq-summary::after { transform: rotate(45deg); }
   .faq-content { padding: 0 20px 20px 20px; color: var(--muted, #475569); line-height: 1.7; font-size: 15px; margin: 0; }
 
   /* IN-TEXT LINKS GREEN FIX */
-  .wrap p a:not(.btn):not(.btn-primary):not(.affiliate-btn):not(.studio-pill):not(.route-card-btn), .wrap li a:not(.btn):not(.btn-primary):not(.affiliate-btn) { color: var(--primary, #16A34A) !important; font-weight:600 !important; text-decoration:none !important; }
+  .wrap p a:not(.btn):not(.btn-primary):not(.affiliate-btn):not(.studio-pill):not(.route-card-btn), .wrap li a:not(.btn):not(.btn-primary):not(.affiliate-btn) { color: var(--primary, #15803D) !important; font-weight:600 !important; text-decoration:none !important; }
   .wrap p a:not(.btn):not(.btn-primary):not(.affiliate-btn):hover { opacity:0.9; text-decoration:none !important; }
 
   /* INTERACTIVE STARS */
@@ -381,12 +379,35 @@ declare(strict_types=1);
     .guide-actions .guide-card-btn:last-child:nth-child(odd) { grid-column: 1 / -1; }
   }
   .guide-card-btn { display: flex; align-items: flex-start; gap: 18px; background: var(--card, #FFFFFF); border: 1px solid var(--border, #E2E8F0); border-radius: 16px; padding: 24px; color: var(--text, #0F172A) !important; text-decoration: none !important; transition: all 0.2s ease; box-shadow: 0 4px 12px rgba(15,23,42,0.02); }
-  .guide-card-btn:hover { border-color: var(--btn, #16A34A); transform: translateY(-3px); box-shadow: 0 12px 24px rgba(22,163,74,0.08); }
+  .guide-card-btn:hover { border-color: var(--btn, #15803D); transform: translateY(-3px); box-shadow: 0 12px 24px rgba(22,163,74,0.08); }
   .guide-icon { font-size: 28px; line-height: 1; background: var(--soft, #F1F5F9); padding: 14px; border-radius: 14px; transition: background 0.2s ease; flex-shrink: 0; }
   .guide-card-btn:hover .guide-icon { background: var(--soft-strong, #EAF7EF); }
   .guide-text-wrap { display: flex; flex-direction: column; gap: 6px; text-align: left; margin-top: 2px; }
   .guide-title { font-weight: 800; font-size: 16px; line-height: 1.3; color: var(--text, #0F172A); }
   .guide-sub { font-size: 14px; color: var(--muted, #475569) !important; line-height: 1.5; margin: 0 !important; }
+
+  /* Kündigungsfristen-Tabelle */
+  .frist-table-wrap { margin: 0 0 8px; }
+  .frist-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  .frist-table thead tr { background: var(--primary, #15803D); color: #fff; }
+  .frist-table th { text-align: left; padding: 10px 12px; font-weight: 700; }
+  .frist-table th:first-child { border-radius: 8px 0 0 0; }
+  .frist-table th:last-child { border-radius: 0 8px 0 0; }
+  .frist-table td { padding: 9px 12px; }
+  .frist-table tbody tr { border-bottom: 1px solid var(--border, #E2E8F0); }
+  .frist-table tbody tr:last-child { border-bottom: none; }
+  .frist-table .frist-anbieter { font-weight: 600; }
+  @media (max-width: 820px) {
+    /* Tabelle wird zu gestapelten Karten – kein horizontales Scrollen */
+    .frist-table thead { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+    .frist-table, .frist-table tbody, .frist-table tr, .frist-table td { display: block; width: 100%; }
+    .frist-table tbody tr { border: 1px solid var(--border, #E2E8F0); border-radius: 12px; padding: 6px 0; margin: 0 0 12px; background: var(--card, #FFFFFF); }
+    .frist-table tbody tr:last-child { margin-bottom: 0; }
+    .frist-table td { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; padding: 7px 14px; border: none; }
+    .frist-table td::before { content: attr(data-label); font-weight: 600; color: var(--muted, #475569); flex-shrink: 0; }
+    .frist-table td.frist-anbieter { display: block; font-size: 15px; padding: 10px 14px 8px; border-bottom: 1px solid var(--border, #E2E8F0); margin-bottom: 4px; }
+    .frist-table td.frist-anbieter::before { content: none; }
+  }
 </style>
 
     <meta property="article:modified_time" content="2026-05-26T12:00:00+02:00">
@@ -413,7 +434,7 @@ declare(strict_types=1);
       
       <div class="hero-content">
             <h1 style="font-size: clamp(42px, 4.5vw, 50px); font-weight: 900; letter-spacing: -1.5px; line-height: 1.1; margin: 0 0 20px;">
-  Handyvertrag online kündigen:<br><span style="color:var(--primary, #16A34A);">wasserdicht nach neuem TKG</span>
+  Handyvertrag online kündigen:<br><span style="color:var(--primary, #15803D);">wasserdicht nach neuem TKG</span>
 </h1>
         
         <p class="hero-subtitle">
@@ -421,30 +442,30 @@ declare(strict_types=1);
         </p>
 
         <div class="desktop-cta-only" style="margin: 32px 0 24px 0;">
-          <a href="#providers-grid" style="display: inline-flex; align-items: center; justify-content: center; background-color: var(--btn, #16A34A); color: var(--btnText, #ffffff); padding: 16px 28px; border-radius: 14px; font-weight: 900; font-size: 18px; text-decoration: none; box-shadow: 0 4px 12px rgba(22, 163, 74, 0.2); transition: transform 0.2s ease, filter 0.2s ease, box-shadow 0.2s ease;" onmouseover="this.style.transform='translateY(-1px)'; this.style.filter='brightness(0.95)'; this.style.boxShadow='0 6px 16px rgba(22, 163, 74, 0.3)';" onmouseout="this.style.transform='translateY(0)'; this.style.filter='brightness(1)'; this.style.boxShadow='0 4px 12px rgba(22, 163, 74, 0.2)';">
+          <a href="#providers-grid" style="display: inline-flex; align-items: center; justify-content: center; background-color: var(--btn, #15803D); color: var(--btnText, #ffffff); padding: 16px 28px; border-radius: 14px; font-weight: 900; font-size: 18px; text-decoration: none; box-shadow: 0 4px 12px rgba(22, 163, 74, 0.2); transition: transform 0.2s ease, filter 0.2s ease, box-shadow 0.2s ease;" onmouseover="this.style.transform='translateY(-1px)'; this.style.filter='brightness(0.95)'; this.style.boxShadow='0 6px 16px rgba(22, 163, 74, 0.3)';" onmouseout="this.style.transform='translateY(0)'; this.style.filter='brightness(1)'; this.style.boxShadow='0 4px 12px rgba(22, 163, 74, 0.2)';">
             Vertrag jetzt kündigen
           </a>
         </div>
 
         <div class="trust-pills-container"> 
           <span class="trust-pill">
-            <svg width="16" height="16" fill="none" stroke="var(--btn, #16A34A)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"></path></svg>
+            <svg width="16" height="16" fill="none" stroke="var(--btn, #15803D)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"></path></svg>
             100% Kostenlos
           </span> 
           <span class="trust-pill">
-            <svg width="16" height="16" fill="none" stroke="var(--btn, #16A34A)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"></path></svg>
+            <svg width="16" height="16" fill="none" stroke="var(--btn, #15803D)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"></path></svg>
             Ohne Anmeldung
           </span>
           <span class="trust-pill">
-            <svg width="16" height="16" fill="none" stroke="var(--btn, #16A34A)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"></path></svg>
+            <svg width="16" height="16" fill="none" stroke="var(--btn, #15803D)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"></path></svg>
             Sofort als PDF
           </span>
         </div>
 
         <div style="display: flex; flex-direction: column; gap: 12px; position: relative; z-index: 10;">
           <div style="display: flex; align-items: center; gap: 12px;">
-            <div style="display: flex; color: var(--btn, #16A34A); font-size: 18px; letter-spacing: -2px;">👤👤👤</div>
-            <span style="font-size: 15px; color: #64748B;"><span style="color: var(--btn, #16A34A); font-weight: 800; font-size: 16px;"><?php $c=file_exists(__DIR__.'/_counter.txt')?(int)file_get_contents(__DIR__.'/_counter.txt'):1247; echo number_format($c,0,',','.'); ?></span> Kündigungen erstellt</span>
+            <div style="display: flex; color: var(--btn, #15803D); font-size: 18px; letter-spacing: -2px;">👤👤👤</div>
+            <span style="font-size: 15px; color: #64748B;"><span style="color: var(--btn, #15803D); font-weight: 800; font-size: 16px;"><?php $c=file_exists(__DIR__.'/_counter.txt')?(int)file_get_contents(__DIR__.'/_counter.txt'):1247; echo number_format($c,0,',','.'); ?></span> Kündigungen erstellt</span>
           </div>
           
           <div style="display: flex; flex-direction: column; gap: 8px;">
@@ -475,17 +496,7 @@ declare(strict_types=1);
 <div class="wrap"> 
 <main class="page-flow"> 
 
-  <section class="section-soft cv-auto" style="padding-top:20px;padding-bottom:20px;"> 
-    <h2 style="text-align:center;">So funktioniert KündigungExpress</h2> 
-    <div style="border-radius:12px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.08);display:flex;">
-      <video width="100%" controls controlsList="nodownload" oncontextmenu="return false;" preload="metadata">
-        <source src="/media/handyvertrag-kuendigen-anleitung.mp4" type="video/mp4">
-        Dein Browser unterstützt das Video-Tag nicht. Bitte aktualisiere deinen Browser.
-      </video>
-    </div>
-  </section> 
-
-  <section id="providers-grid" class="section-accent cv-auto"> 
+ <section id="providers-grid" class="section-accent cv-auto"> 
     <h2 style="text-align: center;">Mobilfunkanbieter direkt kündigen</h2> 
     <p class="brand-intro" style="text-align: center; margin: 0 auto 20px;"> Wählen Sie Ihren Mobilfunkanbieter aus, um die korrekte Kündigungsadresse und spezifische Vertragsdetails abzurufen. Unsere Datenbank umfasst alle Netzbetreiber, Discounter und Prepaid-Marken in Deutschland. </p> 
     
@@ -533,7 +544,7 @@ declare(strict_types=1);
     
     <div style="margin-top: 32px; text-align: center;">
       <p style="margin-bottom: 16px; font-size: 15px; color: var(--muted, #475569); font-weight: 500;">Ihr Anbieter ist nicht dabei?</p>
-      <a href="/formular.php?type=handy" style="display: inline-flex; align-items: center; justify-content: center; background-color: var(--card, #FFFFFF); color: var(--text, #0F172A); padding: 14px 24px; border-radius: 14px; font-weight: 700; font-size: 15px; text-decoration: none; border: 2px solid var(--border, #E2E8F0); box-shadow: 0 4px 12px rgba(15,23,42,0.02); transition: all 0.2s ease;" onmouseover="this.style.borderColor='var(--primary, #16A34A)'; this.style.color='var(--primary, #16A34A)'; this.style.transform='translateY(-2px)';" onmouseout="this.style.borderColor='var(--border, #E2E8F0)'; this.style.color='var(--text, #0F172A)'; this.style.transform='translateY(0)';">Universal-Vorlage nutzen ➔</a>
+      <a href="/formular.php?type=handy" style="display: inline-flex; align-items: center; justify-content: center; background-color: var(--card, #FFFFFF); color: var(--text, #0F172A); padding: 14px 24px; border-radius: 14px; font-weight: 700; font-size: 15px; text-decoration: none; border: 2px solid var(--border, #E2E8F0); box-shadow: 0 4px 12px rgba(15,23,42,0.02); transition: all 0.2s ease;" onmouseover="this.style.borderColor='var(--primary, #15803D)'; this.style.color='var(--primary, #15803D)'; this.style.transform='translateY(-2px)';" onmouseout="this.style.borderColor='var(--border, #E2E8F0)'; this.style.color='var(--text, #0F172A)'; this.style.transform='translateY(0)';">Universal-Vorlage nutzen ➔</a>
     </div>
   </section> 
 
@@ -562,6 +573,30 @@ declare(strict_types=1);
         <p style="margin:0;font-size:13px;color:var(--muted, #475569);line-height:1.7;">Provider müssen das exakte Kündigungsdatum transparent auf jeder Monatsrechnung oder im digitalen Kundenportal ausweisen.</p> 
       </div>
     </div>
+
+    <h3 style="margin-top:20px;margin-bottom:20px;padding-top:22px;font-size:19px;">Kündigungsfrist nach Anbieter im Vergleich</h3>
+    <p style="margin:0 0 14px;font-size:14px;color:var(--muted, #475569);line-height:1.7;">Seit der TKG-Reform gilt bei allen Anbietern nach Ablauf der Mindestlaufzeit eine einheitliche Kündigungsfrist von <strong>einem Monat</strong>. Unterschiede bestehen vor allem bei der Mindestlaufzeit und dem Vertragstyp:</p>
+    <div class="frist-table-wrap">
+    <table class="frist-table">
+      <thead>
+        <tr>
+          <th>Anbieter</th>
+          <th>Vertragstyp</th>
+          <th>Mindestlaufzeit</th>
+          <th>Kündigungsfrist</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="frist-anbieter" data-label="Anbieter">Telekom (MagentaMobil)</td><td data-label="Vertragstyp">Laufzeitvertrag</td><td data-label="Mindestlaufzeit">24 Monate</td><td data-label="Kündigungsfrist">1 Monat</td></tr>
+        <tr><td class="frist-anbieter" data-label="Anbieter">Vodafone</td><td data-label="Vertragstyp">Laufzeitvertrag</td><td data-label="Mindestlaufzeit">24 Monate</td><td data-label="Kündigungsfrist">1 Monat</td></tr>
+        <tr><td class="frist-anbieter" data-label="Anbieter">o2 (Telefónica)</td><td data-label="Vertragstyp">Laufzeitvertrag</td><td data-label="Mindestlaufzeit">24 Monate</td><td data-label="Kündigungsfrist">1 Monat</td></tr>
+        <tr><td class="frist-anbieter" data-label="Anbieter">congstar</td><td data-label="Vertragstyp">Laufzeit oder flexibel</td><td data-label="Mindestlaufzeit">0–24 Monate</td><td data-label="Kündigungsfrist">1 Monat</td></tr>
+        <tr><td class="frist-anbieter" data-label="Anbieter">ALDI TALK, Lidl Connect</td><td data-label="Vertragstyp">Prepaid</td><td data-label="Mindestlaufzeit">keine</td><td data-label="Kündigungsfrist">jederzeit</td></tr>
+        <tr><td class="frist-anbieter" data-label="Anbieter">MVNO (Drillisch, freenet u.&nbsp;a.)</td><td data-label="Vertragstyp">Laufzeit oder monatlich</td><td data-label="Mindestlaufzeit">0–24 Monate</td><td data-label="Kündigungsfrist">1 Monat</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p style="margin:0;font-size:13px;color:var(--muted, #475569);line-height:1.7;">Maßgeblich ist stets das <strong>Eingangsdatum</strong> Ihrer Kündigung beim Anbieter, nicht das Absendedatum. Prüfen Sie Ihre konkrete Mindestlaufzeit im Vertrag oder Kundenportal.</p>
   </section> 
 
   <section class="section-soft cv-auto">
@@ -665,15 +700,6 @@ declare(strict_types=1);
     </div>
   </section> 
 
-  <section class="section-accent cv-auto" style="text-align: center; border-color: rgba(37, 99, 235, 0.2); background: linear-gradient(180deg, #EFF6FF 0%, #FFFFFF 100%);">
-    <h2 style="margin-bottom: 12px; color: #1E3A8A;">Nach der Kündigung: Günstigeren Tarif finden</h2>
-    <p style="margin-bottom: 24px; color: var(--muted, #475569); font-size: 15px; max-width: 540px; margin-left: auto; margin-right: auto;">Verhindern Sie teure Vertragsverlängerungen. Vergleichen Sie über 50 Anbieter und sichern Sie sich exklusive Wechselboni – viele Tarife sind monatlich kündbar.</p>
-    <a href="https://a.check24.net/misc/click.php?pid=1169420&aid=18&deep=handytarife&cat=7" target="_blank" rel="nofollow sponsored noopener" style="display: inline-block; background-color: #2563EB; color: #ffffff; padding: 16px 32px; border-radius: 14px; font-weight: 800; font-size: 16px; text-decoration: none; box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25); transition: all 0.2s ease;" onmouseover="this.style.backgroundColor='#1d4ed8'; this.style.transform='translateY(-1px)';" onmouseout="this.style.backgroundColor='#2563EB'; this.style.transform='translateY(0)';">
-      Tarife vergleichen &amp; bis zu 400 € sparen<span aria-hidden="true">*</span> →
-    </a>
-    <p style="margin-top: 16px; font-size: 13px; color: #64748B;">Kostenloser Check24-Vergleich · Inklusive Rufnummernmitnahme</p>
-    <p style="margin-top: 8px; font-size: 12px; color: #94A3B8;"><span aria-hidden="true">*</span> Werbelink: Bei einem Vertragsabschluss erhalten wir eine Provision. Für Sie entstehen keine Mehrkosten.</p>
-  </section>
 
   <section class="cv-auto">
     <h2 style="margin-bottom: 24px;">Häufig gestellte Fragen</h2>
@@ -731,6 +757,24 @@ declare(strict_types=1);
         Ja, die Rufnummernmitnahme (Portierung) ist nach § 59 TKG gesetzlich garantiert und seit dem 1. Dezember 2021 für Endnutzer komplett kostenlos. Sie kann bis zu einem Monat nach Vertragsende beantragt werden. Beantragen Sie die Portierung idealerweise direkt bei Ihrem neuen Anbieter – dieser kümmert sich um den gesamten Prozess inklusive Antrag beim alten Provider. <strong>Wichtig:</strong> Achten Sie darauf, dass Name, Geburtsdatum und Adresse beim alten und neuen Anbieter exakt übereinstimmen – schon kleine Abweichungen können die Portierung verzögern. Die Übertragung erfolgt in der Regel innerhalb von 1–2 Wochen, gesetzlich darf die Verbindungsunterbrechung höchstens einen Arbeitstag betragen.
       </p>
     </details>
+
+    <details class="faq-accordion">
+      <summary class="faq-summary">
+        Wie kündige ich meinen Handyvertrag richtig?
+      </summary>
+      <p class="faq-content">
+        Kündigen Sie in Textform (Brief, E-Mail oder Kündigungsbutton) mit einer Frist von <strong>einem Monat nach Ablauf der Mindestlaufzeit</strong>. Geben Sie Name, Adresse, Rufnummer und Kundennummer an und fordern Sie eine Bestätigung mit dem exakten Vertragsende an. Am beweissichersten ist der Versand per Post mit Zustellnachweis – selbst per Einschreiben oder über unseren Versand-Service.
+      </p>
+    </details>
+
+    <details class="faq-accordion">
+      <summary class="faq-summary">
+        Was kostet die Kündigung meines Handyvertrags?
+      </summary>
+      <p class="faq-content">
+        Die Kündigung selbst ist <strong>immer kostenlos</strong>. Ihr Kündigungsschreiben erstellen Sie hier gratis als PDF – ohne Abo und ohne Login. Nur wenn Sie den optionalen Postversand nutzen möchten, fallen Kosten ab 3,99&nbsp;€ an.
+      </p>
+    </details>
   </section> 
 </main> 
 
@@ -741,7 +785,7 @@ declare(strict_types=1);
 </div>
 
 <div id="nuclear-mobile-cta" style="display: none; position: fixed !important; bottom: 0 !important; left: 0 !important; right: 0 !important; background: var(--card, #ffffff) !important; border-top: 1px solid var(--border, #E2E8F0) !important; padding: 12px 16px !important; padding-bottom: calc(12px + env(safe-area-inset-bottom)) !important; z-index: 2147483647 !important; box-shadow: 0 -8px 32px rgba(15,23,42,0.1) !important; width: 100% !important; box-sizing: border-box !important; transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease !important; transform: translateY(0);">
-    <a href="#providers-grid" style="flex: 1 !important; width: 100% !important; background: var(--btn, #16A34A) !important; color: var(--btnText, #ffffff) !important; text-align: center !important; padding: 16px !important; border-radius: 14px !important; font-weight: 900 !important; text-decoration: none !important; font-size: 16px !important; display: block !important; cursor: pointer !important; box-sizing: border-box !important;">Vertrag kündigen</a>
+    <a href="#providers-grid" style="flex: 1 !important; width: 100% !important; background: var(--btn, #15803D) !important; color: var(--btnText, #ffffff) !important; text-align: center !important; padding: 16px !important; border-radius: 14px !important; font-weight: 900 !important; text-decoration: none !important; font-size: 16px !important; display: block !important; cursor: pointer !important; box-sizing: border-box !important;">Vertrag kündigen</a>
 </div>
 
 <script>

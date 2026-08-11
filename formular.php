@@ -5,6 +5,57 @@ $type = $_GET['type'] ?? ($_POST['type'] ?? 'fitness');
 $type = in_array($type, ['fitness', 'handy', 'kfz', 'bank'], true) ? $type : 'fitness';
 $anbieter = isset($_GET['anbieter']) ? trim($_GET['anbieter']) : (isset($_POST['anbieter']) ? trim($_POST['anbieter']) : '');
 
+/* =========================================================
+   FORM-OPEN LOGGING (server-side, cookie-independent)
+   Logs one line per unique visitor+type+day so the dashboard can
+   compute a real form → PDF completion rate. Dedup avoids counting
+   reloads / bots / "back from preview" round-trips.
+   Format: ts \t type \t provider \t ipHash
+   ========================================================= */
+if (!isset($_POST['back_from_preview']) && !isset($_GET['t'])) {
+    if (!function_exists('ke_client_ip')) {
+        function ke_client_ip(): string {
+            $cf = trim((string)($_SERVER['HTTP_CF_CONNECTING_IP'] ?? ''));
+            if ($cf !== '' && filter_var($cf, FILTER_VALIDATE_IP) !== false) {
+                return $cf;
+            }
+            return (string)($_SERVER['REMOTE_ADDR'] ?? '0.0.0.0');
+        }
+    }
+    $foDataDir = __DIR__ . '/_data';
+    if (is_dir($foDataDir) || @mkdir($foDataDir, 0775, true)) {
+        $foIpHash  = substr(hash('sha256', ke_client_ip() . '|ke_form'), 0, 16);
+        $foDedupKey = $foIpHash . '|' . $type . '|' . date('Ymd');
+        $foDedupFile = $foDataDir . '/form_open_dedup.log';
+        // Rotate: keep only today's dedup keys if the file grows large
+        if (is_file($foDedupFile) && @filesize($foDedupFile) > 512000) {
+            $foToday = date('Ymd');
+            $foLines = @file($foDedupFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES) ?: [];
+            $foKept = array_filter($foLines, function ($l) use ($foToday) {
+                return strpos($l, '|' . $foToday) !== false;
+            });
+            @file_put_contents($foDedupFile, implode("\n", $foKept) . "\n", LOCK_EX);
+        }
+        $foSeen = false;
+        if (is_file($foDedupFile)) {
+            $foExisting = @file_get_contents($foDedupFile);
+            if ($foExisting !== false && strpos($foExisting, $foDedupKey) !== false) {
+                $foSeen = true;
+            }
+        }
+        if (!$foSeen) {
+            @file_put_contents($foDedupFile, $foDedupKey . "\n", FILE_APPEND | LOCK_EX);
+            $foLine = implode("\t", [
+                time(),
+                $type,
+                str_replace(["\t", "\n", "\r"], ' ', (string)$anbieter),
+                $foIpHash,
+            ]) . "\n";
+            @file_put_contents($foDataDir . '/form_opened.log', $foLine, FILE_APPEND | LOCK_EX);
+        }
+    }
+}
+
 // Pre-fill din POST (back from preview) SAU din Token JSON (anulare plată Stripe)
 $prefillFromPost = [];
 
@@ -170,7 +221,39 @@ $providerAddresses = [
     // Banken / Girokonto (Pilot)
     'ing' => ['ING-DiBa AG', '60628', 'Frankfurt am Main'],
     'dkb' => ['Deutsche Kreditbank AG, Bereich Privatkunden, Postfach 11 02 68', '10832', 'Berlin'],
-    'n26' => ['N26 Bank GmbH, Klosterstraße 62', '10179', 'Berlin'],
+    'n26' => ['N26 Bank SE, Voltairestraße 8', '10179', 'Berlin'],
+    // Banken / Girokonto (erweitert – verifizierte Adressen)
+    'comdirect' => ['comdirect – eine Marke der Commerzbank AG, Pascalkehre 15', '25451', 'Quickborn'],
+    'commerzbank' => ['Commerzbank AG, Kaiserstraße 16', '60281', 'Frankfurt am Main'],
+    'deutsche bank' => ['Deutsche Bank AG, Kundenservice', '04024', 'Leipzig'],
+    'postbank' => ['Deutsche Postbank AG, Friedrich-Ebert-Allee 114-126', '53113', 'Bonn'],
+    'hypovereinsbank' => ['UniCredit Bank GmbH (HypoVereinsbank), Arabellastraße 12', '81925', 'München'],
+    'targobank' => ['TARGOBANK AG, Kasernenstraße 10', '40213', 'Düsseldorf'],
+    'consorsbank' => ['Consorsbank – BNP Paribas S.A. Niederlassung Deutschland, Bahnhofstraße 55', '90402', 'Nürnberg'],
+    'norisbank' => ['norisbank GmbH', '10910', 'Berlin'],
+    'apobank' => ['Deutsche Apotheker- und Ärztebank eG, Richard-Oskar-Mattern-Str. 6', '40547', 'Düsseldorf'],
+    'gls bank' => ['GLS Gemeinschaftsbank eG, Christstraße 9', '44789', 'Bochum'],
+    'olb' => ['Oldenburgische Landesbank AG, Stau 15-17', '26122', 'Oldenburg'],
+    'bbbank' => ['BBBank eG, Herrenstraße 2-10', '76133', 'Karlsruhe'],
+    'haspa' => ['Hamburger Sparkasse AG, Ecke Adolphsplatz/Gr. Burstah', '20457', 'Hamburg'],
+    'kreissparkasse köln' => ['Kreissparkasse Köln, Neumarkt 18-24', '50667', 'Köln'],
+    'stadtsparkasse münchen' => ['Stadtsparkasse München, Sparkassenstraße 2', '80331', 'München'],
+    'berliner volksbank' => ['Berliner Volksbank eG, Budapester Straße 35', '10787', 'Berlin'],
+    'frankfurter volksbank' => ['Frankfurter Volksbank Rhein/Main eG, Börsenstraße 7-11', '60313', 'Frankfurt am Main'],
+    'trade republic' => ['Trade Republic Bank GmbH, Brunnenstraße 19-21', '10119', 'Berlin'],
+    'scalable capital' => ['Scalable Capital GmbH, Seitzstraße 8e', '80538', 'München'],
+    'bunq' => ['bunq B.V., Naritaweg 131-133', '1043 BS', 'Amsterdam (Niederlande)'],
+    'tomorrow' => ['Tomorrow GmbH, Neuer Pferdemarkt 23', '20359', 'Hamburg'],
+    'triodos' => ['Triodos Bank N.V. Deutschland, Falkstraße 5', '60487', 'Frankfurt am Main'],
+    'advanzia' => ['Advanzia Bank S.A., Postfach 4108', '54231', 'Trier'],
+    '1822direkt' => ['1822direkt Gesellschaft der Frankfurter Sparkasse mbH', '60608', 'Frankfurt am Main'],
+    'c24 bank' => ['C24 Bank GmbH, Neue Mainzer Straße 14-18', '60311', 'Frankfurt am Main'],
+    'berliner sparkasse' => ['Berliner Sparkasse – Niederlassung der BSK 1818 AG, Alexanderplatz 2', '10178', 'Berlin'],
+    'vivid money' => ['Vivid Money GmbH, Kemperplatz 1', '10785', 'Berlin'],
+    'santander' => ['Santander Consumer Bank AG, Santander-Platz 1', '41061', 'Mönchengladbach'],
+    'openbank' => ['Open Bank S.A., Plaza de Santa Bárbara 2', '28004', 'Madrid (Spanien)'],
+    'revolut' => ['Revolut Bank UAB, Konstitucijos ave. 21B', 'LT-08130', 'Vilnius (Litauen)'],
+    'wise' => ['Wise Europe SA, Rue du Trône 100', '1050', 'Brüssel (Belgien)'],
 ];
 
 /* Provider Email pre-fill mapping */
@@ -182,7 +265,7 @@ $providerEmails = [
     'ergo versicherung ag' => 'service@ergo.de',
     'axa versicherung ag' => 'service@axa.de',
     'devk allgemeine versicherungs-ag' => 'info@devk.de',
-    'adac autoversicherung ag' => 'adac@adac.de',
+    'adac autoversicherung ag' => 'vertrag@auto.adac.de',
     'generali deutschland versicherung ag' => 'service@generali.de',
     'hdi versicherung ag' => 'info@hdi.de',
     'r+v allgemeine versicherung ag' => 'ruv@ruv.de',
@@ -195,9 +278,9 @@ $providerEmails = [
     'signal iduna allgemeine versicherung ag' => 'info@signal-iduna.de',
     'württembergische versicherung ag' => 'info@wuerttembergische.de',
 'da deutsche allgemeine versicherung ag' => 'vertragsservice@da-direkt.de',
-    'nürnberger allgemeine versicherungs-ag' => 'info@nuernberger-automobil.de',
+    'nürnberger allgemeine versicherungs-ag' => 'info@nuernberger.de',
     'provinzial versicherung ag' => 'service@provinzial.com',
-    'sv sparkassenversicherung holding ag' => 'service@sv.de',
+    'sv sparkassenversicherung holding ag' => 'service@sparkassenversicherung.de',
     'alte leipziger versicherung ag' => 'sach@alte-leipziger.de',
     'wgv-versicherung ag' => 'kundenservice@wgv.de',
     'itzehoer versicherung/brandgilde von 1691 versicherungsverein ag' => 'info@itzehoer.de',
@@ -278,7 +361,7 @@ $providerEmails = [
 ];
 
 // LISTA FRANCIZELOR (Aici nu facem precompletare, doar informam)
-$franchises = ['clever fit', 'kieser training', 'injoy', 'mrs. sporty', 'bodystreet', 'fitnessking', 'fitseveneleven', 'sparkasse', 'volksbank'];
+$franchises = ['clever fit', 'kieser training', 'injoy', 'mrs. sporty', 'bodystreet', 'fitnessking', 'fitseveneleven', 'sparkasse', 'volksbank', 'volksbank raiffeisenbank', 'sparda-bank', 'psd bank'];
 
 $pfKey = mb_strtolower(trim($anbieter), 'UTF-8');
 $pf = $providerAddresses[$pfKey] ?? null;
@@ -297,13 +380,9 @@ $title    = $isBank ? 'Girokonto kündigen' : ($isKfz ? 'KFZ-Versicherung kündi
 <meta charset="utf-8">
 <meta name="color-scheme" content="light">
 <link rel="preconnect" href="https://www.clarity.ms">
-<link rel="preconnect" href="https://a.check24.net">
-<link rel="preconnect" href="https://www.awin1.com">
 <link rel="dns-prefetch" href="//www.clarity.ms">
-<link rel="dns-prefetch" href="//a.check24.net">
-<link rel="dns-prefetch" href="//www.awin1.com">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#16A34A">
+<meta name="theme-color" content="#15803D">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="robots" content="noindex, nofollow">
 <title><?= $isBank ? 'Girokonto kündigen – Kostenlos als PDF' : ($isKfz ? 'KFZ-Versicherung kündigen – Kostenlos als PDF' : ($isHandy ? 'Handyvertrag kündigen – Kostenlos als PDF' : 'Fitnessstudio kündigen – Kostenlos als PDF')) ?> | KündigungExpress</title>
@@ -317,7 +396,7 @@ $title    = $isBank ? 'Girokonto kündigen' : ($isKfz ? 'KFZ-Versicherung kündi
   --text: #0F172A;
   --muted: #475569;
   --border: #E2E8F0;
-  --primary: #16A34A;
+  --primary: #15803D;
   --soft: #F1F5F9;
   --focus: rgba(22,163,74,0.3);
 }
@@ -413,7 +492,7 @@ nav a { margin-left: 16px; color: var(--muted); font-size: 14px; text-decoration
   color: #475569;
 }
 .social-proof-form strong {
-  color: #16A34A;
+  color: #15803D;
   font-weight: 900;
 }
 
@@ -546,13 +625,13 @@ select {
   top: 50%;
   right: 14px;
   transform: translateY(-50%);
-  color: #16A34A;
+  color: #15803D;
   font-weight: 900;
   font-size: 14px;
   pointer-events: none;
 }
 .is-valid + .check-icon { display: block; }
-.is-valid { border-color: #16A34A !important; padding-right: 36px !important; }
+.is-valid { border-color: #15803D !important; padding-right: 36px !important; }
 
 .hint {
   font-size: 12px;
@@ -741,7 +820,6 @@ footer a:hover { color: #334155; }
   .secure-note { align-items: flex-start; text-align: left; padding-top: 8px; }
 
   footer { margin-top: 0; padding: 16px 16px 16px; background: var(--bg);}
-  .brief-preview-wrap { margin: 0 16px 16px; border-radius: 10px; }
   #_rsgDynWarn { padding: 0 16px; }
 }
 
@@ -839,120 +917,17 @@ footer a:hover { color: #334155; }
   .ke-footer p { font-size: 11.5px; }
 }
 
-/* ===== Brief-Vorschau "Peek" — IDENTIC cu PDF-ul real, tăiat vertical =====
-   Mirror exact al template-urilor PDF (handy/kfz/fitness-kuendigung.html).
-   Static (nu live update). Tăiat după prima frază cu fade-out alb.
-   Hook psihologic: userul vede cum arată exact brief-ul → e convins → completează. */
-.brief-preview-wrap {
-  background: #F3F4F6;
-  border-radius: 16px;
-  padding: 18px 18px 0;
-  margin-bottom: 20px;
+/* ===== Brief-Teaser (ersetzt die alte Live-Vorschau) ===== */
+.brief-teaser {
+  text-align: center;
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.5;
+  margin: 4px 0 20px;
 }
-.brief-preview-header {
-  display: flex; align-items: center; justify-content: space-between;
-  margin-bottom: 10px;
-}
-.brief-preview-title {
-  font-size: 12px; font-weight: 700; color: #475569;
-  text-transform: uppercase; letter-spacing: 0.04em;
-}
-.brief-preview-badge {
-  display: inline-flex; align-items: center; gap: 4px;
-  background: #F0FDF4; color: #15803D;
-  font-size: 11px; font-weight: 700;
-  padding: 4px 10px; border-radius: 99px;
-  border: 1px solid #BBF7D0;
-}
-
-/* The "peek" — exact mirror of PDF templates, truncated */
-.bp-peek {
-  background: #FFFFFF;
-  border-radius: 6px 6px 0 0;
-  padding: 28px 32px 0;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 12.5px;
-  line-height: 1.45;
-  color: #1f2937;
-  box-shadow: 0 -4px 14px rgba(15,23,42,0.04);
-  position: relative;
-  max-height: 520px;
-  overflow: hidden;
-}
-.bp-peek::after {
-  content: '';
-  position: absolute;
-  left: 0; right: 0; bottom: 0;
-  height: 110px;
-  background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, #FFFFFF 75%);
-  pointer-events: none;
-}
-
-/* Letterhead (mirror PDF template) */
-.bp-letterhead { display:flex; justify-content:space-between; align-items:flex-end; margin-bottom: 2px; }
-.bp-brand { font-size: 18px; font-weight: 900; color: #16a34a; letter-spacing: -0.5px; line-height: 1; }
-.bp-tag { text-align: right; line-height: 1.2; }
-.bp-tag-line1 { display:block; font-size: 9px; color: #9ca3af; }
-.bp-tag-line2 { display:block; font-size: 11px; font-weight: 700; color: #1f2937; letter-spacing: 0.2px; }
-.bp-letterhead-rule { height:0; border:0; border-top: 2px solid #16a34a; margin: 5px 0 14px 0; }
-
-/* Sender line (mirror) */
-.bp-sender {
-  font-size: 10px; color: #6b7280;
-  border-bottom: 1px solid #e5e7eb;
-  padding-bottom: 5px; margin-bottom: 14px;
-}
-.bp-sender.bp-placeholder { color: #A8A29E; font-style: italic; }
-
-/* Recipient (mirror) */
-.bp-recipient { margin-bottom: 14px; }
-.bp-recipient-label {
-  font-size: 9px; color: #9ca3af; text-transform: uppercase;
-  letter-spacing: 1.2px; font-weight: 700; margin-bottom: 5px;
-}
-.bp-recipient-name { font-size: 14px; font-weight: 700; color: #111827; margin-bottom: 3px; }
-.bp-recipient-addr { color: #4b5563; line-height: 1.45; }
-.bp-recipient-addr .bp-line { display: block; }
-.bp-recipient-addr.bp-placeholder { color: #A8A29E; font-style: italic; }
-
-/* Meta row (date + email) (mirror) */
-.bp-meta { display:flex; justify-content:space-between; align-items:flex-end; margin-bottom: 14px; gap: 12px; }
-.bp-meta-email { font-size: 11.5px; color: #6b7280; }
-.bp-meta-date { font-size: 13px; color: #1f2937; font-weight: 600; text-align: right; white-space: nowrap; }
-
-/* Subject + rule (mirror) */
-.bp-subject { font-weight: 700; font-size: 15px; color: #111827; margin-bottom: 3px; }
-.bp-subject-rule { height: 0; border: 0; border-top: 1px solid #d1d5db; margin: 0 0 14px 0; }
-
-/* Contract box (mirror) */
-.bp-contract {
-  background: #f0fdf4; border: 1px solid #bbf7d0; border-left: 4px solid #16a34a;
-  padding: 9px 14px; margin-bottom: 14px;
-  font-size: 11.5px; color: #14532d; border-radius: 2px;
-}
-.bp-contract-label { font-weight: 700; color: #15803d; margin-right: 4px; }
-
-/* Body (mirror) */
-.bp-body p { margin: 0 0 9px; text-align: justify; line-height: 1.5; }
-.bp-body strong { color: #111827; }
-
-.brief-preview-foot {
-  padding: 14px 4px 4px;
-  font-size: 13px; color: #475569; text-align: center;
-}
-.brief-preview-foot strong { color: #0F172A; }
-
-@media (max-width: 720px) {
-  .brief-preview-wrap { padding: 12px 12px 0; border-radius: 12px; }
-  .bp-peek { padding: 20px 18px 0; font-size: 11.5px; max-height: 460px; }
-  .bp-brand { font-size: 16px; }
-  .bp-subject { font-size: 14px; }
-  .bp-recipient-name { font-size: 13px; }
-  .brief-preview-foot { font-size: 12px; padding: 10px 4px 4px; }
-}
-@media (max-width: 400px) {
-  .bp-meta { flex-direction: column; align-items: flex-start; gap: 4px; }
-  .bp-meta-date { text-align: left; white-space: normal; }
+.brief-teaser strong { color: #15803D; }
+@media (max-width: 640px) {
+  .brief-teaser { padding: 0 16px; margin: 0 0 16px; }
 }
 
 /* ===== Accordion "Weitere Angaben" — make it OBVIOUS clickable ===== */
@@ -1001,10 +976,17 @@ footer a:hover { color: #334155; }
   .accordion-body { padding: 4px 14px 16px; margin: 0 14px; }
   .accordion-summary h2 { font-size: 15px; }
 }
+
+/* --- Barrierefreiheit (WCAG 2.1 AA) --- */
+.ke-skip{position:absolute;left:-9999px;top:0;z-index:2000;background:#15803D;color:#FFFFFF;padding:10px 16px;font-weight:700;text-decoration:none;border-radius:0 0 8px 0}
+.ke-skip:focus{left:0}
+#ke-main:focus{outline:none}
+:focus-visible{outline:3px solid #15803D;outline-offset:2px;border-radius:3px}
+.ke-error-msg{display:none;margin-top:6px;font-size:12px;font-weight:600;color:#B91C1C;line-height:1.45}
 </style>
 <script src="/formular.js" defer></script>
     
-    <script src="/cookie-consent.js" defer></script> <script src="/affiliate-tracking.js" defer></script>
+    <script src="/cookie-consent.js" defer></script>
 
 <script>
 window.dataLayer = window.dataLayer || [];
@@ -1018,12 +1000,13 @@ window.dataLayer.push({
 </head>
 
 <body>
+<a class="ke-skip" href="#ke-main">Zum Inhalt springen</a>
 <header class="site-header">
   <div class="brand"><a href="/">KündigungExpress</a></div>
   <a href="/hilfe.html" class="header-hilfe">Hilfe / FAQ</a>
 </header>
 
-<div class="wrap">
+<div class="wrap" id="ke-main" tabindex="-1">
   <header>
     <div class="brand"><a href="/">KündigungExpress</a></div>
     <nav>
@@ -1094,82 +1077,7 @@ window.dataLayer.push({
     <span>✌️ Kein Haken</span>
   </div>
 
-  <?php
-    /* Brief-Vorschau "Peek": mirror EXACT al PDF-ului real, tăiat după prima frază cu fade-out. */
-    if ($isKfz) {
-      $bpSubject  = 'Ordentliche Kündigung meiner KFZ-Versicherung';
-      $bpFirstLine = 'hiermit kündige ich die oben genannte KFZ-Versicherung (Haftpflicht, ggf. Teil-/Vollkasko) <strong>zum nächstmöglichen Zeitpunkt</strong> ordentlich zum Ablauf des laufenden Versicherungsjahres.';
-      $bpContractDefault = 'Versicherungsschein-Nr. wird nachgereicht';
-    } elseif ($isHandy) {
-      $bpSubject  = 'Ordentliche Kündigung meines Mobilfunkvertrags';
-      $bpFirstLine = 'hiermit kündige ich meinen oben genannten Mobilfunkvertrag <strong>zum nächstmöglichen Zeitpunkt</strong> gemäß <strong>§ 56 TKG</strong>.';
-      $bpContractDefault = 'Vertragsnummer wird nachgereicht';
-    } elseif ($isBank) {
-      $bpSubject  = 'Kündigung meines Girokontos';
-      $bpFirstLine = 'hiermit kündige ich mein oben genanntes Girokonto <strong>zum nächstmöglichen Zeitpunkt</strong> ordentlich gemäß <strong>§ 675h BGB</strong>.';
-      $bpContractDefault = 'IBAN / Kontonummer wird nachgereicht';
-    } else {
-      $bpSubject  = 'Ordentliche Kündigung meiner Mitgliedschaft';
-      $bpFirstLine = 'hiermit kündige ich meine oben genannte Fitnessstudio-Mitgliedschaft <strong>zum nächstmöglichen Zeitpunkt</strong> gemäß <strong>§ 621 BGB</strong> in Verbindung mit den vereinbarten Vertragsbedingungen.';
-      $bpContractDefault = 'Mitgliedsnummer wird nachgereicht';
-    }
-  ?>
-  <div class="brief-preview-wrap" aria-label="Vorschau Ihres Kündigungsschreibens">
-    <div class="brief-preview-header">
-      <div class="brief-preview-title">📄 So sieht Ihr Brief aus</div>
-      <div class="brief-preview-badge">✅ DIN-Format</div>
-    </div>
-
-    <div class="bp-peek">
-      <div class="bp-letterhead">
-        <div class="bp-brand">KündigungExpress</div>
-        <div class="bp-tag">
-          <span class="bp-tag-line1">Rechtssichere Kündigungen</span>
-          <span class="bp-tag-line2">kuendigungexpress.de</span>
-        </div>
-      </div>
-      <hr class="bp-letterhead-rule">
-
-      <div class="bp-sender bp-placeholder">Ihr Name · Ihre Adresse (wird unten ergänzt)</div>
-
-      <div class="bp-recipient">
-        <div class="bp-recipient-label">Empfänger</div>
-        <div class="bp-recipient-name"><?= htmlspecialchars($anbieter !== '' ? $anbieter : 'Ihr Anbieter') ?></div>
-        <?php if ($pf): ?>
-        <div class="bp-recipient-addr">
-          <span class="bp-line"><?= htmlspecialchars($pf[0]) ?></span>
-          <span class="bp-line"><?= htmlspecialchars(trim($pf[1] . ' ' . $pf[2])) ?></span>
-        </div>
-        <?php else: ?>
-        <div class="bp-recipient-addr bp-placeholder">
-          <span class="bp-line">Adresse wird unten ergänzt</span>
-        </div>
-        <?php endif; ?>
-      </div>
-
-      <div class="bp-meta">
-        <div class="bp-meta-email"></div>
-        <div class="bp-meta-date"><?= date('d.m.Y') ?></div>
-      </div>
-
-      <div class="bp-subject"><?= htmlspecialchars($bpSubject) ?></div>
-      <hr class="bp-subject-rule">
-
-      <div class="bp-contract">
-        <span class="bp-contract-label">Vertragsangaben:</span>
-        <span><?= htmlspecialchars($bpContractDefault) ?></span>
-      </div>
-
-      <div class="bp-body">
-        <p>Sehr geehrte Damen und Herren,</p>
-        <p><?= $bpFirstLine /* HTML intentionally not escaped — conține <strong> */ ?></p>
-      </div>
-    </div>
-
-    <div class="brief-preview-foot">
-      👇 <strong>Jetzt ausfüllen</strong> — Brief wird automatisch erstellt
-    </div>
-  </div>
+  <p class="brief-teaser">📄 Ausfüllen und Ihr Kündigungsschreiben ist fertig. <strong>Kostenlos als PDF.</strong></p>
 
   <form id="keForm" method="post" action="/generate.php">
     <input type="hidden" name="type" value="<?= htmlspecialchars($type) ?>">
@@ -1192,7 +1100,7 @@ window.dataLayer.push({
       </div>
       <div class="grid">
         <div class="field full">
-          <label><?= $isBank ? 'Name der Bank *' : ($isKfz ? 'Versicherer *' : ($isHandy ? 'Anbieter *' : 'Fitnessstudio *')) ?></label>
+          <label for="anbieterInput"><?= $isBank ? 'Name der Bank *' : ($isKfz ? 'Versicherer *' : ($isHandy ? 'Anbieter *' : 'Fitnessstudio *')) ?></label>
           <input
             id="anbieterInput"
             type="text"
@@ -1207,22 +1115,22 @@ window.dataLayer.push({
           <div style="font-size:12px;font-weight:700;color:#334155;text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px;">Adresse des <?= $isBank ? 'Bankinstituts' : ($isKfz ? 'Versicherers' : ($isHandy ? 'Anbieters' : 'Studios')) ?> <?= ($pf || $isFranchise) ? '' : '<span style="font-weight:400;text-transform:none">(optional)</span>' ?></div>
 
           <?php if ($pf): ?>
-          <div class="hint" style="margin-bottom:10px; color: #16A34A;"><strong>Automatisch ausgefüllt</strong> – die Adresse wurde anhand Ihrer Anbieterauswahl hinterlegt.</div>
+          <div class="hint" style="margin-bottom:10px; color: #15803D;"><strong>Automatisch ausgefüllt</strong> – die Adresse wurde anhand Ihrer Anbieterauswahl hinterlegt.</div>
           <?php elseif ($isFranchise): ?>
           <div class="hint" style="margin-bottom:10px; color: #D97706;"><strong>Wichtig:</strong> <?= htmlspecialchars($anbieter) ?> wird <?= $isBank ? 'von vielen rechtlich eigenständigen Instituten betrieben. Bitte geben Sie die Adresse Ihrer Filiale ein (siehe Kontoauszug/Vertrag)' : 'im Franchise-System betrieben. Bitte geben Sie die Adresse Ihres Studios ein (siehe Rechnung/Vertrag)' ?>, falls zur Hand.</div>
           <?php else: ?>
-          <div class="hint" style="margin-bottom:10px; color: #16A34A;"><strong>Nicht zwingend erforderlich:</strong> Lassen Sie die Felder leer, falls Sie die Adresse nicht kennen. Das Kündigungsschreiben ist auch ohne diese Angabe zu 100% rechtsgültig.</div>
+          <div class="hint" style="margin-bottom:10px; color: #15803D;"><strong>Nicht zwingend erforderlich:</strong> Lassen Sie die Felder leer, falls Sie die Adresse nicht kennen. Das Kündigungsschreiben ist auch ohne diese Angabe zu 100% rechtsgültig.</div>
           <?php endif; ?>
 
           <div class="grid" style="margin:0;">
             <div class="field full">
-              <input name="studioStreet" placeholder="Straße &amp; Hausnummer" value="<?= $pf ? htmlspecialchars($pf[0]) : '' ?>">
+              <input name="studioStreet" aria-label="Empfängeradresse: Straße und Hausnummer" placeholder="Straße &amp; Hausnummer" value="<?= $pf ? htmlspecialchars($pf[0]) : '' ?>">
             </div>
             <div class="field">
-              <input name="studioZip" inputmode="numeric" maxlength="5" placeholder="PLZ" value="<?= $pf ? htmlspecialchars($pf[1]) : '' ?>">
+              <input name="studioZip" aria-label="Empfängeradresse: PLZ" inputmode="numeric" maxlength="5" placeholder="PLZ" value="<?= $pf ? htmlspecialchars($pf[1]) : '' ?>">
             </div>
             <div class="field">
-              <input name="studioCity" placeholder="Ort" value="<?= $pf ? htmlspecialchars($pf[2]) : '' ?>">
+              <input name="studioCity" aria-label="Empfängeradresse: Ort" placeholder="Ort" value="<?= $pf ? htmlspecialchars($pf[2]) : '' ?>">
             </div>
           </div>
         </div>
@@ -1252,27 +1160,27 @@ window.dataLayer.push({
       </div>
       <div class="grid">
         <div class="field">
-          <label>Vorname *</label>
-          <input name="firstName" required autocomplete="given-name">
+          <label for="firstName">Vorname *</label>
+          <input id="firstName" name="firstName" required autocomplete="given-name">
         </div>
         <div class="field">
-          <label>Nachname *</label>
-          <input name="lastName" required autocomplete="family-name">
+          <label for="lastName">Nachname *</label>
+          <input id="lastName" name="lastName" required autocomplete="family-name">
         </div>
         <div class="field full">
-          <label>Straße &amp; Hausnummer *</label>
-          <input name="street" required autocomplete="street-address">
+          <label for="street">Straße &amp; Hausnummer *</label>
+          <input id="street" name="street" required autocomplete="street-address">
         </div>
         <div class="field">
-          <label>PLZ *</label>
-          <input name="zip" inputmode="numeric" maxlength="5" required autocomplete="postal-code" placeholder="z. B. 63073">
+          <label for="zip">PLZ *</label>
+          <input id="zip" name="zip" inputmode="numeric" maxlength="5" required autocomplete="postal-code" placeholder="z. B. 63073">
         </div>
         <div class="field">
-          <label>Ort *</label>
-          <input name="city" required autocomplete="address-level2">
+          <label for="city">Ort *</label>
+          <input id="city" name="city" required autocomplete="address-level2">
         </div>
         <div class="field full">
-          <label>Ihre E-Mail <span style="font-weight:400;text-transform:none;letter-spacing:0" id="emailLabelHint">— für Versandbestätigung & Tracking</span></label>
+          <label for="userEmailField">Ihre E-Mail <span style="font-weight:400;text-transform:none;letter-spacing:0" id="emailLabelHint">— für Versandbestätigung & Tracking</span></label>
           <input name="email" type="email" id="userEmailField" placeholder="z. B. ihre@email.com" autocomplete="email">
         </div>
       </div>
@@ -1285,14 +1193,14 @@ window.dataLayer.push({
         <span class="opt-badge">Optional</span>
       </div>
       <div class="field" style="margin-bottom:10px;">
-        <select id="terminationMode" name="terminationMode">
+        <select id="terminationMode" name="terminationMode" aria-label="Kündigungstermin wählen">
           <option value="next_possible" selected>Zum nächstmöglichen Zeitpunkt</option>
           <option value="specific_date">Zu einem bestimmten Datum</option>
         </select>
         <div class="hint">Unsicher? Wählen Sie „nächstmöglichen Zeitpunkt" – das ist am sichersten.</div>
       </div>
       <div class="field" id="terminationDateWrap" style="display:none;">
-        <label>Datum *</label>
+        <label for="terminationDate">Datum *</label>
         <input id="terminationDate" name="terminationDate" type="date">
       </div>
     </div>
@@ -1307,23 +1215,23 @@ window.dataLayer.push({
       <div class="accordion-body">
       <div class="field">
         <label style="display:flex; justify-content:space-between; align-items:flex-end; width: 100%;">
-          <span><?= $isBank ? 'IBAN / Kontonummer' : ($isKfz ? 'Versicherungsschein-Nr.' : ($isHandy ? 'Vertragsnummer/Rufnummer' : 'Vertragsnummer')) ?></span>
-          <span style="color:var(--primary); font-size:11px; cursor:pointer; text-transform:none; font-weight:600; padding: 4px 0;" onclick="var inp = document.querySelector('input[name=\'contractNo\']'); inp.value = (inp.value === 'Wird nachgereicht') ? '' : 'Wird nachgereicht'; inp.dispatchEvent(new Event('input'));">Gerade nicht zur Hand?</span>
+          <span id="contractNoLabel"><?= $isBank ? 'IBAN / Kontonummer' : ($isKfz ? 'Versicherungsschein-Nr.' : ($isHandy ? 'Vertragsnummer/Rufnummer' : 'Vertragsnummer')) ?> <span style="font-weight:400;text-transform:none;letter-spacing:0">(optional)</span></span>
+          <span role="button" tabindex="0" style="color:var(--primary); font-size:11px; cursor:pointer; text-transform:none; font-weight:600; padding: 4px 0;" onclick="var inp = document.querySelector('input[name=\'contractNo\']'); inp.value = (inp.value === 'Wird nachgereicht') ? '' : 'Wird nachgereicht'; inp.dispatchEvent(new Event('input'));" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">Gerade nicht zur Hand?</span>
         </label>
-        <input name="contractNo" data-iban="<?php echo $isBank ? '1' : '0'; ?>" placeholder="<?= $isBank ? 'z. B. DE12 3456 7890 1234 5678 90' : ($isKfz ? 'z. B. VS-123456789' : 'z. B. 12345678') ?>" onfocus="if(this.value === 'Wird nachgereicht') { this.value = ''; this.dispatchEvent(new Event('input')); }">
-        <div class="hint"><?= $isBank ? 'Ihre IBAN steht auf Ihrer Bankkarte oder im Online-Banking. Optional — ohne Nummer ist die Kündigung trotzdem gültig.' : ($isKfz ? 'Steht auf Ihrem Versicherungsschein. Optional — ohne Nummer ist die Kündigung trotzdem gültig.' : 'Steht auf Ihrer Rechnung oben rechts. Optional — ohne Nummer ist die Kündigung trotzdem gültig.') ?></div>
+        <input id="contractNo" aria-labelledby="contractNoLabel" name="contractNo" data-iban="<?php echo $isBank ? '1' : '0'; ?>" placeholder="<?= $isBank ? 'z. B. DE12 3456 7890 1234 5678 90' : ($isKfz ? 'z. B. VS-123456789' : 'z. B. 12345678') ?>" onfocus="if(this.value === 'Wird nachgereicht') { this.value = ''; this.dispatchEvent(new Event('input')); }">
+        <div class="hint"><?= $isBank ? 'Ihre IBAN steht auf Ihrer Bankkarte oder im Online-Banking. Ohne geht es auch, die Kündigung ist trotzdem gültig.' : ($isKfz ? 'Steht auf Ihrem Versicherungsschein. Ohne geht es auch, die Kündigung ist trotzdem gültig.' : 'Mit Rufnummer oder Kundennummer ordnet Ihr Anbieter die Kündigung schneller zu. Sie steht auf Ihrer Rechnung oben rechts. Ohne geht es auch, die Kündigung ist trotzdem gültig.') ?></div>
       </div>
       <?php if ($isKfz): ?>
       <div class="field" style="margin-top:12px;">
-        <label>Kennzeichen <span style="font-weight:400;text-transform:none;letter-spacing:0">(optional)</span></label>
-        <input name="plate" placeholder="z. B. OF-KE 123">
+        <label for="plate">Kennzeichen <span style="font-weight:400;text-transform:none;letter-spacing:0">(optional)</span></label>
+        <input id="plate" name="plate" placeholder="z. B. OF-KE 123">
         <div class="hint">Das amtliche Kennzeichen Ihres Fahrzeugs. Hilft bei der eindeutigen Zuordnung.</div>
       </div>
       <?php endif; ?>
       <?php if ($isBank): ?>
       <div class="field" style="margin-top:12px;">
-        <label>Ziel-IBAN für Restguthaben <span style="font-weight:400;text-transform:none;letter-spacing:0">(optional)</span></label>
-        <input name="ziel_iban" placeholder="z. B. DE12 3456 7890 1234 5678 90">
+        <label for="zielIban">Ziel-IBAN für Restguthaben <span style="font-weight:400;text-transform:none;letter-spacing:0">(optional)</span></label>
+        <input id="zielIban" name="ziel_iban" placeholder="z. B. DE12 3456 7890 1234 5678 90">
         <div class="hint">Konto, auf das ein etwaiges Restguthaben überwiesen werden soll.</div>
       </div>
       <?php endif; ?>
@@ -1369,18 +1277,18 @@ window.dataLayer.push({
       </div>
       <div class="optional-section" id="emailSection">
         <div class="checkbox-row" style="margin-bottom:12px;">
-          <input id="sendEmail" name="sendEmail" type="checkbox" value="1">
+          <input id="sendEmail" name="sendEmail" type="checkbox" value="1" aria-labelledby="sendEmailLabel">
           <div class="checkbox-label">
-            <b>Kündigung direkt ans <?= $isKfz ? 'Versicherungsunternehmen' : ($isHandy ? 'Unternehmen' : 'Fitnessstudio') ?> senden</b>
+            <b id="sendEmailLabel">Kündigung direkt ans <?= $isKfz ? 'Versicherungsunternehmen' : ($isHandy ? 'Unternehmen' : 'Fitnessstudio') ?> senden</b>
             <div class="hint">Das PDF bleibt immer zusätzlich als Download verfügbar.</div>
           </div>
         </div>
         
         <div class="field">
-          <label>E-Mail des <?php echo $isKfz ? 'Versicherers' : ($isHandy ? 'Anbieters' : 'Studios'); ?> <span id="providerReq" style="color:var(--primary);display:none;">*</span></label>
+          <label for="providerEmail">E-Mail des <?php echo $isKfz ? 'Versicherers' : ($isHandy ? 'Anbieters' : 'Studios'); ?> <span id="providerReq" style="color:var(--primary);display:none;">*</span></label>
           <input id="providerEmail" name="providerEmail" type="email" placeholder="<?php echo $isKfz ? 'service@versicherung.de' : ($isHandy ? 'service@anbieter.de' : 'service@studio.de'); ?>" value="">          
           <?php if (!empty($pfEmail)): ?>
-          <div class="hint" id="providerHint" style="color: #16A34A; font-weight: 600;">✓ E-Mail für <?php echo htmlspecialchars($anbieter, ENT_QUOTES, 'UTF-8'); ?> automatisch erkannt.</div>
+          <div class="hint" id="providerHint" style="color: #15803D; font-weight: 600;">✓ E-Mail für <?php echo htmlspecialchars($anbieter, ENT_QUOTES, 'UTF-8'); ?> automatisch erkannt.</div>
           
           <div style="margin-top: 8px; font-size: 11px; line-height: 1.5; color: #475569; background: #F8FAFC; border-left: 3px solid #94A3B8; padding: 8px 12px; border-radius: 4px;">
             <strong>Wichtiger rechtlicher Hinweis:</strong> Bei einer Kündigung per E-Mail tragen Sie die Beweislast. Verlangen Sie immer eine Eingangsbestätigung. Sollten Sie nach 7 Tagen keine Bestätigung erhalten, empfehlen wir dringend, das heruntergeladene PDF zusätzlich per Einwurf-Einschreiben zu versenden.
@@ -1437,9 +1345,9 @@ window.dataLayer.push({
 
     <div class="field full" style="margin: 8px 0 16px;">
       <div class="checkbox-row">
-        <input id="trustpilotConsent" name="trustpilotConsent" type="checkbox" value="1">
+        <input id="trustpilotConsent" name="trustpilotConsent" type="checkbox" value="1" aria-labelledby="trustpilotLabel">
         <div class="checkbox-label">
-          <b>Bewertungs-Einladung erhalten</b>
+          <b id="trustpilotLabel">Bewertungs-Einladung erhalten</b>
           <div class="hint">Nur falls Sie oben Ihre E-Mail angegeben haben. Ich möchte nach Erhalt eine einmalige Einladung zur Bewertung auf Trustpilot bekommen. Freiwillig und jederzeit widerrufbar.</div>
         </div>
       </div>
@@ -1509,6 +1417,32 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function keIbanMod97(v){ var r=v.slice(4)+v.slice(0,4), e="", i, c; for(i=0;i<r.length;i++){ c=r.charCodeAt(i); e += (c>=65&&c<=90)?(c-55).toString():r.charAt(i); } var rem=0; for(i=0;i<e.length;i++){ rem=(rem*10+(e.charCodeAt(i)-48))%97; } return rem; }
     function isValidGermanIban(v){ return /^DE\d{20}$/.test(v) && keIbanMod97(v)===1; }
+    function keFieldErrorBox(input){
+      var id = (input.id || input.name) + '-error';
+      var box = document.getElementById(id);
+      if (!box) {
+        box = document.createElement('div');
+        box.id = id; box.className = 'ke-error-msg';
+        box.setAttribute('role','alert');
+        var anchor = (input.parentNode && input.parentNode.classList && input.parentNode.classList.contains('input-wrapper')) ? input.parentNode : input;
+        if (anchor.parentNode) anchor.parentNode.insertBefore(box, anchor.nextSibling);
+      }
+      return box;
+    }
+    function keSetFieldError(input, msg){
+      var box = keFieldErrorBox(input);
+      if (box.textContent !== msg) box.textContent = msg;
+      box.style.display = 'block';
+      input.setAttribute('aria-invalid','true');
+      var d = (input.getAttribute('aria-describedby') || '').split(/\s+/).filter(Boolean);
+      if (d.indexOf(box.id) === -1) { d.push(box.id); input.setAttribute('aria-describedby', d.join(' ')); }
+    }
+    function keClearFieldError(input){
+      var box = document.getElementById((input.id || input.name) + '-error');
+      if (box) { box.textContent = ''; box.style.display = 'none'; }
+      input.removeAttribute('aria-invalid');
+    }
+
     const inputs = document.querySelectorAll('input[required], input[name="zip"], input[name="email"], input[name="contractNo"]');
     
     inputs.forEach(input => {
@@ -1540,12 +1474,21 @@ document.addEventListener('DOMContentLoaded', function() {
                 else if (val === '') { isValid = false; }
                 else if (isValidGermanIban(ibanRaw)) { isValid = true; }
                 else { isValid = false; ibanBad = true; }
+                // Feld ist optional und rechtlich nicht erforderlich: kein roter Fehler,
+                // nur ein ruhiger grauer Hinweis. Kontonummer wird nicht "bestraft".
                 if (ibanBad) {
-                    this.classList.add('ke-invalid');
-                    this.style.setProperty('border-color', '#DC2626', 'important');
-                    this.style.setProperty('background', '#FEF2F2', 'important');
-                    this.style.setProperty('box-shadow', '0 0 0 3px rgba(220,38,38,0.25)', 'important');
+                    var _h = keFieldErrorBox(this);
+                    _h.textContent = 'Das sieht nicht wie eine vollständige IBAN aus — kein Problem, das Feld ist optional.';
+                    _h.style.display = 'block';
+                    _h.style.color = '#64748B';
+                    _h.style.background = 'transparent';
+                    _h.style.border = '0';
+                    this.classList.remove('ke-invalid');
+                    this.style.removeProperty('border-color');
+                    this.style.removeProperty('background');
+                    this.style.removeProperty('box-shadow');
                 } else {
+                    keClearFieldError(this);
                     this.classList.remove('ke-invalid');
                     this.style.removeProperty('border-color');
                     this.style.removeProperty('background');
@@ -1555,6 +1498,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 isValid = val.length > 1;
             }
             
+            if (this.name === 'zip') {
+                if (!isValid && val !== '') { keSetFieldError(this, '⚠ Bitte geben Sie eine 5-stellige Postleitzahl ein.'); }
+                else { keClearFieldError(this); }
+            } else if (this.type === 'email') {
+                if (!isValid && val !== '') { keSetFieldError(this, '⚠ Bitte geben Sie eine gültige E-Mail-Adresse ein.'); }
+                else { keClearFieldError(this); }
+            }
+
             if (isValid && val !== '') {
                 this.classList.add('is-valid');
             } else {
@@ -1748,40 +1699,24 @@ document.addEventListener('click', function(e) {
 /* Fix #5 — Brief-preview live update
    Fix #6 — RSG provider detection live în câmpul anbieter */
 (function () {
-  var bpSender    = document.querySelector('.bp-sender');
-  var bpRecipName = document.querySelector('.bp-recipient-name');
   var anbieterInp = document.getElementById('anbieterInput');
   var rsgWarn     = document.getElementById('_rsgDynWarn');
   var rsgLink     = document.getElementById('_rsgDynLink');
   var initialRsg  = anbieterInp && anbieterInp.dataset.isRsg === '1';
 
-  // --- Fix #5: Live sender line ---
-  function fieldVal(name) {
-    var el = document.querySelector('input[name="' + name + '"]');
-    return el ? el.value.trim() : '';
+  // Debounce: run the live-preview update only after the user pauses typing.
+  // Fixes mobile layout reflow that fired on every keystroke (form "jumped"
+  // under the user's finger, causing ~96% form abandonment).
+  function debounce(fn, wait) {
+    var t;
+    return function () {
+      var ctx = this, args = arguments;
+      clearTimeout(t);
+      t = setTimeout(function () { fn.apply(ctx, args); }, wait);
+    };
   }
 
-  function updateSender() {
-    if (!bpSender) return;
-    var fn     = fieldVal('firstName');
-    var ln     = fieldVal('lastName');
-    var street = fieldVal('street');
-    var zip    = fieldVal('zip');
-    var city   = fieldVal('city');
-    var name = [fn, ln].filter(Boolean).join(' ');
-    var addr = [street, [zip, city].filter(Boolean).join(' ')].filter(Boolean).join(', ');
-    var full = [name, addr].filter(Boolean).join(' · ');
-    bpSender.textContent = full || 'Ihr Name · Ihre Adresse (wird unten ergänzt)';
-    bpSender.classList.toggle('bp-placeholder', !full);
-  }
-
-  ['firstName', 'lastName', 'street', 'zip', 'city'].forEach(function (n) {
-    var el = document.querySelector('input[name="' + n + '"]');
-    if (el) el.addEventListener('input', updateSender);
-  });
-  updateSender();
-
-  // --- Fix #6: Live RSG detection + Fix #5: Live recipient name ---
+  // --- Fix #6: Live RSG detection ---
   var RSG_LIST = ['mcfit', 'john reed', 'john-reed', 'johnreed', 'high five'];
 
   function matchesRsg(v) {
@@ -1794,11 +1729,6 @@ document.addEventListener('click', function(e) {
 
   function checkAnbieter() {
     var v = anbieterInp ? anbieterInp.value : '';
-
-    // Fix #5: update preview recipient name live
-    if (bpRecipName) {
-      bpRecipName.textContent = v.trim() || 'Ihr Anbieter';
-    }
 
     // Fix #6: show/hide RSG warning — numai dacă PHP nu a randat deja blocul
     if (!rsgWarn || initialRsg) return;
@@ -1817,7 +1747,8 @@ document.addEventListener('click', function(e) {
   }
 
   if (anbieterInp) {
-    anbieterInp.addEventListener('input', checkAnbieter);
+    anbieterInp.addEventListener('input', debounce(checkAnbieter, 250));
+    anbieterInp.addEventListener('blur', checkAnbieter);
     checkAnbieter(); // run on page load (handles pre-filled anbieter)
   }
 })();

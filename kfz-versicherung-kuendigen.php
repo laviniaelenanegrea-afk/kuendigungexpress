@@ -5,11 +5,9 @@ declare(strict_types=1);
 <meta charset="utf-8">
 <meta name="color-scheme" content="light">
 <link rel="preconnect" href="https://www.clarity.ms">
-<link rel="preconnect" href="https://www.awin1.com">
 <link rel="dns-prefetch" href="//www.clarity.ms">
-<link rel="dns-prefetch" href="//www.awin1.com">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#16A34A">
+<meta name="theme-color" content="#15803D">
 <meta name="apple-mobile-web-app-status-bar-style" content="default"> <title>KFZ-Versicherung kündigen: kostenlose PDF-Vorlage</title> <meta name="description" content="KFZ-Versicherung kündigen: kostenlose PDF-Vorlage mit korrekter Adresse für alle Versicherer – ohne Login, ohne Abo. Stichtag 30.11. wahren.">  <link rel="dns-prefetch" href="//www.clarity.ms"> <link rel="canonical" href="https://www.kuendigungexpress.de/kfz-versicherung-kuendigen.html">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="KündigungExpress">
@@ -64,12 +62,12 @@ declare(strict_types=1);
     --text:          #0F172A;
     --muted:         #475569;
     --border:        #E2E8F0;
-    --btn:           #16A34A;
+    --btn:           #15803D;
     --btnText:       #FFFFFF;
     --soft:          #F1F5F9;
     --softText:      #334155;
     --soft-strong:   #EAF7EF;
-    --primary:       #16A34A;
+    --primary:       #15803D;
   }
 
   html { scroll-behavior: smooth; overflow-x: hidden; }
@@ -139,7 +137,7 @@ declare(strict_types=1);
   .pdf-image-wrapper { position: relative; width: 100%; max-width: 480px; margin-left: auto; }
   .pdf-image-wrapper img { width: 100%; height: auto; display: block; border-radius: 12px; box-shadow: 0 32px 64px -16px rgba(15,23,42,0.15), 0 0 1px rgba(15,23,42,0.1); background: var(--card, #fff); }
   .pdf-badge {
-    position: absolute; bottom: -15px; right: -15px; background: var(--btn, #16A34A); color: var(--btnText, white); font-size: 16px; font-weight: 900; padding: 12px 24px; border-radius: 100px; transform: rotate(-6deg); border: 4px solid #FBFBFD; box-shadow: 0 12px 24px rgba(22,163,74,0.3); z-index: 2;
+    position: absolute; bottom: -15px; right: -15px; background: var(--btn, #15803D); color: var(--btnText, white); font-size: 16px; font-weight: 900; padding: 12px 24px; border-radius: 100px; transform: rotate(-6deg); border: 4px solid #FBFBFD; box-shadow: 0 12px 24px rgba(22,163,74,0.3); z-index: 2;
   }
 
   @media (max-width: 820px) {
@@ -202,7 +200,7 @@ declare(strict_types=1);
     background: #FFFFFF !important;
     color: #0F172A !important;
     transform: translateY(-4px) !important;
-    border-color: #16A34A !important;
+    border-color: #15803D !important;
     box-shadow: 0 0 0 2px rgba(22,163,74,0.15), 0 14px 36px rgba(22,163,74,0.15) !important;
   }
 
@@ -250,12 +248,12 @@ declare(strict_types=1);
   .faq-accordion[open] { box-shadow: 0 4px 16px rgba(15,23,42,0.04); border-color: rgba(22, 163, 74, 0.3); }
   .faq-summary { padding: 18px 20px; font-weight: 700; font-size: 16px; color: var(--text, #0F172A); cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; }
   .faq-summary::-webkit-details-marker { display: none; }
-  .faq-summary::after { content: "+"; font-size: 24px; line-height: 1; color: var(--primary, #16A34A); font-weight: 400; transition: transform 0.3s ease; }
+  .faq-summary::after { content: "+"; font-size: 24px; line-height: 1; color: var(--primary, #15803D); font-weight: 400; transition: transform 0.3s ease; }
   .faq-accordion[open] .faq-summary::after { transform: rotate(45deg); }
   .faq-content { padding: 0 20px 20px 20px; color: var(--muted, #475569); line-height: 1.7; font-size: 15px; margin: 0; }
 
   /* IN-TEXT LINKS GREEN FIX */
-  .wrap p a:not(.btn):not(.btn-primary):not(.affiliate-btn):not(.studio-pill):not(.route-card-btn), .wrap li a:not(.btn):not(.btn-primary):not(.affiliate-btn) { color: var(--primary, #16A34A) !important; font-weight:600 !important; text-decoration:none !important; }
+  .wrap p a:not(.btn):not(.btn-primary):not(.affiliate-btn):not(.studio-pill):not(.route-card-btn), .wrap li a:not(.btn):not(.btn-primary):not(.affiliate-btn) { color: var(--primary, #15803D) !important; font-weight:600 !important; text-decoration:none !important; }
   .wrap p a:not(.btn):not(.btn-primary):not(.affiliate-btn):hover { opacity:0.9; text-decoration:none !important; }
   /* ============================================================
      INFORMATIONAL GUIDES GRID
@@ -266,7 +264,7 @@ declare(strict_types=1);
     body .guide-actions .guide-card-btn:last-child:nth-child(odd) { grid-column: 1 / -1 !important; }
   }
   body .guide-card-btn { display: flex !important; align-items: flex-start !important; gap: 18px !important; background: #FFFFFF !important; border: 1px solid #E2E8F0 !important; border-radius: 16px !important; padding: 24px !important; color: #0F172A !important; text-decoration: none !important; transition: all 0.2s ease !important; box-shadow: 0 4px 12px rgba(15,23,42,0.02) !important; }
-  body .guide-card-btn:hover { border-color: #16A34A !important; transform: translateY(-3px) !important; box-shadow: 0 12px 24px rgba(22,163,74,0.08) !important; }
+  body .guide-card-btn:hover { border-color: #15803D !important; transform: translateY(-3px) !important; box-shadow: 0 12px 24px rgba(22,163,74,0.08) !important; }
   .guide-icon { font-size: 28px; line-height: 1; background: var(--soft, #F1F5F9); padding: 14px; border-radius: 14px; transition: background 0.2s ease; flex-shrink: 0; }
   body .guide-card-btn:hover .guide-icon { background: var(--soft-strong, #EAF7EF) !important; }
   .guide-text-wrap { display: flex; flex-direction: column; gap: 6px; text-align: left; margin-top: 2px; }
@@ -274,8 +272,8 @@ declare(strict_types=1);
   .guide-sub { font-size: 14px; color: var(--muted, #475569) !important; line-height: 1.5; margin: 0 !important; }
 </style> 
 
-<script src="/cookie-consent.js" defer></script> <script src="/affiliate-tracking.js" defer></script>
-<link rel="preload" href="/style.css?v=26" as="style"> <link rel="stylesheet" href="/style.css?v=26">
+<script src="/cookie-consent.js" defer></script>
+<link rel="preload" href="/style.css?v=30" as="style"> <link rel="stylesheet" href="/style.css?v=30">
     <meta property="article:modified_time" content="2026-06-12T12:00:00+02:00">
 </head>
 <body>
@@ -300,7 +298,7 @@ declare(strict_types=1);
       
       <div class="hero-content">
             <h1 style="font-size: clamp(42px, 4.5vw, 50px); font-weight: 900; letter-spacing: -1.5px; line-height: 1.1; margin: 0 0 20px;">
-  KFZ-Versicherung kündigen:<br><span style="color:var(--primary, #16A34A);">kostenlose Vorlage als PDF – alle Versicherer</span>
+  KFZ-Versicherung kündigen:<br><span style="color:var(--primary, #15803D);">kostenlose Vorlage als PDF – alle Versicherer</span>
 </h1>
         
         <p class="hero-subtitle">
@@ -308,30 +306,30 @@ declare(strict_types=1);
         </p>
 
         <div class="desktop-cta-only" style="margin: 32px 0 24px 0;">
-          <a href="#providers-grid" style="display: inline-flex; align-items: center; justify-content: center; background-color: var(--btn, #16A34A); color: var(--btnText, #ffffff); padding: 16px 28px; border-radius: 14px; font-weight: 900; font-size: 18px; text-decoration: none; box-shadow: 0 4px 12px rgba(22, 163, 74, 0.2); transition: transform 0.2s ease, filter 0.2s ease, box-shadow 0.2s ease;" onmouseover="this.style.transform='translateY(-1px)'; this.style.filter='brightness(0.95)'; this.style.boxShadow='0 6px 16px rgba(22, 163, 74, 0.3)';" onmouseout="this.style.transform='translateY(0)'; this.style.filter='brightness(1)'; this.style.boxShadow='0 4px 12px rgba(22, 163, 74, 0.2)';">
+          <a href="#providers-grid" style="display: inline-flex; align-items: center; justify-content: center; background-color: var(--btn, #15803D); color: var(--btnText, #ffffff); padding: 16px 28px; border-radius: 14px; font-weight: 900; font-size: 18px; text-decoration: none; box-shadow: 0 4px 12px rgba(22, 163, 74, 0.2); transition: transform 0.2s ease, filter 0.2s ease, box-shadow 0.2s ease;" onmouseover="this.style.transform='translateY(-1px)'; this.style.filter='brightness(0.95)'; this.style.boxShadow='0 6px 16px rgba(22, 163, 74, 0.3)';" onmouseout="this.style.transform='translateY(0)'; this.style.filter='brightness(1)'; this.style.boxShadow='0 4px 12px rgba(22, 163, 74, 0.2)';">
             Versicherung jetzt kündigen
           </a>
         </div>
 
         <div class="trust-pills-container"> 
           <span class="trust-pill">
-            <svg width="16" height="16" fill="none" stroke="var(--btn, #16A34A)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"></path></svg>
+            <svg width="16" height="16" fill="none" stroke="var(--btn, #15803D)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"></path></svg>
             100% Kostenlos
           </span> 
           <span class="trust-pill">
-            <svg width="16" height="16" fill="none" stroke="var(--btn, #16A34A)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"></path></svg>
+            <svg width="16" height="16" fill="none" stroke="var(--btn, #15803D)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"></path></svg>
             Ohne Anmeldung
           </span>
           <span class="trust-pill">
-            <svg width="16" height="16" fill="none" stroke="var(--btn, #16A34A)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"></path></svg>
+            <svg width="16" height="16" fill="none" stroke="var(--btn, #15803D)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"></path></svg>
             Sofort als PDF
           </span>
         </div>
 
         <div style="display: flex; flex-direction: column; gap: 12px; position: relative; z-index: 10;">
           <div style="display: flex; align-items: center; gap: 12px;">
-            <div style="display: flex; color: var(--btn, #16A34A); font-size: 18px; letter-spacing: -2px;">👤👤👤</div>
-            <span style="font-size: 15px; color: #64748B;"><span style="color: var(--btn, #16A34A); font-weight: 800; font-size: 16px;"><?php $c=file_exists(__DIR__.'/_counter.txt')?(int)file_get_contents(__DIR__.'/_counter.txt'):1247; echo number_format($c,0,',','.'); ?></span> Kündigungen erstellt</span>
+            <div style="display: flex; color: var(--btn, #15803D); font-size: 18px; letter-spacing: -2px;">👤👤👤</div>
+            <span style="font-size: 15px; color: #64748B;"><span style="color: var(--btn, #15803D); font-weight: 800; font-size: 16px;"><?php $c=file_exists(__DIR__.'/_counter.txt')?(int)file_get_contents(__DIR__.'/_counter.txt'):1247; echo number_format($c,0,',','.'); ?></span> Kündigungen erstellt</span>
           </div>
           
           <div style="display: flex; flex-direction: column; gap: 8px;">
@@ -361,17 +359,6 @@ declare(strict_types=1);
 
 <div class="wrap"> 
 <main class="page-flow"> 
-
-<section class="section-soft cv-auto" style="padding-top:20px;padding-bottom:20px;">
-<h2 style="text-align:center;">So funktioniert KündigungExpress</h2>
-<div style="border-radius:12px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.08);display:flex;">
-  <video width="100%" controls controlsList="nodownload" oncontextmenu="return false;" preload="metadata">
-    <source src="/media/kfz-versicherung-kuendigen-anleitung.mp4" type="video/mp4">
-    Dein Browser unterstützt das Video-Tag nicht. Bitte aktualisiere deinen Browser.
-  </video>
-</div>
-</section>
-
 <section id="providers-grid" class="section-accent cv-auto">
 <h2 style="text-align: center;">KFZ-Versicherer in Deutschland direkt wählen</h2>
 <p class="brand-intro" style="text-align: center; margin: 0 auto 20px;">
@@ -417,7 +404,7 @@ Wählen Sie Ihren Versicherer aus, um spezifische Details zur Kündigung und die
 </div>
  <div style="margin-top: 32px; text-align: center;">
       <p style="margin-bottom: 16px; font-size: 15px; color: var(--muted, #475569); font-weight: 500;">Ihr Versicherer ist nicht dabei?</p>
-      <a href="/formular.php?type=kfz" style="display: inline-flex; align-items: center; justify-content: center; background-color: var(--card, #FFFFFF); color: var(--text, #0F172A); padding: 14px 24px; border-radius: 14px; font-weight: 700; font-size: 15px; text-decoration: none; border: 2px solid var(--border, #E2E8F0); box-shadow: 0 4px 12px rgba(15,23,42,0.02); transition: all 0.2s ease;" onmouseover="this.style.borderColor='var(--primary, #16A34A)'; this.style.color='var(--primary, #16A34A)'; this.style.transform='translateY(-2px)';" onmouseout="this.style.borderColor='var(--border, #E2E8F0)'; this.style.color='var(--text, #0F172A)'; this.style.transform='translateY(0)';">Universal-Vorlage nutzen ➔</a>
+      <a href="/formular.php?type=kfz" style="display: inline-flex; align-items: center; justify-content: center; background-color: var(--card, #FFFFFF); color: var(--text, #0F172A); padding: 14px 24px; border-radius: 14px; font-weight: 700; font-size: 15px; text-decoration: none; border: 2px solid var(--border, #E2E8F0); box-shadow: 0 4px 12px rgba(15,23,42,0.02); transition: all 0.2s ease;" onmouseover="this.style.borderColor='var(--primary, #15803D)'; this.style.color='var(--primary, #15803D)'; this.style.transform='translateY(-2px)';" onmouseout="this.style.borderColor='var(--border, #E2E8F0)'; this.style.color='var(--text, #0F172A)'; this.style.transform='translateY(0)';">Universal-Vorlage nutzen ➔</a>
     </div>
 </section>
 
@@ -522,15 +509,6 @@ Da das Versicherungsjahr meist am 1. Januar beginnt, ist der <strong>30. Novembe
   </div>
 </section> 
 
-<section class="section-accent cv-auto" style="text-align: center; border-color: rgba(0, 94, 168, 0.2); background: linear-gradient(180deg, #F0F7FF 0%, #FFFFFF 100%) !important;">
-  <h2 style="margin-bottom: 12px; color: #003366;">Nach der Kündigung: Neuen KFZ-Tarif sichern & sparen</h2>
-  <p style="margin-bottom: 24px; color: var(--muted, #475569); font-size: 15px; max-width: 540px; margin-left: auto; margin-right: auto;">Die Prämien in der Autoversicherung steigen 2026 branchenweit an. Verhindern Sie die automatische Verlängerung zu teuren Konditionen. Vergleichen Sie über 300 Tarife und sichern Sie sich Ihre neue eVB-Nummer sofort online.</p>
-  <a href="https://a.partner-versicherung.de/click.php?partner_id=201450&amp;ad_id=15&amp;deep=kfz-versicherung" target="_blank" rel="nofollow sponsored noopener" style="display: inline-block; background-color: #005EA8; color: #ffffff; padding: 16px 32px; border-radius: 14px; font-weight: 800; font-size: 16px; text-decoration: none; box-shadow: 0 4px 12px rgba(0, 94, 168, 0.25); transition: all 0.2s ease;" onmouseover="this.style.backgroundColor='#004A87'; this.style.transform='translateY(-1px)';" onmouseout="this.style.backgroundColor='#005EA8'; this.style.transform='translateY(0)';">
-    Jetzt Tarife vergleichen &amp; bis zu 850 € sparen<span aria-hidden="true">*</span> →
-  </a>
-  <p style="margin-top: 16px; font-size: 13px; color: #64748B;">Kostenloser Tarifcheck24-Vergleich · Inklusive elektronischer Versicherungsbestätigung (eVB)</p>
-  <p style="margin-top: 8px; font-size: 12px; color: #94A3B8;"><span aria-hidden="true">*</span> Werbelink: Bei einem Vertragsabschluss erhalten wir eine Provision. Für Sie entstehen keine Mehrkosten.</p>
-</section>
 
 <section class="cv-auto">
   <h2 style="margin-bottom: 24px;">Häufig gestellte Fragen</h2>
@@ -598,7 +576,7 @@ Da das Versicherungsjahr meist am 1. Januar beginnt, ist der <strong>30. Novembe
 </div>
 
 <div id="nuclear-mobile-cta" style="display: none; position: fixed !important; bottom: 0 !important; left: 0 !important; right: 0 !important; background: var(--card, #ffffff) !important; border-top: 1px solid var(--border, #E2E8F0) !important; padding: 12px 16px !important; padding-bottom: calc(12px + env(safe-area-inset-bottom)) !important; z-index: 2147483647 !important; box-shadow: 0 -8px 32px rgba(15,23,42,0.1) !important; width: 100% !important; box-sizing: border-box !important; transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease !important; transform: translateY(0);">
-    <a href="#providers-grid" style="flex: 1 !important; width: 100% !important; background: var(--btn, #16A34A) !important; color: var(--btnText, #ffffff) !important; text-align: center !important; padding: 16px !important; border-radius: 14px !important; font-weight: 900 !important; text-decoration: none !important; font-size: 16px !important; display: block !important; cursor: pointer !important; box-sizing: border-box !important;">Vertrag kündigen</a>
+    <a href="#providers-grid" style="flex: 1 !important; width: 100% !important; background: var(--btn, #15803D) !important; color: var(--btnText, #ffffff) !important; text-align: center !important; padding: 16px !important; border-radius: 14px !important; font-weight: 900 !important; text-decoration: none !important; font-size: 16px !important; display: block !important; cursor: pointer !important; box-sizing: border-box !important;">Vertrag kündigen</a>
 </div>
 
 <script>

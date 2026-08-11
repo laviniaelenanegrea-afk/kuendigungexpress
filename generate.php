@@ -7,6 +7,21 @@ ini_set('error_log', __DIR__ . '/_mail_log/php_errors.log');
 error_reporting(E_ALL);
 
 /* =========================================================
+   CLIENT IP — real, în spatele CDN-ului Ionos (Cloudflare).
+   REMOTE_ADDR = IP-ul edge-ului CF, nu al utilizatorului.
+   CF-Connecting-IP e setat de edge; îl validăm ca un header
+   falsificat (request direct la origin) să nu poată otrăvi
+   rate limiting-ul cu un string arbitrar.
+   ========================================================= */
+function ke_client_ip(): string {
+    $cf = trim((string)($_SERVER['HTTP_CF_CONNECTING_IP'] ?? ''));
+    if ($cf !== '' && filter_var($cf, FILTER_VALIDATE_IP) !== false) {
+        return $cf;
+    }
+    return (string)($_SERVER['REMOTE_ADDR'] ?? '0.0.0.0');
+}
+
+/* =========================================================
    DEPENDENCIES
    ========================================================= */
 require_once __DIR__ . '/dompdf/autoload.inc.php';
@@ -42,8 +57,8 @@ function clean_multiline(string $v): string {
 }
 function fehler(string $msg, string $contact): void {
     echo "<!doctype html><html lang='de'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>Fehler – KündigungExpress</title>";
-    echo "<style>*{box-sizing:border-box;margin:0;padding:0}body{font-family:Arial,sans-serif;background:#F7F9FC;color:#0F172A;display:flex;flex-direction:column;min-height:100vh}.wrap{max-width:560px;margin:auto;padding:32px 24px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex:1}.card{background:#fff;border:1px solid #E2E8F0;border-radius:20px;padding:36px 32px;text-align:center;width:100%;box-shadow:0 6px 24px rgba(15,23,42,0.06)}.err-icon{width:60px;height:60px;background:#FEF2F2;border:1px solid #FECACA;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:26px;margin:0 auto 18px}h1{font-size:22px;font-weight:900;margin-bottom:10px}p{font-size:14px;color:#475569;line-height:1.65;margin-bottom:18px}a.btn{display:inline-block;background:#16A34A;color:#fff;text-decoration:none;padding:13px 24px;border-radius:13px;font-weight:900;font-size:15px}.contact{font-size:12px;color:#94A3B8;margin-top:16px}.contact a{color:#16A34A;font-weight:700;text-decoration:none}footer{text-align:center;font-size:12px;color:#94A3B8;padding:12px 24px 20px}</style>";
-echo "<link rel='stylesheet' href='/style.css?v=13'></head><body><div class='wrap'><div class='card'><div class='err-icon'>⚠️</div><h1>Etwas ist schiefgelaufen</h1>";
+    echo "<style>*{box-sizing:border-box;margin:0;padding:0}body{font-family:Arial,sans-serif;background:#F7F9FC;color:#0F172A;display:flex;flex-direction:column;min-height:100vh}.wrap{max-width:560px;margin:auto;padding:32px 24px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex:1}.card{background:#fff;border:1px solid #E2E8F0;border-radius:20px;padding:36px 32px;text-align:center;width:100%;box-shadow:0 6px 24px rgba(15,23,42,0.06)}.err-icon{width:60px;height:60px;background:#FEF2F2;border:1px solid #FECACA;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:26px;margin:0 auto 18px}h1{font-size:22px;font-weight:900;margin-bottom:10px}p{font-size:14px;color:#475569;line-height:1.65;margin-bottom:18px}a.btn{display:inline-block;background:#15803D;color:#fff;text-decoration:none;padding:13px 24px;border-radius:13px;font-weight:900;font-size:15px}.contact{font-size:12px;color:#94A3B8;margin-top:16px}.contact a{color:#15803D;font-weight:700;text-decoration:none}footer{text-align:center;font-size:12px;color:#94A3B8;padding:12px 24px 20px}footer a{color:#94A3B8;text-decoration:none}footer a:hover{color:#15803D}</style>";
+echo "</head><body><div class='wrap'><div class='card'><div class='err-icon'>⚠️</div><h1>Etwas ist schiefgelaufen</h1>";
     echo "<p>" . htmlspecialchars($msg) . "</p>";
     echo "<a class='btn' href='/formular.php'>← Zurück zum Formular</a>";
     echo "<div class='contact'>Hilfe? <a href='mailto:" . htmlspecialchars($contact) . "'>" . htmlspecialchars($contact) . "</a></div>";
@@ -66,7 +81,7 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') !== 'POST') {
    silențios cu 200 (botul crede că a reușit, nu retry-uiește).
    ========================================================= */
 if (trim((string)($_POST['website'] ?? '')) !== '') {
-    error_log('[generate] Honeypot triggered from IP ' . ($_SERVER['REMOTE_ADDR'] ?? '?'));
+    error_log('[generate] Honeypot triggered from IP ' . ke_client_ip());
     // Răspuns 200 "fals-pozitiv" — nu dăm botului semnal că a fost prins
     http_response_code(200);
     fehler('Ihre Anfrage wird verarbeitet. Bitte versuchen Sie es in Kürze erneut.', $CONTACT_EMAIL);
@@ -77,7 +92,7 @@ if (trim((string)($_POST['website'] ?? '')) !== '') {
    Protejează CPU pe shared hosting (dompdf e costisitor).
    Stocare: hash SHA-256 al IP-ului (privacy), director protejat.
    ========================================================= */
-$genClientIp = (string)($_SERVER['REMOTE_ADDR'] ?? '0.0.0.0');
+$genClientIp = ke_client_ip();
 $genIpHash   = substr(hash('sha256', $genClientIp), 0, 16);
 
 $genRateDir = __DIR__ . '/_rate_limit';
@@ -138,8 +153,9 @@ if ($firstName==='' || $lastName==='' || $street==='' || $zip==='' || $city===''
 if (!preg_match('/^\d{5}$/', $zip)) {
     fehler('Bitte geben Sie eine gültige 5-stellige Postleitzahl ein.', $CONTACT_EMAIL);
 }
-if ($studioZip !== '' && !preg_match('/^\d{5}$/', $studioZip)) {
-    fehler('Ungültige Postleitzahl des Anbieters.', $CONTACT_EMAIL);
+if ($studioZip !== '' && !preg_match('/^[A-Za-z0-9][A-Za-z0-9\- ]{1,9}$/', $studioZip)) {
+    // international: dt. 5-stellig, aber auch ausländische Banken (z. B. SE, NL) zulassen
+    fehler('Bitte prüfen Sie die Postleitzahl des Anbieters.', $CONTACT_EMAIL);
 }
 if ($email !== '' && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
     fehler('Bitte geben Sie eine gültige E-Mail-Adresse an.', $CONTACT_EMAIL);
@@ -266,6 +282,7 @@ if (!$isConfirm) {
         'terminationMode'   => $terminationMode,
         'terminationDate'   => $terminationDate,
         'contractNo'        => (string)($_POST['contractNo'] ?? ''),
+        'ziel_iban'         => (string)($_POST['ziel_iban'] ?? ''),
         'plate'             => (string)($_POST['plate'] ?? ''),
         'providerEmail'     => $providerEmail,
         'sendEmail'         => $sendEmail,
@@ -283,13 +300,20 @@ if (!$isConfirm) {
     $backUrl = '/formular.php?type=' . urlencode($type) . '&anbieter=' . urlencode($studio);
 
     $iframeInject = '<style>
-      body { padding: 38px 68px 30px 68px !important; box-sizing: border-box !important; }
-      html, body { overflow: hidden !important; scrollbar-width: none !important; }
-      body::-webkit-scrollbar, html::-webkit-scrollbar { display: none !important; width: 0 !important; height: 0 !important; }
-      .footer { display: none !important; }
-      .lxp-zone-spacer { display: none !important; }
-      .lxp-below-addr { display: none !important; }
-      .sig-area { height: 14px !important; min-height: 0 !important; }
+      @page { margin: 0 !important; }
+      html { background:#fff !important; margin:0 !important; padding:0 !important; }
+      body {
+        margin:0 !important;
+        padding:5mm 17mm 12mm 20mm !important;
+        box-sizing:border-box !important;
+        width:210mm !important;
+        overflow:hidden !important;
+      }
+      html, body { scrollbar-width:none !important; }
+      body::-webkit-scrollbar, html::-webkit-scrollbar { display:none !important; width:0 !important; height:0 !important; }
+      .footer { position:static !important; margin-top:9mm !important; }
+      body { line-height:1.6 !important; }
+      p, ol.requests, ol.requests li { line-height:1.6 !important; }
     </style>';
     $htmlForIframe = preg_replace('/<\/head>/i', $iframeInject . '</head>', $html, 1);
     $iframeContent = htmlspecialchars($htmlForIframe, ENT_QUOTES, 'UTF-8');
@@ -300,7 +324,7 @@ if (!$isConfirm) {
     echo '<meta charset="utf-8">';
     echo '<meta name="viewport" content="width=device-width, initial-scale=1">';
     echo '<meta name="robots" content="noindex, nofollow">';
-    echo '<meta name="theme-color" content="#16A34A">';
+    echo '<meta name="theme-color" content="#15803D">';
     echo '<title>' . htmlspecialchars($pageTitle) . ' | KündigungExpress</title>';
     echo '<script>
     window.dataLayer = window.dataLayer || [];
@@ -319,7 +343,7 @@ if (!$isConfirm) {
   --text: #0F172A;
   --muted: #475569;
   --border: #E2E8F0;
-  --primary: #16A34A;
+  --primary: #15803D;
   --primary-dark: #15803D;
   --primary-soft: #F0FDF4;
   --soft: #F1F5F9;
@@ -436,23 +460,41 @@ footer a:hover { color: var(--text); }
 }
 .pv-toolbar-hint { font-size: 13px; color: var(--muted); }
 
+.pv-preview-section {
+  margin-top: 32px;
+}
 .pv-paper-frame {
   background: #fff;
   border: 1px solid var(--border);
   border-radius: 14px;
   box-shadow: 0 12px 32px rgba(15,23,42,0.08), 0 4px 12px rgba(15,23,42,0.04);
-  overflow: hidden;
-  margin: 0 auto 28px;
-  position: relative;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  margin: 0 auto;
   width: 794px;
   max-width: 100%;
+  max-height: 700px;
+  position: relative;
+}
+.pv-paper-fade {
+  position: sticky;
+  bottom: 0; left: 0; right: 0;
+  height: 48px;
+  margin-top: -48px;
+  background: linear-gradient(to bottom, rgba(255,255,255,0), #fff);
+  pointer-events: none;
+}
+.pv-paper-scale {
+  margin: 0 auto;
+  position: relative;
 }
 .pv-paper-frame iframe {
   display: block;
   border: 0;
   background: #fff;
   width: 794px;
-  height: 600px;
+  height: 1123px;
   transform-origin: top left;
 }
 
@@ -480,7 +522,7 @@ footer a:hover { color: var(--text); }
   font-size: 15px; color: #334155; line-height: 1.55; margin-bottom: 16px;
 }
 .pv-benefits {
-  list-style: none; margin: 0 0 18px; padding: 0;
+  list-style: none; margin: 22px 0 18px; padding: 0;
 }
 .pv-benefits li {
   display: flex; align-items: flex-start; gap: 10px;
@@ -540,6 +582,41 @@ footer a:hover { color: var(--text); }
 .pv-tier-radio:hover:not(.is-selected) {
   border-color: var(--primary);
   background: #F0FDF4;
+}
+
+/* --- Conversion elements --- */
+.pv-risk {
+  display: flex; gap: 12px; align-items: flex-start;
+  background: #FEF2F2; border: 1px solid #FECACA;
+  border-radius: 12px; padding: 14px 16px; margin: 0 0 18px;
+}
+.pv-risk-icon { font-size: 20px; line-height: 1.2; flex-shrink: 0; }
+.pv-risk strong { display: block; font-size: 14px; color: #991B1B; margin-bottom: 3px; }
+.pv-risk p { margin: 0; font-size: 13px; color: #7F1D1D; line-height: 1.55; }
+
+.pv-price-rec {
+  position: absolute; top: -10px; left: 50%; transform: translateX(-50%);
+  background: var(--primary); color: #fff;
+  font-size: 10px; font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase;
+  padding: 3px 10px; border-radius: 999px; white-space: nowrap;
+}
+.pv-tier-radio { overflow: visible; }
+
+.pv-secondary .pv-sec-head { display: flex; gap: 12px; align-items: center; }
+.pv-sec-cost {
+  margin: 10px 0 12px; font-size: 12px; color: var(--muted); line-height: 1.55;
+}
+.pv-cta-textlink {
+  background: none; border: none; padding: 0; cursor: pointer;
+  color: var(--primary-dark); font-size: 14px; font-weight: 700;
+  text-decoration: underline; text-underline-offset: 3px;
+}
+.pv-cta-textlink:hover { color: var(--primary); }
+
+.pv-paper-label {
+  font-size: 12px; font-weight: 700; color: var(--muted);
+  text-transform: uppercase; letter-spacing: 0.04em;
+  text-align: center; margin: 0 0 10px;
 }
 
 .sig-modal-overlay {
@@ -818,8 +895,8 @@ footer a:hover { color: var(--text); }
   border: 1px solid var(--border);
   border-radius: 14px;
   padding: 20px 24px;
-  display: flex; align-items: center; gap: 18px;
-  flex-wrap: wrap;
+  display: block;
+  margin-top: 14px;
 }
 .pv-secondary .pv-sec-icon {
   width: 44px; height: 44px;
@@ -960,7 +1037,7 @@ footer a:hover { color: var(--text); }
   .pv-featured h2 { font-size: 19px; }
   .pv-featured .pv-sub { font-size: 14px; }
   .pv-benefits li { font-size: 13.5px; padding: 6px 0; }
-  .pv-pricing { grid-template-columns: 1fr; gap: 8px; margin-bottom: 14px; }
+  .pv-pricing { grid-template-columns: 1fr; gap: 20px; margin-bottom: 14px; }
   .pv-price-card { padding: 10px 12px; }
   .pv-price-card .pv-price-val { font-size: 18px; }
   .pv-secondary { padding: 18px; flex-direction: column; align-items: flex-start; }
@@ -1016,9 +1093,28 @@ footer a:hover { color: var(--text); }
     </div>
   </div>
 
+<?php
+  // --- Conversion: per-vertical risk framing for the Versand offer ---
+  // The strongest driver for paid Versand is loss-aversion (missing the
+  // deadline / not being able to prove delivery), not convenience.
+  if ($type === 'kfz') {
+      $riskHeadline = 'Verpasste Frist = ein weiteres Jahr Beitrag';
+      $riskLine     = 'Geht Ihre Kündigung nicht nachweislich rechtzeitig ein, verlängert sich Ihre KFZ-Versicherung automatisch um ein volles Jahr. Mit Einwurfeinschreiben haben Sie den Zustellnachweis in der Hand.';
+  } elseif ($type === 'fitness') {
+      $riskHeadline = 'Ohne Nachweis läuft der Vertrag weiter';
+      $riskLine     = 'Fitnessstudios verlängern Verträge automatisch, wenn die Kündigung angeblich „nicht angekommen&ldquo; ist. Ein Zustellnachweis schützt Sie vor genau dieser Masche.';
+  } elseif ($type === 'bank') {
+      $riskHeadline = 'Im Streitfall tragen Sie die Beweislast';
+      $riskLine     = 'Behauptet die Bank, Ihre Kündigung nie erhalten zu haben, müssen Sie den Zugang beweisen. Mit Einwurfeinschreiben haben Sie den rechtssicheren Nachweis.';
+  } else { // handy
+      $riskHeadline = 'Kein Nachweis, keine Sicherheit';
+      $riskLine     = 'Bestreitet Ihr Anbieter den Erhalt der Kündigung, trägt im Zweifel der Absender die Beweislast — also Sie. Ein Zustellnachweis beendet diese Unsicherheit.';
+  }
+?>
+
   <div class="page-title">
     <h1>Ihre Kündigung ist fertig</h1>
-    <div class="sub">Wählen Sie, wie Sie möchten Sie weitermachen: Wir versenden für Sie — oder Sie laden das PDF kostenlos herunter.</div>
+    <div class="sub">Ein letzter Schritt: Wie soll Ihre Kündigung zum Anbieter kommen?</div>
   </div>
 
   <div class="pv-toolbar">
@@ -1039,46 +1135,40 @@ footer a:hover { color: var(--text); }
     <div class="pv-toolbar-hint">Bitte prüfen — alles korrekt?</div>
   </div>
 
-  <div class="pv-paper-frame" id="paperFrame">
-    <iframe
-      title="Brief-Vorschau"
-      sandbox="allow-same-origin allow-scripts"
-      srcdoc="<?= $iframeContent ?>"
-      id="briefFrame"></iframe>
-  </div>
-
   <div class="pv-actions">
 
     <div class="pv-featured">
-      <h2>Wir versenden Ihre Kündigung für Sie</h2>
-      <p class="pv-sub">
-        Sie tippen — wir erledigen den Rest: ausdrucken, kuvertieren, frankieren und in den Briefkasten werfen.
-        Kein Drucker nötig, kein Postgang.
-      </p>
+      <div class="pv-risk">
+        <span class="pv-risk-icon">⚠️</span>
+        <div>
+          <strong><?= $riskHeadline ?></strong>
+          <p><?= $riskLine ?></p>
+        </div>
+      </div>
 
-      <ul class="pv-benefits">
-        <li><span><strong>Druck, Kuvertierung &amp; Versand</strong> — alles inklusive</span></li>
-        <li><span>Zustellung in <strong>1–3 Werktagen</strong> via Deutsche Post</span></li>
-        <li><span>Wahlweise <strong>Standard</strong> oder <strong>Einwurfeinschreiben</strong> mit Zustellnachweis</span></li>
-        <li><span>PDF-Kopie automatisch zum Download</span></li>
-      </ul>
+      <h2>Wir versenden Ihre Kündigung — sicher &amp; nachweisbar</h2>
+      <p class="pv-sub">
+        Sie tippen — wir übernehmen Druck, Kuvertierung, Frankierung und Einwurf.
+        Auf Wunsch mit <strong>Zustellnachweis</strong>, damit Sie den Zugang jederzeit belegen können.
+      </p>
 
       <form method="post" action="<?= (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' ? 'https://' : 'http://') . htmlspecialchars($_SERVER['HTTP_HOST'] ?? 'kuendigungexpress.de', ENT_QUOTES) ?>/stripe-checkout.php" id="versandForm" style="margin:0;">
         <?= $hiddenInputsVersand ?>
         <input type="hidden" name="signature" id="versandSignatureField" value="">
-        <input type="hidden" name="versandTier" id="versandTierField" value="standard">
+        <input type="hidden" name="versandTier" id="versandTierField" value="einschreiben">
         <input type="hidden" name="agbAccepted" id="agbAcceptedField" value="0">
         <input type="hidden" name="widerrufWaiver" id="widerrufWaiverField" value="0">
 
         <div class="pv-pricing">
-          <label class="pv-price-card pv-tier-radio is-selected" data-tier="standard">
-            <input type="radio" name="versandTierUi" value="standard" checked>
+          <label class="pv-price-card pv-tier-radio" data-tier="standard">
+            <input type="radio" name="versandTierUi" value="standard">
             <span class="pv-price-label">Standard</span>
             <span class="pv-price-val">3,99 €</span>
-            <span class="pv-price-meta">Normaler Versand</span>
+            <span class="pv-price-meta">Ohne Nachweis</span>
           </label>
-          <label class="pv-price-card pv-tier-radio" data-tier="einschreiben">
-            <input type="radio" name="versandTierUi" value="einschreiben">
+          <label class="pv-price-card pv-tier-radio is-selected" data-tier="einschreiben">
+            <span class="pv-price-rec">Empfohlen</span>
+            <input type="radio" name="versandTierUi" value="einschreiben" checked>
             <span class="pv-price-label">Einwurfeinschreiben</span>
             <span class="pv-price-val">8,99 €</span>
             <span class="pv-price-meta">Mit Zustellnachweis</span>
@@ -1090,29 +1180,52 @@ footer a:hover { color: var(--text); }
           <input type="email" name="email" id="versandEmailInput" required
                  value="<?= htmlspecialchars($email) ?>"
                  placeholder="ihre@email.de" autocomplete="email" inputmode="email">
-          <small>Erforderlich für Bestellbestätigung und ggf. Zustellnachweis.</small>
+          <small>Erforderlich für Bestellbestätigung und Zustellnachweis.</small>
         </div>
 
         <button type="button" class="pv-cta-primary" id="versandBtn">
           <span class="pv-cta-icon">📨</span>
-          Versand bestellen
+          Jetzt sicher versenden lassen
         </button>
+
+        <ul class="pv-benefits">
+          <li><span>Druck, Kuvertierung &amp; Versand — <strong>alles inklusive, keine weiteren Kosten</strong></span></li>
+          <li><span>Zustellung in <strong>1–2 Werktagen</strong> via Deutsche Post</span></li>
+          <li><span><strong>PDF-Kopie</strong> automatisch zum Download</span></li>
+        </ul>
       </form>
 
     </div>
 
     <div class="pv-secondary">
-      <div class="pv-sec-icon">📄</div>
-      <div class="pv-sec-text">
-        <h3>Nur das PDF</h3>
-        <p>Direkt im Browser laden — <strong>ohne Anmeldung, ohne E-Mail, ohne Wartezeit</strong>.</p>
+      <div class="pv-sec-head">
+        <div class="pv-sec-icon">📄</div>
+        <div class="pv-sec-text">
+          <h3>Oder selbst verschicken</h3>
+          <p>PDF gratis herunterladen und selbst zur Post bringen.</p>
+        </div>
       </div>
+      <p class="pv-sec-cost">Dazu brauchen Sie: Drucker, Umschlag, Briefmarke (0,95&nbsp;€) und den Weg zur Post — ohne Zustellnachweis.</p>
       <form method="post" action="<?= (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' ? 'https://' : 'http://') . htmlspecialchars($_SERVER['HTTP_HOST'] ?? 'kuendigungexpress.de', ENT_QUOTES) ?>/generate.php" style="margin:0;">
         <?= $hiddenInputs ?>
-        <button type="submit" class="pv-cta-secondary">PDF kostenlos laden →</button>
+        <button type="submit" class="pv-cta-textlink">PDF kostenlos laden →</button>
       </form>
     </div>
 
+  </div>
+
+  <div class="pv-preview-section">
+    <div class="pv-paper-label">Ihr fertiges Kündigungsschreiben</div>
+    <div class="pv-paper-frame" id="paperFrame">
+      <div class="pv-paper-scale" id="paperScale">
+        <iframe
+          title="Brief-Vorschau"
+          sandbox="allow-same-origin allow-scripts"
+          srcdoc="<?= $iframeContent ?>"
+          id="briefFrame"></iframe>
+      </div>
+      <div class="pv-paper-fade"></div>
+    </div>
   </div>
 </div>
 
@@ -1141,6 +1254,7 @@ function keResetConsent(e) {
 (function() {
   var iframe = document.getElementById('briefFrame');
   var paperFrame = document.getElementById('paperFrame');
+  var scaleWrap = document.getElementById('paperScale');
   if (!iframe || !paperFrame) return;
 
   var A4_WIDTH = 794; 
@@ -1150,9 +1264,12 @@ function keResetConsent(e) {
     try {
       var doc = iframe.contentDocument || iframe.contentWindow.document;
       if (!doc || !doc.body) return contentHeight;
-      var sig = doc.querySelector('table.sig-table');
-      if (sig) {
-        return sig.offsetTop + sig.offsetHeight + 40;
+      // Masoara exact pana la baza footer-ului (ultima linie reala),
+      // ca sa nu prindem spatiu-fantoma de sub el (padding/margini).
+      var foot = doc.querySelector('.footer');
+      if (foot) {
+        var st = doc.documentElement.scrollTop || doc.body.scrollTop || 0;
+        return Math.ceil(foot.getBoundingClientRect().bottom + st) + 6;
       }
       return Math.max(doc.body.scrollHeight, doc.documentElement.scrollHeight);
     } catch (e) {
@@ -1162,12 +1279,23 @@ function keResetConsent(e) {
 
   function applyScale() {
     var containerWidth = paperFrame.clientWidth;
-    if (containerWidth < 10) return; 
+    if (containerWidth < 10) return;
 
     var scale = Math.min(1, containerWidth / A4_WIDTH);
-    iframe.style.transform = 'scale(' + scale + ')';
+    // Scale the iframe to fit container width while preserving A4 proportion,
+    // so the letter is never vertically squashed. The inner wrapper takes the
+    // scaled height; the outer .pv-paper-frame is a fixed-height scroll window.
+    iframe.style.width = A4_WIDTH + 'px';
     iframe.style.height = contentHeight + 'px';
-    paperFrame.style.height = Math.round(contentHeight * scale) + 'px';
+    iframe.style.transform = 'scale(' + scale + ')';
+    iframe.style.transformOrigin = 'top left';
+    if (scaleWrap) {
+      scaleWrap.style.height = Math.round(contentHeight * scale) + 'px';
+      scaleWrap.style.width = Math.round(A4_WIDTH * scale) + 'px';
+    }
+    // Cadrul se strange pe continutul scalat (fara spatiu gol sub footer);
+    // 520px ramane doar plafon pentru scrisori foarte lungi (atunci se face scroll).
+    paperFrame.style.height = Math.min(700, Math.round(contentHeight * scale)) + 'px';
   }
 
   function refresh() {
@@ -1188,136 +1316,8 @@ function keResetConsent(e) {
 })();
 </script>
 
-<div class="ke-modal-overlay" id="upsellModal">
-  <div class="ke-modal-box">
-    <div class="ke-modal-icon">⏳</div>
-    <div class="ke-modal-title">Einen Moment noch...</div>
-    <div class="ke-modal-text" id="upsellText"></div>
-    <a href="#" target="_blank" rel="nofollow sponsored" class="ke-modal-cta" id="upsellCta">🔥 Tarife vergleichen</a>
-    <button type="button" class="ke-modal-skip" id="upsellSkip">Nein danke, PDF jetzt herunterladen</button>
-  </div>
-</div>
 
-<script>
-(function() {
-  'use strict';
 
-  var pdfForm = document.querySelector('.pv-secondary form');
-  if (!pdfForm) return;
-
-  var modal = document.getElementById('upsellModal');
-  var modalText = document.getElementById('upsellText');
-  var modalCta = document.getElementById('upsellCta');
-  var modalSkip = document.getElementById('upsellSkip');
-
-  function getVal(name) {
-    var el = pdfForm.querySelector('input[name="' + name + '"]');
-    return el ? el.value : '';
-  }
-
-  function buildAffiliate(type, anbieterRaw) {
-    var anbieter = anbieterRaw.toLowerCase();
-    if (type === 'handy') {
-      if (anbieter.indexOf('telekom') !== -1 || anbieter.indexOf('congstar') !== -1 || anbieter.indexOf('fraenk') !== -1) {
-        return {
-          link: 'https://www.tariffuxx.de/handytarife?r=1126248&subid=modal_pv',
-          text: 'Sie kündigen bei <strong>' + escapeHtml(anbieterRaw) + '</strong>. Wussten Sie, dass Sie Ihre Rufnummer mitnehmen und im gleichen Netz bleiben können, aber bis zu 50% sparen?',
-          btn: '🔥 Im gleichen Netz bleiben & sparen',
-          color: '#3B82F6'
-        };
-      }
-      if (anbieter.indexOf('o2') !== -1 || anbieter.indexOf('vodafone') !== -1 || anbieter.indexOf('drillisch') !== -1 || anbieter.indexOf('1&1') !== -1 || anbieter.indexOf('freenet') !== -1 || anbieter.indexOf('telefonica') !== -1) {
-        return {
-          link: 'https://www.awin1.com/awclick.php?gid=361937&mid=11430&awinaffid=2838186&linkid=4581533&clickref=modal_pv',
-          text: 'Schlechtes Netz bei <strong>' + escapeHtml(anbieterRaw) + '</strong>? Sichern Sie sich jetzt das beste D1-Netz Deutschlands (Telekom) und nehmen Sie Ihre Rufnummer einfach mit.',
-          btn: '🔥 Zum besten Netz Deutschlands wechseln',
-          color: '#E20074'
-        };
-      }
-      return {
-        link: 'https://a.check24.net/misc/click.php?pid=1169420&aid=18&deep=handytarife&cat=7',
-        text: 'Sie kündigen bei <strong>' + escapeHtml(anbieterRaw) + '</strong>. Zahlen Sie künftig nicht mehr als nötig! Vergleichen Sie jetzt Tarife und sichern Sie sich exklusive Wechselboni.',
-        btn: '🔥 Handytarife vergleichen & sparen',
-        color: '#1E40AF'
-      };
-    }
-    if (type === 'kfz') {
-      return {
-        link: 'https://a.partner-versicherung.de/click.php?partner_id=201450&ad_id=15&deep=kfz-versicherung',
-        text: 'Die Kündigung bei <strong>' + escapeHtml(anbieterRaw) + '</strong> wird vorbereitet. Wussten Sie, dass Sie bei einem Wechsel der KFZ-Versicherung oft bis zu 850 € im Jahr sparen können?',
-        btn: '🚗 KFZ-Tarife vergleichen & sparen',
-        color: '#1E40AF'
-      };
-    }
-    return null;
-  }
-
-  function escapeHtml(s) {
-    return String(s).replace(/[&<>"']/g, function(c) {
-      return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c];
-    });
-  }
-
-  var modalAlreadyShown = false;
-  function submitForm() {
-    HTMLFormElement.prototype.submit.call(pdfForm);
-  }
-
-  pdfForm.addEventListener('submit', function(e) {
-    if (modalAlreadyShown) return; 
-    e.preventDefault();
-
-    var type = getVal('type');
-    var anbieter = getVal('anbieter');
-    var aff = buildAffiliate(type, anbieter);
-
-    if (!aff) {
-      modalAlreadyShown = true;
-      submitForm();
-      return;
-    }
-
-    modalText.innerHTML = aff.text;
-    modalCta.innerText = aff.btn;
-    modalCta.style.background = aff.color;
-    modalCta.href = aff.link;
-    modal.classList.add('active');
-
-    window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push({
-      'event': 'affiliate_modal_view',
-      'contract_type': type,
-      'provider': anbieter
-    });
-  });
-
-  if (modalCta) {
-    modalCta.addEventListener('click', function() {
-      var type = getVal('type');
-      var anbieter = getVal('anbieter');
-      window.dataLayer = window.dataLayer || [];
-      window.dataLayer.push({
-        'event': 'affiliate_modal_click',
-        'contract_type': type,
-        'provider': anbieter
-      });
-
-      setTimeout(function() {
-        modal.classList.remove('active');
-        modalAlreadyShown = true;
-        submitForm();
-      }, 150);
-    });
-  }
-  if (modalSkip) {
-    modalSkip.addEventListener('click', function() {
-      modal.classList.remove('active');
-      modalAlreadyShown = true;
-      submitForm();
-    });
-  }
-})();
-</script>
 
 <div class="sig-modal-overlay" id="sigModal">
   <div class="sig-modal-box">
@@ -1725,7 +1725,7 @@ if ($sendEmail === '1' && !empty($providerEmail)) {
         $mail->Port       = (int)$smtp['port'];
         $mail->SMTPSecure = $smtp['encryption'];
         $mail->CharSet    = 'UTF-8';
-        $mail->setFrom($smtp['username'], 'KündigungExpress');
+        $mail->setFrom($smtp['username'], $name . ' via KündigungExpress');
         $mail->addAddress($providerEmail);
         if (!empty($email)) {
             $mail->addReplyTo($email, $name);
@@ -1769,7 +1769,7 @@ if (!empty($email) && filter_var($email, FILTER_VALIDATE_EMAIL)) {
                 <h3 style='margin: 0 0 16px 0; font-size: 16px; font-weight: 700; color: #0f172a;'>Nächste Schritte</h3>
                 <ol style='margin: 0; padding-left: 20px; font-size: 14px; color: #475569;'>
                     <li style='margin-bottom: 8px;'>Ausdrucken und eigenhändig unterschreiben.</li>
-                    <li style='margin-bottom: 8px;'>Per Einschreiben mit Rückschein versenden.</li>
+                    <li style='margin-bottom: 8px;'>Per Einwurfeinschreiben mit Zustellnachweis versenden.</li>
                     <li style='margin-bottom: 8px;'>Eingangsbestätigung mit Vertragsende aufbewahren.</li>
                 </ol>
             </div>
@@ -1778,7 +1778,7 @@ if (!empty($email) && filter_var($email, FILTER_VALIDATE_EMAIL)) {
             </div>
             <div style='border-top: 1px solid #e2e8f0; padding-top: 20px; font-size: 14px; color: #475569;'>
                 <p style='margin: 0 0 12px 0;'>Bei Fragen antworten Sie einfach auf diese E-Mail.</p>
-                <p style='margin: 0; font-weight: 700; color: #0f172a;'>Mit freundlichen Grüßen,<br><span style='color: #16a34a;'>KündigungExpress</span></p>
+                <p style='margin: 0; font-weight: 700; color: #0f172a;'>Mit freundlichen Grüßen,<br><span style='color: #15803D;'>KündigungExpress</span></p>
             </div>
             <div style='margin-top: 24px; padding-top: 12px; border-top: 1px solid #f1f5f9; text-align: center; font-size: 12px; color: #94a3b8;'>
                 <a href='https://kuendigungexpress.de' style='color: #94a3b8; text-decoration: none;'>kuendigungexpress.de</a>
@@ -1802,21 +1802,19 @@ $isBank  = $type === 'bank';
 <meta charset="utf-8">
 <meta name="color-scheme" content="light">
 <link rel="preconnect" href="https://www.clarity.ms">
-<link rel="preconnect" href="https://a.check24.net">
-<link rel="preconnect" href="https://www.awin1.com">
 <link rel="dns-prefetch" href="//www.clarity.ms">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#16A34A">
+<meta name="theme-color" content="#15803D">
 <meta name="robots" content="noindex, nofollow">
 <title>Ihr Kündigungsschreiben – KündigungExpress</title>
 <link rel="icon" href="/favicon.ico" sizes="any">
 <style>
-:root{--bg:#F7F9FC;--card:#FFFFFF;--text:#0F172A;--muted:#475569;--border:#E2E8F0;--green:#16A34A}
+:root{--bg:#F7F9FC;--card:#FFFFFF;--text:#0F172A;--muted:#475569;--border:#E2E8F0;--green:#15803D}
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:Arial,sans-serif !important;background:var(--bg) !important;color:var(--text) !important;min-height:auto !important;display:block !important}
 .wrap{max-width:640px;margin:0 auto;padding:32px 20px 8px;display:flex;flex-direction:column;gap:16px}
 .success-card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:20px 32px;text-align:center;box-shadow:0 8px 32px rgba(22,163,74,0.08)}
-.check-circle{width:68px;height:68px;background:linear-gradient(135deg,#16A34A,#22C55E);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:34px;color:#fff;font-weight:900;line-height:1;box-shadow:0 6px 18px rgba(22,163,74,0.3)}
+.check-circle{width:68px;height:68px;background:linear-gradient(135deg,#15803D,#22C55E);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:34px;color:#fff;font-weight:900;line-height:1;box-shadow:0 6px 18px rgba(22,163,74,0.3)}
 .saved-banner{background:#F0FDF4;border:1px solid rgba(22,163,74,0.25);border-radius:12px;padding:12px 16px;font-size:14px;color:#15803D;font-weight:600;margin-bottom:18px;line-height:1.5;}
 .success-card h1{font-size:clamp(20px,4vw,26px);font-weight:900;margin-bottom:8px;font-family:Arial,sans-serif !important;letter-spacing:-0.01em}
 .success-card p{font-size:14px;color:var(--muted);line-height:1.7;margin-bottom:22px;max-width:420px;margin-left:auto;margin-right:auto}
@@ -1850,7 +1848,7 @@ footer p{margin-top:0 !important;margin-bottom:3px !important;font-size:12px;col
 footer p:last-child{margin-bottom:0 !important}
 .site-header{display:none;position:fixed;top:0;left:0;right:0;height:56px;background:#fff;border-bottom:1px solid var(--border);z-index:1000;align-items:center;justify-content:center}
 .site-header .brand{font-weight:900;font-size:18px;color:var(--text);text-decoration:none}
-.engagement-strip { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 24px; max-width: 560px; margin-left: auto; margin-right: auto; }
+.engagement-strip { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 24px; }
 .eng-col { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 18px 16px; text-align: center; display: flex; flex-direction: column; }
 .eng-icon { font-size: 22px; margin-bottom: 6px; line-height: 1; }
 .eng-review .eng-icon { color: #f59e0b; font-size: 14px; letter-spacing: 1px; }
@@ -1943,7 +1941,7 @@ window.dataLayer.push({
 </script>
 
 <script src="/clarity-loader.js" async></script>
-<link rel="preload" href="/style.css?v=14" as="style"> <link rel="stylesheet" href="/style.css?v=14"></head>
+<link rel="preload" href="/style.css?v=30" as="style"> <link rel="stylesheet" href="/style.css?v=30"></head>
 <body>
 <header class="site-header"><a href="/" class="brand">KündigungExpress</a></header>
 <div class="wrap">
@@ -1963,71 +1961,6 @@ window.dataLayer.push({
     <?php endif; ?>
   </div>
 
-  <div class="affiliate-card">
-    <?php if ($isKfz): ?>
-    <h2>Nächster Schritt: Günstigere KFZ-Versicherung finden</h2>
-    <p>Die Kündigung bei <strong><?= htmlspecialchars($studio) ?></strong> ist vorbereitet. Vergleichen Sie jetzt Tarife und sparen Sie bis zu 50% beim Wechsel.</p>
-    <a href="https://a.check24.net/misc/click.php?pid=1169420&aid=18&deep=kfz-versicherung&cat=1"
-       class="aff-btn aff-btn-check24" target="_blank" rel="nofollow sponsored" data-aff="check24-kfz"
-       onclick="window.dataLayer = window.dataLayer || []; window.dataLayer.push({'event':'affiliate_click', 'network':'check24', 'vertical':'kfz'});">
-      KFZ-Versicherung vergleichen · CHECK24
-    </a>
-    
-    <?php elseif ($isBank): ?>
-    <h2>Fast geschafft: Kontowechsel abschließen</h2>
-    <p>Ihre Kündigung bei <strong><?= htmlspecialchars($studio) ?></strong> ist vorbereitet. Denken Sie daran, Ihr Restguthaben zu übertragen sowie Daueraufträge und Lastschriften rechtzeitig umzuziehen, bevor das Konto geschlossen wird.</p>
-
-    <?php elseif ($isHandy): ?>
-    <h2>Nächster Schritt: Günstigeren Tarif sichern</h2>
-    <p>Die Kündigung bei <strong><?= htmlspecialchars($studio) ?></strong> ist vorbereitet. Vergleichen Sie jetzt Tarife und sparen Sie Geld.</p>
-    <a href="https://www.tariffuxx.de/handytarife?r=1126248&subid=generate-<?= htmlspecialchars($providerSlug) ?>"
-       class="aff-btn" style="background:#3B82F6;color:#fff;margin-bottom:12px;" target="_blank" rel="nofollow sponsored" data-aff="tariffuxx-generate"
-       onclick="window.dataLayer = window.dataLayer || []; window.dataLayer.push({'event':'affiliate_click', 'network':'tariffuxx', 'vertical':'handy'});">
-      Tarife im gleichen Netz vergleichen →
-    </a>
-    <div style="text-align: center; font-size: 13px;">
-      oder <a href="https://a.check24.net/misc/click.php?pid=1169420&aid=18&deep=handytarife&cat=7" target="_blank" rel="nofollow sponsored" style="color: var(--muted); text-decoration: underline; font-weight: 600;"
-      onclick="window.dataLayer = window.dataLayer || []; window.dataLayer.push({'event':'affiliate_click', 'network':'check24', 'vertical':'handy'});">alle Anbieter bei CHECK24 vergleichen</a>
-    </div>
-    
-    <?php else: ?>
-    <h2>Zuhause fit bleiben – Die 3 Essentials</h2>
-    <p style="margin-bottom: 16px;">Sie verlassen <strong><?= htmlspecialchars($studio) ?></strong>? Mit diesem Basic-Setup sparen Sie sich das Studio-Abo dauerhaft:</p>
-    
-    <div style="text-align: left; display: flex; flex-direction: column; gap: 10px; margin-bottom: 14px;">
-        <a href="https://www.amazon.de/SONGMICS-Hantelst%C3%A4nder-Neopren-Beschichtung-Krafttraining-Fitnessstudio/dp/B07P494CC7?__mk_de_DE=%C3%85M%C3%85%C5%BD%C3%95%C3%91&crid=3HWZ0X8PKHD00&dib=eyJ2IjoiMSJ9._tTUUNA-1Se5o1aUo_-Ief-EVDs45vox22mxi-8RqXobQ9BiylYO6uD8yyu0nGpSh2PkyfFtivKM0qq1Bph2pmd9KKa4iNR7P_O_Br2TiE1sc7rc_76xQJJvE0VOfFJ77bc-f3lzm7bOZfAVl21iuPOC9RoQwn0KRD_0QvGvvO4W4BJPCj2YidlWHZeO_rbJ-dDyIscUdC3AipgEOqim8TXq6iUrTKjxvufNwHY_SmQiXu_4ZWQGzyAMuWvkpY51NNRxtLOL97GVcX4WI77lrgGyvVgfxjfyHrRvA3N-o50.0Z2PELtes1k9hVJFe4Z-PBpMQKZbWWgAA3jMeSVSydM&dib_tag=se&keywords=Neopren%2BKurzhanteln%2BSet&qid=1779011040&refinements=p_n_free_shipping_afn_mfn%3A27011422031&rnid=27011419031&s=sports&sprefix=neopren%2Bkurzhanteln%2Bset%2Csports%2C152&sr=1-2-spons&aref=mS3gk6KYHg&sp_csd=d2lkZ2V0TmFtZT1zcF9hdGY&th=1&linkCode=ll2&tag=kuendigungexp-21&linkId=b04bc29220123fc9d72f2a05d9025837&ref_=as_li_ss_tl" class="product-card" target="_blank" rel="nofollow sponsored"
-           onclick="window.dataLayer = window.dataLayer || []; window.dataLayer.push({'event':'affiliate_click', 'network':'amazon', 'product':'hanteln'});">
-            <div style="font-size: 24px; line-height: 1;">💪</div>
-            <div>
-                <strong style="display: block; font-size: 14px; color: var(--text); margin-bottom: 2px;">Neopren Kurzhanteln-Set</strong>
-                <span style="font-size: 12px; color: var(--muted); line-height: 1.3; display: block;">Für progressiven Muskelaufbau. Ersetzen ein halbes Studio.</span>
-            </div>
-        </a>
-
-        <a href="https://www.amazon.de/VEICK-Widerstandsb%C3%A4nder-%C3%9Cbungsb%C3%A4nder-Workout-B%C3%A4nder-10-150Pfund/dp/B086X4PN48?__mk_de_DE=%C3%85M%C3%85%C5%BD%C3%95%C3%91&crid=2VT44D3C2VTYX&dib=eyJ2IjoiMSJ9.4hg4QiKQVX2p0bjw1uD6s3NMpPwojp4N-BBbjRIIlMosEEpmTivoN7hUPhdddkH4yLOWi5cT4g5LxAXX9vmuzX7dYt2czX3Njy729gxwUOdaKMOoytcNpYH4lRxyJllg8g5fdO07THwnIiO8Kfugv8krkkRsCzOXNQWU8sDBf0ZsC_Pk9A5Kg03a-SjdhZ2v3RpC9uVRxzVsex16Qv9G_sY4E4yc1xVMFETFyUTsCSOVNXiw3wpmVbEPp7LIwJhtfF63I5FsQiJvw8yr1nKi-4I1_tKiLRyd8R3buTnMXGI.9vl1CFg5QzT63ilE82M1T3D8A-OtubuBPnRp-wn5CRo&dib_tag=se&keywords=Fitnessb%C3%A4nder%2Bmit%2BGriffen&qid=1779010927&refinements=p_72%3A184747031%2Cp_n_free_shipping_afn_mfn%3A27011422031&rnid=27011419031&s=sports&sprefix=fitnessb%C3%A4nder%2Bmit%2Bgriffen%2Csports%2C101&sr=1-18&th=1&linkCode=ll2&tag=kuendigungexp-21&linkId=252ae18a2964b4122ad9ded9544b1061&ref_=as_li_ss_tl" class="product-card" target="_blank" rel="nofollow sponsored"
-           onclick="window.dataLayer = window.dataLayer || []; window.dataLayer.push({'event':'affiliate_click', 'network':'amazon', 'product':'baender'});">
-            <div style="font-size: 24px; line-height: 1;">🎗️</div>
-            <div>
-                <strong style="display: block; font-size: 14px; color: var(--text); margin-bottom: 2px;">Widerstandsbänder-Set</strong>
-                <span style="font-size: 12px; color: var(--muted); line-height: 1.3; display: block;">Das perfekte Ganzkörper-Workout für Zuhause.</span>
-            </div>
-        </a>
-
-        <a href="https://www.amazon.de/Gymnastikmatte-Premium-inkl-%C3%9Cbungsposter-Hautfreundliche/dp/B01N5TH9Z9?__mk_de_DE=%C3%85M%C3%85%C5%BD%C3%95%C3%91&crid=307Y0MPJSAJIX&dib=eyJ2IjoiMSJ9.FZRFd7oGYifVID2JMWBgGMcd24jBXBavsXegAt4PT70hSbFVbSmLXfttoOTxdKegPIVhkZz-WNLgY7OOEJtpRJF8u8_zptoqCY5R3PlCe7_S-4Ew5i0XItqGkQvCfn26fM-UTHOrxGfH_bONbWPuXhhmFyIbMo4LTCNBli7zImnbzej216VJqeIDpmmFGjJMjUcbB28UI0bT2lMsFjJlw9z2nf8vIcI1EOmwrR7ifbJRne-9rBVHsJdWyZMQ2JQXSrzJw8R01cAtA86f7vFgN4c28EHnXYXbF3fg_Hu8A48.Iv6QVAYMx3utOCsemdjtSF8jijP3_mzTnAOsRV1P0uI&dib_tag=se&keywords=Premium%2BFitnessmatte%2Bextra%2Bdick&qid=1779011171&refinements=p_n_free_shipping_afn_mfn%3A27011422031&rnid=27011419031&s=sports&sprefix=premium%2Bfitnessmatte%2Bextra%2Bdick%2Csports%2C107&sr=1-4&th=1&linkCode=ll2&tag=kuendigungexp-21&linkId=7d89d1f4cdc4ae2653f13ee41934c4c4&ref_=as_li_ss_tl" class="product-card" target="_blank" rel="nofollow sponsored"
-           onclick="window.dataLayer = window.dataLayer || []; window.dataLayer.push({'event':'affiliate_click', 'network':'amazon', 'product':'matte'});">
-            <div style="font-size: 24px; line-height: 1;">🧘‍♀️</div>
-            <div>
-                <strong style="display: block; font-size: 14px; color: var(--text); margin-bottom: 2px;">Premium Fitnessmatte</strong>
-                <span style="font-size: 12px; color: var(--muted); line-height: 1.3; display: block;">Rutschfest, extra dick und ideal für Bodyweight-Training.</span>
-            </div>
-        </a>
-    </div>
-    <?php endif; ?>
-    
-    <div style="font-size: 11px; color: #94A3B8; text-align: center; margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--border); line-height: 1.45;">
-        * Werbelink: Bei einem Vertragsabschluss erhalten wir eine Provision. Für Sie entstehen keine Mehrkosten.
-    </div>
-  </div>
 
  <div class="engagement-strip">
     <div class="eng-col eng-review">
@@ -2062,7 +1995,7 @@ window.dataLayer.push({
 </div>
 
 <footer class="ke-footer">
-  <p>© 2026 KündigungExpress · <a href="/impressum.html">Impressum</a> · <a href="/datenschutz.html">Datenschutz</a> · <a href="/hilfe.html">Hilfe</a> · <a href="#" onclick="return keResetConsent(event)">Cookie-Einstellungen</a></p>
+  <p>© 2026 KündigungExpress · <a href="/impressum.html">Impressum</a> · <a href="/datenschutz.html">Datenschutz</a> · <a href="/agb.html">AGB</a> · <a href="/hilfe.html">Hilfe</a> · <a href="#" onclick="return keResetConsent(event)">Cookie-Einstellungen</a></p>
 </footer>
 
 <script src="/generate-success.js" defer></script>

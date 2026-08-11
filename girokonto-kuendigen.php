@@ -5,7 +5,7 @@
 <link rel="preconnect" href="https://www.clarity.ms">
 <link rel="dns-prefetch" href="//www.clarity.ms">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#16A34A">
+<meta name="theme-color" content="#15803D">
 <meta name="apple-mobile-web-app-status-bar-style" content="default"> <title>Girokonto kündigen: kostenlose PDF-Vorlage, ohne Login</title> <meta name="description" content="Girokonto kündigen: kostenlose PDF-Vorlage mit korrekter Bankadresse für ING, DKB, N26, Sparkasse & mehr – jederzeit kündbar (§ 675h BGB), ohne Login, ohne Abo.">  <link rel="dns-prefetch" href="//www.clarity.ms"> <link rel="canonical" href="https://www.kuendigungexpress.de/girokonto-kuendigen.html">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="KündigungExpress">
@@ -59,12 +59,12 @@
     --text:          #0F172A;
     --muted:         #475569;
     --border:        #E2E8F0;
-    --btn:           #16A34A;
+    --btn:           #15803D;
     --btnText:       #FFFFFF;
     --soft:          #F1F5F9;
     --softText:      #334155;
     --soft-strong:   #EAF7EF;
-    --primary:       #16A34A;
+    --primary:       #15803D;
   }
 
   html { scroll-behavior: smooth; overflow-x: hidden; }
@@ -134,7 +134,7 @@
   .pdf-image-wrapper { position: relative; width: 100%; max-width: 480px; margin-left: auto; }
   .pdf-image-wrapper img { width: 100%; height: auto; display: block; border-radius: 12px; box-shadow: 0 32px 64px -16px rgba(15,23,42,0.15), 0 0 1px rgba(15,23,42,0.1); background: var(--card, #fff); }
   .pdf-badge {
-    position: absolute; bottom: -15px; right: -15px; background: var(--btn, #16A34A); color: var(--btnText, white); font-size: 16px; font-weight: 900; padding: 12px 24px; border-radius: 100px; transform: rotate(-6deg); border: 4px solid #FBFBFD; box-shadow: 0 12px 24px rgba(22,163,74,0.3); z-index: 2;
+    position: absolute; bottom: -15px; right: -15px; background: var(--btn, #15803D); color: var(--btnText, white); font-size: 16px; font-weight: 900; padding: 12px 24px; border-radius: 100px; transform: rotate(-6deg); border: 4px solid #FBFBFD; box-shadow: 0 12px 24px rgba(22,163,74,0.3); z-index: 2;
   }
 
   @media (max-width: 820px) {
@@ -197,7 +197,7 @@
     background: #FFFFFF !important;
     color: #0F172A !important;
     transform: translateY(-4px) !important;
-    border-color: #16A34A !important;
+    border-color: #15803D !important;
     box-shadow: 0 0 0 2px rgba(22,163,74,0.15), 0 14px 36px rgba(22,163,74,0.15) !important;
   }
 
@@ -245,12 +245,12 @@
   .faq-accordion[open] { box-shadow: 0 4px 16px rgba(15,23,42,0.04); border-color: rgba(22, 163, 74, 0.3); }
   .faq-summary { padding: 18px 20px; font-weight: 700; font-size: 16px; color: var(--text, #0F172A); cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; }
   .faq-summary::-webkit-details-marker { display: none; }
-  .faq-summary::after { content: "+"; font-size: 24px; line-height: 1; color: var(--primary, #16A34A); font-weight: 400; transition: transform 0.3s ease; }
+  .faq-summary::after { content: "+"; font-size: 24px; line-height: 1; color: var(--primary, #15803D); font-weight: 400; transition: transform 0.3s ease; }
   .faq-accordion[open] .faq-summary::after { transform: rotate(45deg); }
   .faq-content { padding: 0 20px 20px 20px; color: var(--muted, #475569); line-height: 1.7; font-size: 15px; margin: 0; }
 
   /* IN-TEXT LINKS GREEN FIX */
-  .wrap p a:not(.btn):not(.btn-primary):not(.affiliate-btn):not(.studio-pill):not(.route-card-btn), .wrap li a:not(.btn):not(.btn-primary):not(.affiliate-btn) { color: var(--primary, #16A34A) !important; font-weight:600 !important; text-decoration:none !important; }
+  .wrap p a:not(.btn):not(.btn-primary):not(.affiliate-btn):not(.studio-pill):not(.route-card-btn), .wrap li a:not(.btn):not(.btn-primary):not(.affiliate-btn) { color: var(--primary, #15803D) !important; font-weight:600 !important; text-decoration:none !important; }
   .wrap p a:not(.btn):not(.btn-primary):not(.affiliate-btn):hover { opacity:0.9; text-decoration:none !important; }
   /* ============================================================
      INFORMATIONAL GUIDES GRID
@@ -261,7 +261,7 @@
     body .guide-actions .guide-card-btn:last-child:nth-child(odd) { grid-column: 1 / -1 !important; }
   }
   body .guide-card-btn { display: flex !important; align-items: flex-start !important; gap: 18px !important; background: #FFFFFF !important; border: 1px solid #E2E8F0 !important; border-radius: 16px !important; padding: 24px !important; color: #0F172A !important; text-decoration: none !important; transition: all 0.2s ease !important; box-shadow: 0 4px 12px rgba(15,23,42,0.02) !important; }
-  body .guide-card-btn:hover { border-color: #16A34A !important; transform: translateY(-3px) !important; box-shadow: 0 12px 24px rgba(22,163,74,0.08) !important; }
+  body .guide-card-btn:hover { border-color: #15803D !important; transform: translateY(-3px) !important; box-shadow: 0 12px 24px rgba(22,163,74,0.08) !important; }
   .guide-icon { font-size: 28px; line-height: 1; background: var(--soft, #F1F5F9); padding: 14px; border-radius: 14px; transition: background 0.2s ease; flex-shrink: 0; }
   body .guide-card-btn:hover .guide-icon { background: var(--soft-strong, #EAF7EF) !important; }
   .guide-text-wrap { display: flex; flex-direction: column; gap: 6px; text-align: left; margin-top: 2px; }
@@ -269,9 +269,11 @@
   .guide-sub { font-size: 14px; color: var(--muted, #475569) !important; line-height: 1.5; margin: 0 !important; }
 </style> 
 
-<script src="/cookie-consent.js" defer></script> <script src="/affiliate-tracking.js" defer></script>
-<link rel="preload" href="/style.css?v=26" as="style"> <link rel="stylesheet" href="/style.css?v=26">
-    <meta property="article:modified_time" content="2026-06-12T12:00:00+02:00">
+<script src="/cookie-consent.js" defer></script> 
+
+<link rel="preload" href="/style.css?v=30" as="style"> 
+<link rel="stylesheet" href="/style.css?v=30">
+    <meta property="article:modified_time" content="2026-07-02T12:00:00+02:00">
 </head>
 <body>
 
@@ -295,7 +297,7 @@
       
       <div class="hero-content">
             <h1 style="font-size: clamp(42px, 4.5vw, 50px); font-weight: 900; letter-spacing: -1.5px; line-height: 1.1; margin: 0 0 20px;">
-  Girokonto kündigen:<br><span style="color:var(--primary, #16A34A);">kostenlose Vorlage als PDF – jede Bank</span>
+  Girokonto kündigen:<br><span style="color:var(--primary, #15803D);">kostenlose Vorlage als PDF – jede Bank</span>
 </h1>
         
         <p class="hero-subtitle">
@@ -303,30 +305,30 @@
         </p>
 
         <div class="desktop-cta-only" style="margin: 32px 0 24px 0;">
-          <a href="#providers-grid" style="display: inline-flex; align-items: center; justify-content: center; background-color: var(--btn, #16A34A); color: var(--btnText, #ffffff); padding: 16px 28px; border-radius: 14px; font-weight: 900; font-size: 18px; text-decoration: none; box-shadow: 0 4px 12px rgba(22, 163, 74, 0.2); transition: transform 0.2s ease, filter 0.2s ease, box-shadow 0.2s ease;" onmouseover="this.style.transform='translateY(-1px)'; this.style.filter='brightness(0.95)'; this.style.boxShadow='0 6px 16px rgba(22, 163, 74, 0.3)';" onmouseout="this.style.transform='translateY(0)'; this.style.filter='brightness(1)'; this.style.boxShadow='0 4px 12px rgba(22, 163, 74, 0.2)';">
+          <a href="#providers-grid" style="display: inline-flex; align-items: center; justify-content: center; background-color: var(--btn, #15803D); color: var(--btnText, #ffffff); padding: 16px 28px; border-radius: 14px; font-weight: 900; font-size: 18px; text-decoration: none; box-shadow: 0 4px 12px rgba(22, 163, 74, 0.2); transition: transform 0.2s ease, filter 0.2s ease, box-shadow 0.2s ease;" onmouseover="this.style.transform='translateY(-1px)'; this.style.filter='brightness(0.95)'; this.style.boxShadow='0 6px 16px rgba(22, 163, 74, 0.3)';" onmouseout="this.style.transform='translateY(0)'; this.style.filter='brightness(1)'; this.style.boxShadow='0 4px 12px rgba(22, 163, 74, 0.2)';">
             Girokonto jetzt kündigen
           </a>
         </div>
 
         <div class="trust-pills-container"> 
           <span class="trust-pill">
-            <svg width="16" height="16" fill="none" stroke="var(--btn, #16A34A)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"></path></svg>
+            <svg width="16" height="16" fill="none" stroke="var(--btn, #15803D)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"></path></svg>
             100% Kostenlos
           </span> 
           <span class="trust-pill">
-            <svg width="16" height="16" fill="none" stroke="var(--btn, #16A34A)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"></path></svg>
+            <svg width="16" height="16" fill="none" stroke="var(--btn, #15803D)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"></path></svg>
             Ohne Anmeldung
           </span>
           <span class="trust-pill">
-            <svg width="16" height="16" fill="none" stroke="var(--btn, #16A34A)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"></path></svg>
+            <svg width="16" height="16" fill="none" stroke="var(--btn, #15803D)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"></path></svg>
             Sofort als PDF
           </span>
         </div>
 
         <div style="display: flex; flex-direction: column; gap: 12px; position: relative; z-index: 10;">
           <div style="display: flex; align-items: center; gap: 12px;">
-            <div style="display: flex; color: var(--btn, #16A34A); font-size: 18px; letter-spacing: -2px;">✓</div>
-            <span style="font-size: 15px; color: #64748B;">Kostenlos für <span style="color: var(--btn, #16A34A); font-weight: 800; font-size: 16px;">jede deutsche Bank</span></span>
+            <div style="display: flex; color: var(--btn, #15803D); font-size: 18px; letter-spacing: -2px;">👤👤👤</div>
+            <span style="font-size: 15px; color: #64748B;"><span style="color: var(--btn, #15803D); font-weight: 800; font-size: 16px;"><?php $c=file_exists(__DIR__.'/_counter.txt')?(int)file_get_contents(__DIR__.'/_counter.txt'):1247; echo number_format($c,0,',','.'); ?></span> Kündigungen erstellt</span>
           </div>
           
           <div style="display: flex; flex-direction: column; gap: 8px;">
@@ -363,48 +365,48 @@
 Wählen Sie Ihre Bank aus, um Ihr kostenloses Kündigungsschreiben zu erstellen. Wir unterstützen die größten Direktbanken und Filialbanken Deutschlands – die Kündigung erfolgt jederzeit ohne Frist (§ 675h BGB).
 </p>
 <div class="studio-grid">
-<a class="studio-pill" href="/formular.php?type=bank&amp;anbieter=ING">ING kündigen</a>
-<a class="studio-pill" href="/formular.php?type=bank&amp;anbieter=DKB">DKB kündigen</a>
-<a class="studio-pill" href="/formular.php?type=bank&amp;anbieter=N26">N26 kündigen</a>
-<a class="studio-pill" href="/formular.php?type=bank&amp;anbieter=comdirect">comdirect kündigen</a>
-<a class="studio-pill" href="/formular.php?type=bank&amp;anbieter=Consorsbank">Consorsbank kündigen</a>
-<a class="studio-pill" href="/formular.php?type=bank&amp;anbieter=C24%20Bank">C24 Bank kündigen</a>
-<a class="studio-pill" href="/formular.php?type=bank&amp;anbieter=Deutsche%20Bank">Deutsche Bank kündigen</a>
-<a class="studio-pill" href="/formular.php?type=bank&amp;anbieter=Commerzbank">Commerzbank kündigen</a>
-<a class="studio-pill" href="/formular.php?type=bank&amp;anbieter=Postbank">Postbank kündigen</a>
-<a class="studio-pill" href="/formular.php?type=bank&amp;anbieter=HypoVereinsbank">HypoVereinsbank kündigen</a>
-<a class="studio-pill" href="/formular.php?type=bank&amp;anbieter=norisbank">norisbank kündigen</a>
-<a class="studio-pill" href="/formular.php?type=bank&amp;anbieter=Targobank">Targobank kündigen</a>
-<a class="studio-pill" href="/formular.php?type=bank&amp;anbieter=Santander">Santander kündigen</a>
-<a class="studio-pill" href="/formular.php?type=bank&amp;anbieter=Openbank">Openbank kündigen</a>
-<a class="studio-pill" href="/formular.php?type=bank&amp;anbieter=1822direkt">1822direkt kündigen</a>
-<a class="studio-pill" href="/formular.php?type=bank&amp;anbieter=Trade%20Republic">Trade Republic kündigen</a>
-<a class="studio-pill" href="/formular.php?type=bank&amp;anbieter=Scalable%20Capital">Scalable Capital kündigen</a>
-<a class="studio-pill" href="/formular.php?type=bank&amp;anbieter=Revolut">Revolut kündigen</a>
-<a class="studio-pill" href="/formular.php?type=bank&amp;anbieter=Wise">Wise kündigen</a>
-<a class="studio-pill" href="/formular.php?type=bank&amp;anbieter=Bunq">bunq kündigen</a>
-<a class="studio-pill" href="/formular.php?type=bank&amp;anbieter=Tomorrow">Tomorrow kündigen</a>
-<a class="studio-pill" href="/formular.php?type=bank&amp;anbieter=Vivid%20Money">Vivid Money kündigen</a>
-<a class="studio-pill" href="/formular.php?type=bank&amp;anbieter=GLS%20Bank">GLS Bank kündigen</a>
-<a class="studio-pill" href="/formular.php?type=bank&amp;anbieter=Triodos">Triodos Bank kündigen</a>
-<a class="studio-pill" href="/formular.php?type=bank&amp;anbieter=apoBank">apoBank kündigen</a>
-<a class="studio-pill" href="/formular.php?type=bank&amp;anbieter=OLB">OLB kündigen</a>
-<a class="studio-pill" href="/formular.php?type=bank&amp;anbieter=BBBank">BBBank kündigen</a>
-<a class="studio-pill" href="/formular.php?type=bank&amp;anbieter=Advanzia">Advanzia kündigen</a>
-<a class="studio-pill" href="/formular.php?type=bank&amp;anbieter=Sparkasse">Sparkasse kündigen</a>
-<a class="studio-pill" href="/formular.php?type=bank&amp;anbieter=Volksbank">Volksbank / Raiffeisenbank kündigen</a>
-<a class="studio-pill" href="/formular.php?type=bank&amp;anbieter=Sparda-Bank">Sparda-Bank kündigen</a>
-<a class="studio-pill" href="/formular.php?type=bank&amp;anbieter=PSD%20Bank">PSD Bank kündigen</a>
-<a class="studio-pill" href="/formular.php?type=bank&amp;anbieter=Haspa">Haspa kündigen</a>
-<a class="studio-pill" href="/formular.php?type=bank&amp;anbieter=Berliner%20Sparkasse">Berliner Sparkasse kündigen</a>
-<a class="studio-pill" href="/formular.php?type=bank&amp;anbieter=Stadtsparkasse%20M%C3%BCnchen">Stadtsparkasse München kündigen</a>
-<a class="studio-pill" href="/formular.php?type=bank&amp;anbieter=Kreissparkasse%20K%C3%B6ln">Kreissparkasse Köln kündigen</a>
-<a class="studio-pill" href="/formular.php?type=bank&amp;anbieter=Frankfurter%20Volksbank">Frankfurter Volksbank kündigen</a>
-<a class="studio-pill" href="/formular.php?type=bank&amp;anbieter=Berliner%20Volksbank">Berliner Volksbank kündigen</a>
+<a class="studio-pill" href="/ing-girokonto-kuendigen.html">ING kündigen</a>
+<a class="studio-pill" href="/dkb-girokonto-kuendigen.html">DKB kündigen</a>
+<a class="studio-pill" href="/n26-girokonto-kuendigen.html">N26 kündigen</a>
+<a class="studio-pill" href="/comdirect-girokonto-kuendigen.html">comdirect kündigen</a>
+<a class="studio-pill" href="/consorsbank-girokonto-kuendigen.html">Consorsbank kündigen</a>
+<a class="studio-pill" href="/c24-bank-girokonto-kuendigen.html">C24 Bank kündigen</a>
+<a class="studio-pill" href="/deutsche-bank-girokonto-kuendigen.html">Deutsche Bank kündigen</a>
+<a class="studio-pill" href="/commerzbank-girokonto-kuendigen.html">Commerzbank kündigen</a>
+<a class="studio-pill" href="/postbank-girokonto-kuendigen.html">Postbank kündigen</a>
+<a class="studio-pill" href="/hypovereinsbank-girokonto-kuendigen.html">HypoVereinsbank kündigen</a>
+<a class="studio-pill" href="/norisbank-girokonto-kuendigen.html">norisbank kündigen</a>
+<a class="studio-pill" href="/targobank-girokonto-kuendigen.html">Targobank kündigen</a>
+<a class="studio-pill" href="/santander-girokonto-kuendigen.html">Santander kündigen</a>
+<a class="studio-pill" href="/openbank-girokonto-kuendigen.html">Openbank kündigen</a>
+<a class="studio-pill" href="/1822direkt-girokonto-kuendigen.html">1822direkt kündigen</a>
+<a class="studio-pill" href="/trade-republic-girokonto-kuendigen.html">Trade Republic kündigen</a>
+<a class="studio-pill" href="/scalable-capital-girokonto-kuendigen.html">Scalable Capital kündigen</a>
+<a class="studio-pill" href="/revolut-girokonto-kuendigen.html">Revolut kündigen</a>
+<a class="studio-pill" href="/wise-girokonto-kuendigen.html">Wise kündigen</a>
+<a class="studio-pill" href="/bunq-girokonto-kuendigen.html">bunq kündigen</a>
+<a class="studio-pill" href="/tomorrow-girokonto-kuendigen.html">Tomorrow kündigen</a>
+<a class="studio-pill" href="/vivid-money-girokonto-kuendigen.html">Vivid Money kündigen</a>
+<a class="studio-pill" href="/gls-bank-girokonto-kuendigen.html">GLS Bank kündigen</a>
+<a class="studio-pill" href="/triodos-girokonto-kuendigen.html">Triodos Bank kündigen</a>
+<a class="studio-pill" href="/apobank-girokonto-kuendigen.html">apoBank kündigen</a>
+<a class="studio-pill" href="/olb-girokonto-kuendigen.html">OLB kündigen</a>
+<a class="studio-pill" href="/bbbank-girokonto-kuendigen.html">BBBank kündigen</a>
+<a class="studio-pill" href="/advanzia-girokonto-kuendigen.html">Advanzia kündigen</a>
+<a class="studio-pill" href="/sparkasse-girokonto-kuendigen.html">Sparkasse kündigen</a>
+<a class="studio-pill" href="/volksbank-raiffeisenbank-girokonto-kuendigen.html">Volksbank / Raiffeisenbank kündigen</a>
+<a class="studio-pill" href="/sparda-bank-girokonto-kuendigen.html">Sparda-Bank kündigen</a>
+<a class="studio-pill" href="/psd-bank-girokonto-kuendigen.html">PSD Bank kündigen</a>
+<a class="studio-pill" href="/haspa-girokonto-kuendigen.html">Haspa kündigen</a>
+<a class="studio-pill" href="/berliner-sparkasse-girokonto-kuendigen.html">Berliner Sparkasse kündigen</a>
+<a class="studio-pill" href="/stadtsparkasse-muenchen-girokonto-kuendigen.html">Stadtsparkasse München kündigen</a>
+<a class="studio-pill" href="/kreissparkasse-koeln-girokonto-kuendigen.html">Kreissparkasse Köln kündigen</a>
+<a class="studio-pill" href="/frankfurter-volksbank-girokonto-kuendigen.html">Frankfurter Volksbank kündigen</a>
+<a class="studio-pill" href="/berliner-volksbank-girokonto-kuendigen.html">Berliner Volksbank kündigen</a>
 </div>
  <div style="margin-top: 32px; text-align: center;">
       <p style="margin-bottom: 16px; font-size: 15px; color: var(--muted, #475569); font-weight: 500;">Ihre Bank ist nicht dabei?</p>
-      <a href="/formular.php?type=bank" style="display: inline-flex; align-items: center; justify-content: center; background-color: var(--card, #FFFFFF); color: var(--text, #0F172A); padding: 14px 24px; border-radius: 14px; font-weight: 700; font-size: 15px; text-decoration: none; border: 2px solid var(--border, #E2E8F0); box-shadow: 0 4px 12px rgba(15,23,42,0.02); transition: all 0.2s ease;" onmouseover="this.style.borderColor='var(--primary, #16A34A)'; this.style.color='var(--primary, #16A34A)'; this.style.transform='translateY(-2px)';" onmouseout="this.style.borderColor='var(--border, #E2E8F0)'; this.style.color='var(--text, #0F172A)'; this.style.transform='translateY(0)';">Universal-Vorlage nutzen ➔</a>
+      <a href="/formular.php?type=bank" style="display: inline-flex; align-items: center; justify-content: center; background-color: var(--card, #FFFFFF); color: var(--text, #0F172A); padding: 14px 24px; border-radius: 14px; font-weight: 700; font-size: 15px; text-decoration: none; border: 2px solid var(--border, #E2E8F0); box-shadow: 0 4px 12px rgba(15,23,42,0.02); transition: all 0.2s ease;" onmouseover="this.style.borderColor='var(--primary, #15803D)'; this.style.color='var(--primary, #15803D)'; this.style.transform='translateY(-2px)';" onmouseout="this.style.borderColor='var(--border, #E2E8F0)'; this.style.color='var(--text, #0F172A)'; this.style.transform='translateY(0)';">Universal-Vorlage nutzen ➔</a>
     </div>
 </section>
 
@@ -437,6 +439,7 @@ Wählen Sie Ihre Bank aus, um Ihr kostenloses Kündigungsschreiben zu erstellen.
   </div>
 </section>
 
+
 <section class="section-soft cv-auto">
   <h2>So versenden Sie Ihre Kündigung richtig</h2>
   <div class="bento-versand">
@@ -459,6 +462,51 @@ Wählen Sie Ihre Bank aus, um Ihr kostenloses Kündigungsschreiben zu erstellen.
   </div>
 </section>
 
+<section class="cv-auto" style="text-align: center;">
+  <h2 style="margin-bottom: 12px;">Rund um die Kontokündigung: Ihre Rechte im Detail</h2>
+  <p style="margin: 0 auto 32px; max-width: 640px; color: var(--muted, #475569); font-size: 16px; line-height: 1.6;">
+    Von der Frist über den Dispo bis zum Kontowechsel – die wichtigsten Sonderfälle rund um Ihre Girokonto-Kündigung, verständlich erklärt.
+  </p>
+  <div class="guide-actions">
+    <a class="guide-card-btn" href="/girokonto-kuendigen-frist.html">
+      <span class="guide-icon">📅</span>
+      <span class="guide-text-wrap">
+        <span class="guide-title">Frist? Keine (§ 675h BGB)</span>
+        <span class="guide-sub">Warum Ihr Girokonto jederzeit kündbar ist und die Textform genügt.</span>
+      </span>
+    </a>
+    <a class="guide-card-btn" href="/girokonto-kontowechsel.html">
+      <span class="guide-icon">🔄</span>
+      <span class="guide-text-wrap">
+        <span class="guide-title">Kontowechsel ohne Stress</span>
+        <span class="guide-sub">Daueraufträge und Lastschriften nach dem Zahlungskontengesetz automatisch umziehen.</span>
+      </span>
+    </a>
+    <a class="guide-card-btn" href="/girokonto-kuendigen-dispo.html">
+      <span class="guide-icon">💳</span>
+      <span class="guide-text-wrap">
+        <span class="guide-title">Konto trotz Dispo kündigen</span>
+        <span class="guide-sub">Konto im Minus? So gleichen Sie den Dispo aus und schließen es sauber.</span>
+      </span>
+    </a>
+    <a class="guide-card-btn" href="/gemeinschaftskonto-kuendigen.html">
+      <span class="guide-icon">👥</span>
+      <span class="guide-text-wrap">
+        <span class="guide-title">Gemeinschaftskonto auflösen</span>
+        <span class="guide-sub">Bei Trennung oder Scheidung: ein gemeinsames Konto rechtssicher beenden.</span>
+      </span>
+    </a>
+    <a class="guide-card-btn" href="/konto-aufloesen-todesfall.html">
+      <span class="guide-icon">📜</span>
+      <span class="guide-text-wrap">
+        <span class="guide-title">Konto im Todesfall auflösen</span>
+        <span class="guide-sub">Was Erben und Angehörige bei der Kontoauflösung beachten müssen.</span>
+      </span>
+    </a>
+  </div>
+</section>
+
+
 <section class="cv-auto">
   <h2 style="margin-bottom: 24px;">Häufig gestellte Fragen</h2>
   <details class="faq-accordion"><summary class="faq-summary">Für welche Banken kann ich ein Kündigungsschreiben erstellen?</summary><p class="faq-content">Für alle großen deutschen Banken und Direktbanken – von ING, DKB und N26 über Comdirect, Deutsche Bank und Commerzbank bis zu Sparkasse und Volksbank. Wählen Sie oben Ihre Bank aus; die korrekte Kündigungsadresse ist bereits hinterlegt.</p></details>
@@ -477,7 +525,7 @@ Wählen Sie Ihre Bank aus, um Ihr kostenloses Kündigungsschreiben zu erstellen.
 </div>
 
 <div id="nuclear-mobile-cta" style="display: none; position: fixed !important; bottom: 0 !important; left: 0 !important; right: 0 !important; background: var(--card, #ffffff) !important; border-top: 1px solid var(--border, #E2E8F0) !important; padding: 12px 16px !important; padding-bottom: calc(12px + env(safe-area-inset-bottom)) !important; z-index: 2147483647 !important; box-shadow: 0 -8px 32px rgba(15,23,42,0.1) !important; width: 100% !important; box-sizing: border-box !important; transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease !important; transform: translateY(0);">
-    <a href="#providers-grid" style="flex: 1 !important; width: 100% !important; background: var(--btn, #16A34A) !important; color: var(--btnText, #ffffff) !important; text-align: center !important; padding: 16px !important; border-radius: 14px !important; font-weight: 900 !important; text-decoration: none !important; font-size: 16px !important; display: block !important; cursor: pointer !important; box-sizing: border-box !important;">Girokonto kündigen</a>
+    <a href="#providers-grid" style="flex: 1 !important; width: 100% !important; background: var(--btn, #15803D) !important; color: var(--btnText, #ffffff) !important; text-align: center !important; padding: 16px !important; border-radius: 14px !important; font-weight: 900 !important; text-decoration: none !important; font-size: 16px !important; display: block !important; cursor: pointer !important; box-sizing: border-box !important;">Girokonto kündigen</a>
 </div>
 
 <script>
