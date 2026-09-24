@@ -1,0 +1,935 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<link rel="preconnect" href="https://www.clarity.ms">
+<link rel="dns-prefetch" href="//www.clarity.ms">
+<meta name="color-scheme" content="light">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#15803D">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="robots" content="noindex, nofollow">
+<title>Auto abmelden lassen – Online-Auftrag | KündigungExpress</title>
+<meta name="description" content="Fahrzeug online abmelden lassen: Angaben eingeben, wir übermitteln die Außerbetriebsetzung an KBA und Zulassungsstelle. Ohne Behördengang.">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<style>
+html { scrollbar-gutter: stable; }
+:root {
+  --bg: #F7F9FC;
+  --card: #FFFFFF;
+  --text: #0F172A;
+  --muted: #475569;
+  --border: #E2E8F0;
+  --primary: #15803D;
+  --soft: #F1F5F9;
+  --focus: rgba(22,163,74,0.3);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.wrap {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 28px 24px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header */
+.wrap > header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+header a { text-decoration: none; color: inherit; }
+.brand { font-weight: 900; font-size: 20px; }
+nav a { margin-left: 16px; color: var(--muted); font-size: 14px; text-decoration: none; }
+
+/* Progress bar */
+.progress-bar {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  margin-bottom: 28px;
+}
+.prog-step {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--muted);
+}
+.prog-step.active { color: var(--primary); font-weight: 700; }
+.prog-dot {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--soft);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--muted);
+  flex-shrink: 0;
+}
+.prog-step.active .prog-dot {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #fff;
+}
+.prog-step.done .prog-dot {
+  background: #DCFCE7;
+  border-color: var(--primary);
+  color: var(--primary);
+}
+.prog-line {
+  flex: 1;
+  height: 2px;
+  background: var(--border);
+  margin: 0 8px;
+}
+
+/* Kein Haken bar */
+.kein-haken{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:16px;background:#F0FDF4;border:1px solid #BBF7D0;border-radius:12px;padding:10px 16px;margin-bottom:16px;font-size:13px;font-weight:700;color:#15803D}
+.kein-haken span{display:flex;align-items:center;gap:5px}
+
+/* Social proof */
+.social-proof-form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  margin-top: 10px;
+  font-size: 14px;
+  color: #475569;
+}
+.social-proof-form strong {
+  color: #15803D;
+  font-weight: 900;
+}
+
+/* Page title */
+.page-title {
+  margin-bottom: 20px;
+  text-align: center;
+}
+.page-title h1 {
+  font-size: clamp(22px, 4vw, 30px);
+  font-weight: 900;
+  line-height: 1.2;
+  margin-bottom: 12px;
+}
+.page-title .sub {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.page-title .sub span {
+  background: #DCFCE7;
+  border: 1px solid #BBF7D0;
+  border-radius: 999px;
+  padding: 4px 12px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #15803D;
+}
+
+/* Form */
+form {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 24px;
+  flex-grow: 1;
+}
+
+.section {
+  margin-bottom: 24px;
+}
+.section:last-of-type { margin-bottom: 0; }
+
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+}
+.section-icon {
+  width: 32px;
+  height: 32px;
+  background: #F0FDF4;
+  border: 1px solid #BBF7D0;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  flex-shrink: 0;
+  pointer-events: none;
+  user-select: none;
+  cursor: default;
+}
+.section-header h2 {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--text);
+}
+.section-header .opt-badge {
+  margin-left: auto;
+  font-size: 11px;
+  color: var(--muted);
+  background: var(--soft);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 2px 8px;
+}
+
+/* Field grid & Validation Styles */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.full { grid-column: 1 / -1; }
+
+.field { display: flex; flex-direction: column; gap: 4px; position: relative; }
+label {
+  font-size: 12px;
+  font-weight: 700;
+  color: #334155;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+}
+
+input:not([type="checkbox"]):not([type="radio"]), select {
+  width: 100%;
+  padding: 12px 14px; 
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  font-size: 16px;
+  background: #fff;
+  color: var(--text);
+  transition: border-color .15s ease, box-shadow .15s ease;
+  font-family: inherit;
+  -webkit-appearance: none;
+  appearance: none;
+}
+input:not([type="checkbox"]):not([type="radio"]):focus, select:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--focus);
+}
+select {
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23475569' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  background-size: 16px;
+  padding-right: 40px;
+}
+
+/* Inline Validation UI */
+.input-wrapper { position: relative; width: 100%; display: block; }
+.check-icon {
+  display: none;
+  position: absolute;
+  top: 50%;
+  right: 14px;
+  transform: translateY(-50%);
+  color: #15803D;
+  font-weight: 900;
+  font-size: 14px;
+  pointer-events: none;
+}
+.is-valid + .check-icon { display: block; }
+.is-valid { border-color: #15803D !important; padding-right: 36px !important; }
+
+.hint {
+  font-size: 12px;
+  color: #94A3B8;
+  line-height: 1.5;
+}
+
+/* Optional section */
+.optional-section {
+  background: var(--soft);
+  border: 1px dashed var(--border);
+  border-radius: 14px;
+  padding: 16px;
+}
+
+/* Checkbox row */
+.checkbox-row {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+.checkbox-row input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  margin-top: 2px;
+  flex-shrink: 0;
+  accent-color: var(--primary);
+  -webkit-appearance: auto;
+  appearance: auto;
+  cursor: pointer;
+}
+.checkbox-label b { font-size: 14px; display: block; margin-bottom: 3px; }
+.checkbox-label .hint { margin-top: 0; }
+
+/* Summary box */
+.summary-box {
+  background: linear-gradient(160deg, #F0FDF4 0%, #fff 100%);
+  border: 1px solid rgba(22,163,74,0.25);
+  border-radius: 16px;
+  padding: 20px;
+  margin: 20px 0 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  min-height: 72px;
+}
+.summary-price {
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--text);
+  margin: 0;
+  text-align: center;
+}
+.summary-pills {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.summary-pills span {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 4px 12px;
+  font-size: 12px;
+  color: #334155;
+}
+
+/* Invalid field highlight */
+input.ke-invalid, select.ke-invalid, textarea.ke-invalid {
+  border-color: #DC2626 !important;
+  background: #FEF2F2 !important;
+  box-shadow: 0 0 0 3px rgba(220,38,38,0.20) !important;
+}
+.optional-section.is-active {
+  background: #F0FDF4;
+  border: 2px solid #86EFAC;
+  transition: background .2s, border-color .2s;
+}
+.optional-section.is-active .hint { color: #166534; }
+
+/* Submit button */
+.btn-submit {
+  width: 100%;
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: 14px;
+  padding: 16px;
+  font-size: 17px;
+  font-weight: 900;
+  cursor: pointer;
+  transition: filter .15s ease, transform .15s ease, background .2s;
+  box-shadow: 0 4px 14px rgba(22,163,74,0.25);
+}
+.btn-submit:hover {
+  filter: brightness(.95);
+  transform: translateY(-1px);
+}
+.secure-note {
+  text-align: center;
+  font-size: 12px;
+  color: #94A3B8;
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+/* Mobile Sticky Submit */
+@media (max-width: 640px) {
+  .mobile-sticky-submit {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #ffffff;
+      padding: 12px 16px;
+      padding-bottom: calc(12px + env(safe-area-inset-bottom));
+      box-shadow: 0 -4px 16px rgba(15,23,42,0.1);
+      z-index: 1000;
+      border-top: 1px solid var(--border);
+      transition: transform 0.2s ease-out;
+  }
+  .mobile-sticky-submit .btn-submit {
+      border-radius: 12px;
+      padding: 14px;
+  }
+}
+
+/* Footer */
+footer {
+  margin-top: auto;
+  padding: 18px 0 12px;
+  font-size: 12px;
+  color: #94A3B8;
+  text-align: center;
+}
+footer a { color: inherit; text-decoration: none; }
+footer p { margin-top: 0 !important; margin-bottom: 3px !important; font-size: 12px; color: #94A3B8; line-height: 1.5; }
+footer p:last-child { margin-bottom: 0 !important; }
+footer a:hover { color: #334155; }
+
+/* Mobile Resets */
+.site-header, .mobile-cta { display: none; }
+
+@media (max-width: 700px) {
+  .grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 640px) {
+  body { display: block; overflow-x: hidden; padding-top: 56px; padding-bottom: 76px; } 
+  .wrap { display: block; padding: 0; } 
+
+  .field label { display: flex; flex-direction: column; align-items: flex-start !important; gap: 6px; }
+  
+  /* Elementele Hero centrate sus */
+  .kein-haken { justify-content: center; gap: 6px 10px; padding: 12px 16px; font-size: 12px; margin: 0 16px 16px; }
+  .kein-haken span { white-space: nowrap; }
+
+  .social-proof-form { padding: 0 16px; font-size: 14px; margin-top: 8px; margin-bottom: 10px; justify-content: center; }
+
+  .page-title { padding: 0 16px; text-align: center; }
+  .page-title h1 { text-align: center; font-size: 26px; margin-bottom: 8px;}
+  /* ----------------------------- */
+
+  .wrap > header { display: none; }
+  .site-header {
+    display: flex; justify-content: space-between; align-items: center; position: fixed; top: 0; left: 0; right: 0; height: 56px; z-index: 1000; background: #fff; border-bottom: 1px solid var(--border); padding: 0 16px;
+  }
+  .site-header .brand a { font-size: 18px; font-weight: 900; color: var(--text); text-decoration: none; }
+  .site-header a.header-hilfe { font-size: 13px; font-weight: 700; color: var(--primary); background: #F0FDF4; padding: 6px 12px; border-radius: 8px; border: 1px solid #BBF7D0; text-decoration: none; white-space: nowrap; flex-shrink: 0; }
+
+  .progress-bar { margin: 16px 16px 20px; }
+  .prog-step span { display: none; }
+
+  form { border-radius: 0; border-left: none; border-right: none; padding: 20px 16px; margin-bottom: 0;}
+  
+  .summary-box { margin: 16px 0 14px; align-items: flex-start; text-align: left; padding: 18px; }
+  .summary-price { font-size: 20px; text-align: left; }
+  .summary-pills { justify-content: flex-start; }
+
+  .secure-note { align-items: flex-start; text-align: left; padding-top: 8px; }
+
+  footer { margin-top: 0; padding: 16px 16px 16px; background: var(--bg);}
+  #_rsgDynWarn { padding: 0 16px; }
+}
+
+/* =========================================
+   MODAL INTERSTITIAL & LOADING CSS
+   ========================================= */
+.modal-overlay {
+    position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(15, 23, 42, 0.85);
+    backdrop-filter: blur(5px);
+    z-index: 99999;
+    display: none;
+    align-items: center; justify-content: center;
+    padding: 20px;
+}
+.modal-box {
+    background: #fff;
+    border-radius: 24px;
+    width: 100%; max-width: 440px;
+    padding: 32px 24px;
+    text-align: center;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    animation: modalPop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+@keyframes modalPop {
+    0% { transform: scale(0.9); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+.modal-icon { font-size: 40px; margin-bottom: 16px; line-height: 1; }
+.modal-title { font-size: 20px; font-weight: 900; color: #0F172A; margin-bottom: 12px; }
+.modal-text { font-size: 15px; color: #475569; line-height: 1.6; margin-bottom: 24px; }
+.modal-cta {
+    display: block; width: 100%; color: #fff; text-decoration: none;
+    font-weight: 900; font-size: 16px; padding: 16px; border-radius: 14px;
+    margin-bottom: 16px; transition: transform 0.15s, filter 0.15s;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+.modal-cta:hover { filter: brightness(0.95); transform: translateY(-1px); }
+.modal-skip {
+    background: none; border: none; color: #64748B; font-size: 14px;
+    font-weight: 600; cursor: pointer; text-decoration: underline; padding: 8px;
+    transition: color 0.15s;
+}
+.modal-skip:hover { color: #334155; }
+
+/* ===== Footer unificat (consistent cu preview și succes) ===== */
+.ke-trust-strip {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 16px 24px 8px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px 20px;
+  font-size: 12px;
+  color: #64748B;
+  text-align: center;
+}
+.ke-trust-strip span {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  white-space: nowrap;
+}
+.ke-footer {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 8px 24px 24px;
+  text-align: center;
+}
+.ke-footer p {
+  font-size: 12px;
+  color: #94A3B8;
+  line-height: 1.6;
+  margin: 0 0 4px;
+  text-align: center;
+}
+.ke-footer a {
+  color: #64748B;
+  text-decoration: none;
+}
+.ke-footer a:hover {
+  color: #0F172A;
+  text-decoration: underline;
+}
+@media (max-width: 720px) {
+  .ke-trust-strip {
+    padding: 14px 16px 4px;
+    gap: 8px 14px;
+    font-size: 11px;
+  }
+  .ke-footer {
+    padding: 4px 16px 20px;
+  }
+  .ke-footer p { font-size: 11.5px; }
+}
+
+/* ===== Brief-Teaser (ersetzt die alte Live-Vorschau) ===== */
+.brief-teaser {
+  text-align: center;
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.5;
+  margin: 4px 0 20px;
+}
+.brief-teaser strong { color: #15803D; }
+@media (max-width: 640px) {
+  .brief-teaser { padding: 0 16px; margin: 0 0 16px; }
+}
+
+/* ===== Accordion "Weitere Angaben" — make it OBVIOUS clickable ===== */
+.section.accordion-section {
+  padding: 0;
+  background: #FFFFFF;
+  border: 2px dashed #CBD5E1;
+  border-radius: 14px;
+  transition: border-color 0.15s, background 0.15s;
+  margin-bottom: 32px !important; /* override .section:last-of-type margin:0 când accordion e ultimul <details> */
+}
+.accordion-section[open] {
+  border-style: solid;
+  border-color: var(--primary);
+  background: #FFFFFF;
+}
+.accordion-section[open] .accordion-summary .accordion-chev {
+  transform: rotate(45deg);
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary);
+}
+.accordion-summary {
+  list-style: none; cursor: pointer; padding: 16px 18px;
+  display: flex; align-items: center; gap: 12px;
+  user-select: none;
+  border-radius: 12px;
+}
+.accordion-summary::-webkit-details-marker { display: none; }
+.accordion-summary:hover { background: #F8FAFC; }
+.accordion-summary h2 { margin: 0; font-size: 16px; }
+.accordion-summary .accordion-hint {
+  flex: 1; font-size: 12px; color: #64748B; font-weight: 500;
+}
+.accordion-chev {
+  width: 28px; height: 28px; border-radius: 8px;
+  border: 2px solid #CBD5E1; background: #F8FAFC;
+  color: #64748B; font-size: 18px; font-weight: 700;
+  display: inline-flex; align-items: center; justify-content: center;
+  transition: transform 0.2s ease, background 0.15s, color 0.15s, border-color 0.15s;
+  flex-shrink: 0;
+}
+.accordion-body { padding: 4px 18px 20px; border-top: 1px solid #F1F5F9; margin: 0 18px; }
+@media (max-width: 720px) {
+  .accordion-summary { padding: 14px; }
+  .accordion-body { padding: 4px 14px 16px; margin: 0 14px; }
+  .accordion-summary h2 { font-size: 15px; }
+}
+
+/* --- Barrierefreiheit (WCAG 2.1 AA) --- */
+.ke-skip{position:absolute;left:-9999px;top:0;z-index:2000;background:#15803D;color:#FFFFFF;padding:10px 16px;font-weight:700;text-decoration:none;border-radius:0 0 8px 0}
+.ke-skip:focus{left:0}
+#ke-main:focus{outline:none}
+:focus-visible{outline:3px solid #15803D;outline-offset:2px;border-radius:3px}
+.ke-error-msg{display:none;margin-top:6px;font-size:12px;font-weight:600;color:#B91C1C;line-height:1.45}
+.addr-known{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px;font-size:13px;line-height:1.5;color:#15803D;background:#F0FDF4;border:1px solid #BBF7D0;border-radius:10px;padding:10px 12px;}
+.addr-known-text{flex:1 1 auto;min-width:0;}
+.addr-edit-toggle{flex:0 0 auto;background:none;border:none;padding:4px 6px;min-height:32px;color:#15803D;font-size:12.5px;font-weight:700;text-decoration:underline;text-underline-offset:2px;cursor:pointer;}
+.addr-grid-collapsed{display:none;}
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important;scroll-behavior:auto !important;}
+}
+</style>
+<script src="/cookie-consent.js" defer></script>
+<style>
+/* Abmelde-Auftrag – seitenspezifische Overrides */
+.checkbox-label, .checkbox-label b, .checkbox-label .hint { text-transform: none !important; letter-spacing: normal !important; }
+.hint a { color: #15803D; font-weight: 700; text-decoration: none; }
+.hint a:hover { opacity: .85; }
+@media (max-width: 640px){ .abm-hero { padding: 0 16px; } }
+/* Schutz: lange <option>-Texte dürfen Felder/Select nicht über die Breite hinaus dehnen (iOS/Flexbox min-width:auto) */
+.grid, .field { min-width: 0; }
+.field input, .field select, .field .input-wrapper, .checkbox-row { min-width: 0; max-width: 100%; }
+select { min-width: 0; max-width: 100%; }
+/* Sticky-Header auch auf größeren Mobilgeräten / Foldables / kleinen Tablets (641–900px) */
+@media (min-width: 641px) and (max-width: 900px) {
+  body { padding-top: 56px; }
+  .wrap > header { display: none; }
+  .site-header { display: flex; justify-content: space-between; align-items: center; position: fixed; top: 0; left: 0; right: 0; height: 56px; z-index: 1000; background: #fff; border-bottom: 1px solid #E2E8F0; padding: 0 16px; }
+  .site-header .brand a { font-size: 18px; font-weight: 900; color: #0F172A; text-decoration: none; }
+  .site-header a.header-hilfe { font-size: 13px; font-weight: 700; color: #15803D; background: #F0FDF4; padding: 6px 12px; border-radius: 8px; border: 1px solid #BBF7D0; text-decoration: none; white-space: nowrap; flex-shrink: 0; }
+}
+</style>
+</head>
+<body>
+<a class="ke-skip" href="#ke-main">Zum Inhalt springen</a>
+<header class="site-header">
+  <div class="brand"><a href="/">KündigungExpress</a></div>
+  <a href="/hilfe.html" class="header-hilfe">Hilfe / FAQ</a>
+</header>
+
+<div class="wrap" id="ke-main" tabindex="-1">
+  <header>
+    <div class="brand"><a href="/">KündigungExpress</a></div>
+    <nav>
+      <a href="/hilfe.html">Hilfe / FAQ</a>
+      <a href="/impressum.html">Impressum</a>
+      <a href="/datenschutz.html">Datenschutz</a>
+    </nav>
+  </header>
+
+  <div class="progress-bar">
+    <div class="prog-step active">
+      <div class="prog-dot">1</div>
+      <span>Ihre Angaben</span>
+    </div>
+    <div class="prog-line"></div>
+    <div class="prog-step">
+      <div class="prog-dot">2</div>
+      <span>Zahlung</span>
+    </div>
+    <div class="prog-line"></div>
+    <div class="prog-step">
+      <div class="prog-dot">3</div>
+      <span>Abmeldung</span>
+    </div>
+  </div>
+
+  <div class="abm-hero">
+    <h1 style="font-size:clamp(24px,4vw,30px); font-weight:900; letter-spacing:-.5px; margin:0 0 6px;">Fahrzeug abmelden lassen</h1>
+    <p style="color:var(--muted,#475569); font-size:15px; margin:0 0 20px; line-height:1.6;">Wir übernehmen die Außerbetriebsetzung für Sie – ohne Behördengang, ohne eID. Sie geben nur die Codes ein.</p>
+  </div>
+  <form id="abmForm" action="/abmelden-checkout.php" method="POST" novalidate>
+
+    <div class="section">
+      <div style="display:inline-flex; align-items:center; gap:6px; background:#F0FDF4; color:#15803D; font-size:11px; font-weight:700; padding:4px 10px; border-radius:99px; border:1px solid #BBF7D0; margin-bottom:12px;">
+        🔒 SSL-Verschlüsselt &amp; 100% DSGVO-konform
+      </div>
+      <div class="section-header" style="margin-top:0;">
+        <div class="section-icon">🚗</div>
+        <h2>Fahrzeug</h2>
+      </div>
+      <div class="grid">
+        <div class="field full">
+          <label for="fin">Fahrzeugidentifizierungsnummer (FIN) *</label>
+          <input id="fin" name="fin" required maxlength="17" placeholder="z. B. WVWZZZ1KZAW000000" autocomplete="off">
+          <div class="hint">17 Zeichen, steht in der Zulassungsbescheinigung Teil I (Feld E) und im Fahrzeug.</div>
+        </div>
+        <div class="field full">
+          <label for="zbCode">Sicherheitscode Zulassungsbescheinigung Teil I *</label>
+          <input id="zbCode" name="zb_code" required maxlength="7" placeholder="7-stelliger Code" autocomplete="off">
+          <div class="hint">Der 7-stellige Code unter dem freigerubbelten Feld auf dem Fahrzeugschein. <a href="/sicherheitscode-fahrzeugschein-finden.html" target="_blank" rel="noopener">Wo finde ich den Code?</a></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header" style="margin-top:0;">
+        <div class="section-icon">🔢</div>
+        <h2>Kennzeichen</h2>
+      </div>
+      <div class="grid">
+        <div class="field full">
+          <label for="plate">Aktuelles Kennzeichen *</label>
+          <input id="plate" name="plate" required placeholder="z. B. OF-KE 123">
+        </div>
+        <div class="field">
+          <label for="codeBack">Sicherheitscode hinten (3) *</label>
+          <input id="codeBack" name="code_back" required maxlength="3" placeholder="3-stellig">
+          <div class="hint">Unter der Stempelplakette des hinteren Kennzeichens.</div>
+        </div>
+        <div class="field">
+          <label for="plateType">Kennzeichenart</label>
+          <select id="plateType" name="plate_type">
+            <option value="zivil" selected>Zivil (Z)</option>
+            <option value="e">E-Kennzeichen</option>
+            <option value="oldtimer">Oldtimer</option>
+          </select>
+        </div>
+      </div>
+      <div class="checkbox-row" style="margin-top:12px;">
+        <input type="checkbox" id="frontExists" name="front_exists" checked>
+        <label class="checkbox-label" for="frontExists"><b>Vorderes Kennzeichen vorhanden</b></label>
+      </div>
+      <div class="field" id="codeFrontWrap" style="margin-top:10px;">
+        <label for="codeFront">Sicherheitscode vorn <span style="font-weight:400;text-transform:none;letter-spacing:0">(optional)</span></label>
+        <input id="codeFront" name="code_front" maxlength="3" placeholder="3-stellig">
+        <div class="hint">Nur nötig, wenn Ihr Fahrzeug ein vorderes Kennzeichen hat.</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header" style="margin-top:0;">
+        <div class="section-icon">♻️</div>
+        <h2>Was passiert mit dem Fahrzeug?</h2>
+      </div>
+      <div class="field">
+        <select id="verwertung" name="verwertung">
+          <option value="kein" selected>Kein Verwertungsnachweis</option>
+          <option value="lag_vor">Verwertungsnachweis lag vor</option>
+          <option value="nicht_abfall">Fahrzeug nicht als Abfall entsorgt</option>
+          <option value="ausland">Fahrzeug zur Verwertung ins Ausland verbracht</option>
+        </select>
+        <div class="hint">Bei normalem Verkauf oder Stilllegung wählen Sie die erste Option. „Verwertungsnachweis liegt vor" nur bei tatsächlicher Verschrottung mit Zertifikat.</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header" style="margin-top:0;">
+        <div class="section-icon">👤</div>
+        <h2>Ihre Daten</h2>
+      </div>
+      <div class="grid">
+        <div class="field">
+          <label for="firstName">Vorname *</label>
+          <input id="firstName" name="firstName" required autocomplete="given-name">
+        </div>
+        <div class="field">
+          <label for="lastName">Nachname *</label>
+          <input id="lastName" name="lastName" required autocomplete="family-name">
+        </div>
+        <div class="field full">
+          <label for="email">Ihre E-Mail *</label>
+          <input id="email" name="email" type="email" required placeholder="z. B. ihre@email.com" autocomplete="email">
+          <div class="hint">An diese Adresse senden wir die Auftragsbestätigung und die amtliche Abmeldebestätigung.</div>
+        </div>
+      </div>
+    </div>
+
+    <details class="section accordion-section">
+      <summary class="accordion-summary">
+        <div class="section-icon">🧾</div>
+        <h2>Rechnungsadresse</h2>
+        <span class="accordion-hint">optional — klicken zum Ausklappen</span>
+        <span class="accordion-chev" aria-hidden="true">+</span>
+      </summary>
+      <div class="accordion-body">
+        <div class="grid">
+          <div class="field full"><label for="street">Straße &amp; Hausnummer</label><input id="street" name="street" autocomplete="street-address"></div>
+          <div class="field"><label for="zip">PLZ</label><input id="zip" name="zip" inputmode="numeric" maxlength="5" placeholder="z. B. 63073"></div>
+          <div class="field"><label for="city">Ort</label><input id="city" name="city"></div>
+        </div>
+      </div>
+    </details>
+
+    <div class="section">
+      <div class="section-header" style="margin-top:0;">
+        <div class="section-icon">✅</div>
+        <h2>Bestätigung</h2>
+      </div>
+      <div class="checkbox-row">
+        <input type="checkbox" id="consentExec" name="consent_exec" value="1" required>
+        <label class="checkbox-label" for="consentExec"><b>Sofortige Ausführung &amp; Widerrufsrecht</b><span class="hint">Ich verlange ausdrücklich, dass KündigungExpress mit der Abmeldung sofort nach Zahlung beginnt. Mir ist bekannt, dass ich mein 14-tägiges Widerrufsrecht verliere, sobald die Abmeldung vollständig durchgeführt ist (§ 356 Abs. 4 BGB).</span></label>
+      </div>
+      <div class="checkbox-row" style="margin-top:12px;">
+        <input type="checkbox" id="consentHalter" name="consent_halter" value="1" required>
+        <label class="checkbox-label" for="consentHalter"><b>Halter / Vollmacht</b><span class="hint">Ich versichere, Halter des Fahrzeugs zu sein oder vom Halter zur Abmeldung bevollmächtigt zu sein.</span></label>
+      </div>
+      <div style="display:flex; align-items:center; gap:8px; background:#F0FDF4; color:#15803D; font-size:12px; font-weight:600; padding:10px 14px; border-radius:12px; border:1px solid #BBF7D0; margin-top:14px; line-height:1.5;">
+        🔒 Ihre Sicherheitscodes werden verschlüsselt übertragen und nur zur Durchführung Ihrer Abmeldung verwendet.
+      </div>
+    </div>
+
+    <div class="summary-box">
+      <div class="summary-price">24,90 € · inkl. aller Behördengebühren</div>
+      <div class="summary-pills">
+        <span>✓ Ohne Behördengang</span>
+        <span>✓ Ohne eID</span>
+        <span>✓ Bestätigung per E-Mail</span>
+      </div>
+    </div>
+
+    <div class="mobile-sticky-submit">
+      <button class="btn-submit" type="submit" id="abmSubmit" disabled style="opacity:.5; pointer-events:none;">Kostenpflichtig abmelden →</button>
+    </div>
+
+    <div class="secure-note" style="flex-direction:column; gap:6px;">
+      <div style="color:#64748B; font-size:11px; line-height:1.5;">
+        Nach Ihrer Bestellung bereiten wir die Abmeldung vor und übermitteln sie an das KBA bzw. die zuständige Zulassungsstelle. Die amtliche Abmeldebestätigung erhalten Sie anschließend per E-Mail.
+      </div>
+    </div>
+
+  </form>
+
+  </div> <div class="ke-trust-strip">
+    <span>🔒 SSL-verschlüsselt</span>
+    <span>🛡️ DSGVO-konform</span>
+    <span>⚖️ Behördenservice, keine Rechtsberatung</span>
+  </div>
+
+  <footer class="cv-auto" style="width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; margin-top: 20px; padding: 16px 0;">
+  <p class="brand-disclaimer" style="width: 100%; text-align: center; margin: 0 0 5px; color: #64748B; font-size: 12px;">© 2026 KündigungExpress · <a href="/unsere-mission.html" style="color:#64748B !important;font-weight:normal !important;text-decoration:none !important;">Über uns</a> · <a href="/wie-wir-kuendigungexpress-gebaut-haben.html" style="color:#64748B !important;font-weight:normal !important;text-decoration:none !important;">Unsere Geschichte</a> · <a href="/impressum.html" style="color:#64748B !important;font-weight:normal !important;text-decoration:none !important;">Impressum</a> · <a href="/datenschutz.html" style="color:#64748B !important;font-weight:normal !important;text-decoration:none !important;">Datenschutz</a> · <a href="/agb.html" style="color:#64748B !important;font-weight:normal !important;text-decoration:none !important;">AGB</a> · <a href="/hilfe.html" style="color:#64748B !important;font-weight:normal !important;text-decoration:none !important;">Hilfe</a> · <a href="#" onclick="return keResetConsent(event)" style="color:#64748B !important;font-weight:normal !important;text-decoration:none !important;cursor:pointer;">Cookie-Einstellungen</a></p>
+  <p class="brand-disclaimer" style="width: 100%; text-align: center; margin: 0; color: #64748B; font-size: 12px;">Erstellt mit <a href="https://digital-firmen.de" style="color:#64748B !important;font-weight:normal !important;text-decoration:none !important;" target="_blank">digital-firmen.de</a></p>
+</footer>
+
+<script>
+  function keResetConsent(e) {
+    if (e && e.preventDefault) e.preventDefault();
+    try {
+      localStorage.removeItem('cookieConsent');
+      document.cookie = 'cookieConsent=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/';
+    } catch(err) {}
+    location.reload();
+    return false;
+  }
+  </script>
+<script>
+(function(){
+  function el(id){ return document.getElementById(id); }
+  function normFin(v){ return v.replace(/\s/g,'').toUpperCase(); }
+  function normPlate(v){ return v.replace(/[\s-]/g,'').toUpperCase(); }
+  var rules = {
+    fin:       function(v){ return /^[A-HJ-NPR-Z0-9]{17}$/.test(normFin(v)); },          // 17 Zeichen, ohne I/O/Q
+    zbCode:    function(v){ return v.trim().length===7; },
+    plate:     function(v){ return /^[A-ZÄÖÜ]{2,5}[0-9]{1,4}[EH]?$/.test(normPlate(v)); }, // 2–5 Buchstaben + 1–4 Ziffern (+E/H)
+    codeBack:  function(v){ return v.trim().length===3; },
+    codeFront: function(v){ if(!el('frontExists').checked) return true; v=v.trim(); return v==='' || v.length===3; },
+    email:     function(v){ return /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v.trim()); },
+    firstName: function(v){ return v.trim().length>0; },
+    lastName:  function(v){ return v.trim().length>0; }
+  };
+  function setInvalid(e,bad){ if(bad){ e.classList.add('ke-invalid'); return true; } e.classList.remove('ke-invalid'); return false; }
+
+  // Vorderes Kennzeichen -> Code-Feld ein/aus
+  var front=el('frontExists'), frontWrap=el('codeFrontWrap');
+  function syncFront(){ frontWrap.style.display = front.checked ? '' : 'none'; if(!front.checked){ var cf=el('codeFront'); if(cf) cf.classList.remove('ke-invalid'); } }
+  front.addEventListener('change', syncFront); syncFront();
+
+  // Einwilligungen -> Button freischalten
+  var c1=el('consentExec'), c2=el('consentHalter'), btn=el('abmSubmit');
+  function syncBtn(){ var ok=c1.checked&&c2.checked; btn.disabled=!ok; btn.style.opacity=ok?'1':'.5'; btn.style.pointerEvents=ok?'auto':'none'; }
+  c1.addEventListener('change',syncBtn); c2.addEventListener('change',syncBtn); syncBtn();
+
+  // Live-Prüfung: bei Verlassen nur meckern, wenn ausgefüllt; beim Tippen Rot entfernen, sobald korrekt
+  Object.keys(rules).forEach(function(id){
+    var e=el(id); if(!e) return;
+    e.addEventListener('blur',  function(){ var empty=e.value.trim()===''; setInvalid(e, !empty && !rules[id](e.value)); });
+    e.addEventListener('input', function(){ if(e.classList.contains('ke-invalid')) setInvalid(e, !rules[id](e.value)); });
+  });
+
+  // Absenden: alles prüfen, rot markieren, zum ersten Fehler scrollen
+  var form=el('abmForm');
+  form.addEventListener('submit', function(ev){
+    var bad=false;
+    Object.keys(rules).forEach(function(id){ var e=el(id); if(!e) return; bad = setInvalid(e, !rules[id](e.value)) || bad; });
+    if(!c1.checked || !c2.checked) bad = true;
+    if(bad){ ev.preventDefault(); var first=form.querySelector('.ke-invalid'); if(first){ first.scrollIntoView({behavior:'smooth',block:'center'}); try{ first.focus({preventScroll:true}); }catch(_){ first.focus(); } } return; }
+    // gültig -> Formular wird an /abmelden-checkout.php gepostet
+    btn.disabled = true; btn.style.opacity = '.6'; btn.style.pointerEvents='none'; btn.textContent = 'Weiterleitung zur Zahlung …';
+  });
+  // --- Entwurf in sessionStorage: überlebt den Checkout-Roundtrip (selber Tab), wird beim Schließen des Tabs gelöscht.
+  //     Bewusst KEIN localStorage — die Sicherheitscodes sind Einmal-Daten und sollen nicht dauerhaft auf dem Gerät liegen.
+  var DRAFT_KEY = 'ke_abmelden_draft_v1';
+  var draftFields = ['fin','zbCode','plate','codeBack','codeFront','plateType','verwertung','firstName','lastName','email','street','zip','city'];
+  function saveDraft(){
+    try {
+      var d = {};
+      draftFields.forEach(function(id){ var e=el(id); if(e && e.value) d[id]=e.value; });
+      d.frontExists = front.checked;
+      sessionStorage.setItem(DRAFT_KEY, JSON.stringify(d));
+    } catch(e){}
+  }
+  function restoreDraft(){
+    var raw; try { raw=sessionStorage.getItem(DRAFT_KEY); } catch(e){ return; }
+    if(!raw) return;
+    var d; try { d=JSON.parse(raw); } catch(e){ return; }
+    if(!d || typeof d!=='object') return;
+    draftFields.forEach(function(id){ var e=el(id); if(e && (!e.value || e.value.trim()==='') && d[id]!=null) e.value=d[id]; });
+    if(typeof d.frontExists==='boolean'){ front.checked=d.frontExists; syncFront(); }
+  }
+  restoreDraft();
+  draftFields.forEach(function(id){ var e=el(id); if(e){ e.addEventListener('input',saveDraft); e.addEventListener('change',saveDraft); } });
+  front.addEventListener('change', saveDraft);
+
+  // --- bfcache-Reset: Button entsperren, wenn man aus dem Stripe-Checkout zurückkommt ---
+  if(!btn.dataset.origText) btn.dataset.origText = btn.textContent;
+  window.addEventListener('pageshow', function(ev){
+    if(ev.persisted){
+      btn.textContent = btn.dataset.origText || 'Kostenpflichtig abmelden →';
+      restoreDraft();
+      syncBtn();
+    }
+  });
+})();
+</script>
+
+<script src="/clarity-loader.js" async></script>
+</body>
+</html>
